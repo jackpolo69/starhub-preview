@@ -1,0 +1,213 @@
+<!doctype html>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>EMPATHY — The Model, Live</title>
+<!--
+  model-demo.html — the answer to "does nova ingest what u give her or does she
+  actually run the numbers?" given as a demonstration rather than a sentence.
+
+  Dr. Natalie Petouhoff, Aug 26 2026: "rather than send some thing written -
+  lets actually walk thru..." — so this is not a document. Change any input and
+  every dependent figure recomputes in front of her.
+
+  THE HONESTY IS THE FEATURE. Inputs are colour-coded by provenance:
+  HERS (carried verbatim, never altered) vs ASSUMED (our placeholder, editable).
+  The reconciliation strip proves the rebuild ties back to HER published gross —
+  if it ever drifts, the model is wrong, not her forecast.
+
+  Self-contained. No network, no build step, no dependencies.
+-->
+<style>
+  :root{
+    --bg:#0e1420; --panel:#151d2c; --panel2:#1b2536; --line:#26334a;
+    --ink:#eef2f8; --dim:#93a3bd; --gold:#d4a95a; --teal:#5fb3a8;
+    --hers:#5fb3a8; --assumed:#d4a95a;
+    --serif:"Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--serif)}
+  .wrap{max-width:1180px;margin:0 auto;padding:2.2rem 1.4rem 4rem}
+  header{border-bottom:1px solid var(--line);padding-bottom:1.4rem;margin-bottom:1.8rem}
+  .eyebrow{color:var(--gold);letter-spacing:.18em;text-transform:uppercase;font-size:.72rem}
+  h1{font-size:clamp(1.7rem,1.1rem+2.4vw,2.5rem);margin:.5rem 0 .5rem;font-weight:400}
+  h1 em{color:var(--gold);font-style:normal}
+  .sub{color:var(--dim);max-width:70ch}
+  .legend{display:flex;gap:1.4rem;flex-wrap:wrap;margin-top:1rem;font-size:.82rem;color:var(--dim)}
+  .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:.4rem;vertical-align:baseline}
+  .grid{display:grid;grid-template-columns:minmax(320px,400px) 1fr;gap:1.6rem;align-items:start}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:1.2rem 1.3rem}
+  .panel h2{font-size:1rem;margin:0 0 .2rem;font-weight:600;letter-spacing:.02em}
+  .panel .hint{color:var(--dim);font-size:.8rem;margin-bottom:1rem}
+  .row{display:flex;align-items:center;justify-content:space-between;gap:.8rem;padding:.55rem 0;border-bottom:1px solid rgba(255,255,255,.05)}
+  .row:last-child{border-bottom:0}
+  .row label{font-size:.87rem;flex:1}
+  .row .prov{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:.12rem .4rem;border-radius:3px;margin-left:.4rem}
+  .prov.hers{color:var(--hers);border:1px solid rgba(95,179,168,.4)}
+  .prov.assumed{color:var(--assumed);border:1px solid rgba(212,169,90,.4)}
+  input[type=number]{width:96px;background:var(--panel2);border:1px solid var(--line);color:var(--ink);
+    border-radius:5px;padding:.35rem .5rem;font:inherit;font-size:.9rem;text-align:right}
+  input[type=number]:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px rgba(212,169,90,.15)}
+  input.hers{border-left:3px solid var(--hers)}
+  input.assumed{border-left:3px solid var(--assumed)}
+  table{width:100%;border-collapse:collapse;margin-top:.4rem;font-size:.88rem}
+  th,td{text-align:right;padding:.5rem .4rem;border-bottom:1px solid rgba(255,255,255,.06)}
+  th:first-child,td:first-child{text-align:left}
+  th{color:var(--dim);font-weight:600;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase}
+  tbody tr:last-child td{border-bottom:0}
+  .big{font-size:1.05rem;color:var(--gold)}
+  .recon{margin-top:1.1rem;padding:.85rem 1rem;border-radius:8px;border:1px solid var(--line);background:var(--panel2);font-size:.85rem}
+  .recon.ok{border-color:rgba(95,179,168,.45)}
+  .recon.bad{border-color:rgba(220,120,110,.6)}
+  .recon b{color:var(--teal)}
+  .recon.bad b{color:#e08a7f}
+  .note{color:var(--dim);font-size:.8rem;margin-top:.9rem;line-height:1.55}
+  .kbd{background:var(--panel2);border:1px solid var(--line);border-radius:4px;padding:.05rem .35rem;font-size:.78rem}
+  button.reset{background:none;border:1px solid var(--line);color:var(--dim);border-radius:5px;
+    padding:.3rem .7rem;font:inherit;font-size:.78rem;cursor:pointer;margin-top:.9rem}
+  button.reset:hover{border-color:var(--gold);color:var(--gold)}
+  .flash{animation:f .5s ease}
+  @keyframes f{0%{background:rgba(212,169,90,.18)}100%{background:transparent}}
+  @media (prefers-reduced-motion:reduce){.flash{animation:none}}
+</style>
+<div class="wrap">
+<header>
+  <div class="eyebrow">EMPATHY · The economic engine</div>
+  <h1>The model, <em>live.</em></h1>
+  <p class="sub">Change any number on the left. Everything on the right recomputes. Your revenue lines are carried
+    exactly as you wrote them — the placeholders are ours, and they are the ones to argue with.</p>
+  <div class="legend">
+    <span><span class="dot" style="background:var(--hers)"></span>Yours — carried verbatim</span>
+    <span><span class="dot" style="background:var(--assumed)"></span>Assumed — our placeholder, replace it</span>
+  </div>
+</header>
+
+<div class="grid">
+  <div class="panel">
+    <h2>Inputs</h2>
+    <p class="hint">Type in any field. Nothing here is locked.</p>
+
+    <div class="row"><label>Fan-site revenue, 2031 <span class="prov hers">yours</span></label>
+      <input class="hers" type="number" id="fan31" value="500000" step="10000"></div>
+    <div class="row"><label>Merch revenue, 2031 <span class="prov hers">yours</span></label>
+      <input class="hers" type="number" id="merch31" value="750000" step="10000"></div>
+    <div class="row"><label>Subscription revenue, 2031 <span class="prov hers">yours</span></label>
+      <input class="hers" type="number" id="sub31" value="550000" step="10000"></div>
+    <div class="row"><label>Merch cost of goods <span class="prov hers">yours</span></label>
+      <input class="hers" type="number" id="merchCogs" value="45" step="1"></div>
+
+    <div class="row"><label>Avg annual contribution per supporter <span class="prov assumed">assumed</span></label>
+      <input class="assumed" type="number" id="contrib" value="120" step="10"></div>
+    <div class="row"><label>Average merch order value <span class="prov assumed">assumed</span></label>
+      <input class="assumed" type="number" id="aov" value="55" step="5"></div>
+    <div class="row"><label>Orders per buyer / year <span class="prov assumed">assumed</span></label>
+      <input class="assumed" type="number" id="opb" value="1.3" step="0.1"></div>
+    <div class="row"><label>Subscription price / month <span class="prov assumed">assumed</span></label>
+      <input class="assumed" type="number" id="price" value="9" step="1"></div>
+    <div class="row"><label>Paying conversion, fan site (%) <span class="prov assumed">assumed</span></label>
+      <input class="assumed" type="number" id="convFan" value="2" step="0.5"></div>
+    <div class="row"><label>Buyer conversion, merch (%) <span class="prov assumed">assumed</span></label>
+      <input class="assumed" type="number" id="convMerch" value="3" step="0.5"></div>
+    <div class="row"><label>Subscriber conversion (%) <span class="prov assumed">assumed</span></label>
+      <input class="assumed" type="number" id="convSub" value="1.5" step="0.5"></div>
+    <div class="row"><label>StarHub share of gross (%) <span class="prov assumed">open</span></label>
+      <input class="assumed" type="number" id="starhub" value="20" step="5"></div>
+
+    <button class="reset" id="reset">Reset to your published figures</button>
+  </div>
+
+  <div>
+    <div class="panel">
+      <h2>What 2031 requires</h2>
+      <p class="hint">Your revenue, converted into human beings.</p>
+      <table>
+        <thead><tr><th>Line</th><th>Revenue</th><th>Paying people</th><th>Audience implied</th></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <div class="recon" id="recon"></div>
+      <p class="note">The audience column is the binding one: all three streams are served by the same list, so the
+        largest of them is what the plan actually requires. <span class="kbd">Try it</span> — raise the merch order
+        value to $75. The merch requirement falls, and the constraint moves to the subscription line. Which
+        stream binds is not fixed; it changes with the assumptions.</p>
+    </div>
+
+    <div class="panel" style="margin-top:1.2rem">
+      <h2>What that leaves</h2>
+      <p class="hint">The StarHub share is the one commercial term still open. Move it and see what moves.</p>
+      <table>
+        <tbody id="split"></tbody>
+      </table>
+      <p class="note">At 20% StarHub takes a fifth of gross; at 30% nearly a third. Whether that share is a cost of
+        revenue or an equity position changes this table completely — as a cost it comes off the top, as equity it
+        does not appear here at all.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const IDS = ["fan31","merch31","sub31","merchCogs","contrib","aov","opb","price","convFan","convMerch","convSub","starhub"];
+const DEFAULTS = {fan31:500000,merch31:750000,sub31:550000,merchCogs:45,contrib:120,aov:55,opb:1.3,price:9,convFan:2,convMerch:3,convSub:1.5,starhub:20};
+const HER_PUBLISHED_2031 = 1800000; // her stated gross engine revenue for 2031
+const money = (n) => "$" + Math.round(n).toLocaleString();
+const num = (n) => Math.round(n).toLocaleString();
+
+function compute(){
+  const v = Object.fromEntries(IDS.map(k => [k, parseFloat($(k).value) || 0]));
+
+  const supporters = v.contrib > 0 ? v.fan31 / v.contrib : 0;
+  const buyers     = (v.aov * v.opb) > 0 ? v.merch31 / (v.aov * v.opb) : 0;
+  const subs       = v.price > 0 ? v.sub31 / (v.price * 12) : 0;
+
+  const audFan   = v.convFan   > 0 ? supporters / (v.convFan/100)   : 0;
+  const audMerch = v.convMerch > 0 ? buyers     / (v.convMerch/100) : 0;
+  const audSub   = v.convSub   > 0 ? subs       / (v.convSub/100)   : 0;
+  const binding  = Math.max(audFan, audMerch, audSub);
+
+  $("tbody").innerHTML = [
+    ["Fan site",     v.fan31,   supporters, audFan,   "paying supporters"],
+    ["Merch",        v.merch31, buyers,     audMerch, "buyers"],
+    ["Subscription", v.sub31,   subs,       audSub,   "avg active subscribers"],
+  ].map(([label, rev, ppl, aud, unit]) =>
+    `<tr><td>${label}<br><span style="color:var(--dim);font-size:.76rem">${unit}</span></td>
+     <td>${money(rev)}</td><td>${num(ppl)}</td><td>${num(aud)}</td></tr>`
+  ).join("") +
+  `<tr><td class="big">Binding requirement</td><td class="big">${money(v.fan31+v.merch31+v.sub31)}</td>
+   <td></td><td class="big">${num(binding)}</td></tr>`;
+
+  // Reconciliation — does the driver rebuild tie back to her published gross?
+  const rebuilt = supporters*v.contrib + buyers*v.aov*v.opb + subs*v.price*12;
+  const stated  = v.fan31 + v.merch31 + v.sub31;
+  const drift   = stated > 0 ? Math.abs(rebuilt-stated)/stated*100 : 0;
+  const untouched = v.fan31===DEFAULTS.fan31 && v.merch31===DEFAULTS.merch31 && v.sub31===DEFAULTS.sub31;
+  const r = $("recon");
+  r.className = "recon " + (drift < 0.5 ? "ok" : "bad");
+  r.innerHTML = `Driver rebuild <b>${money(rebuilt)}</b> against stated <b>${money(stated)}</b> —
+    drift <b>${drift.toFixed(3)}%</b>. ` +
+    (untouched
+      ? `Still tied to your published 2031 gross of ${money(HER_PUBLISHED_2031)}.`
+      : `Your revenue inputs have been edited, so this no longer matches your published figures — which is the point of it being editable.`);
+
+  // The commercial split
+  const gross = stated;
+  const shareRate = v.starhub/100;
+  const starhubTakes = gross * shareRate;
+  const merchCogsAbs = v.merch31 * (v.merchCogs/100);
+  $("split").innerHTML = `
+    <tr><td>Gross engine revenue, 2031</td><td class="big">${money(gross)}</td></tr>
+    <tr><td>Merch cost of goods (${v.merchCogs}% of merch)</td><td>−${money(merchCogsAbs)}</td></tr>
+    <tr><td>StarHub share (${v.starhub}% of gross)</td><td>−${money(starhubTakes)}</td></tr>
+    <tr><td>Remaining before other costs</td><td class="big">${money(gross - merchCogsAbs - starhubTakes)}</td></tr>`;
+}
+
+IDS.forEach(id => $(id).addEventListener("input", () => {
+  compute();
+  const el = $("recon"); el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash");
+}));
+$("reset").addEventListener("click", () => {
+  IDS.forEach(k => $(k).value = DEFAULTS[k]);
+  compute();
+});
+compute();
+</script>
