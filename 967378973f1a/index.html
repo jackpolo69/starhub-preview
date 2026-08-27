@@ -35,6 +35,15 @@
   .name { font-size:1.04rem; font-weight:600; line-height:1.3; margin-bottom:6px; }
   .note { color:var(--dim); font-size:.86rem; line-height:1.5; }
   .url { margin-top:10px; font-size:.74rem; color:rgba(167,139,250,.75); word-break:break-all; }
+  a.name { color:inherit; text-decoration:none; display:block; }
+  a.name:hover { color:var(--accent); }
+  .parts { margin-top:12px; padding-top:12px; border-top:1px solid var(--border);
+    display:flex; flex-wrap:wrap; gap:8px; }
+  .part { display:inline-block; padding:5px 12px; border:1px solid var(--border); border-radius:999px;
+    font-size:.76rem; color:var(--text); text-decoration:none; background:rgba(255,255,255,.03);
+    transition:border-color .15s ease, color .15s ease; }
+  a.part:hover { border-color:var(--accent); color:var(--accent); }
+  .part.is-machine { border-style:dashed; color:var(--dim); }
   footer { padding:26px clamp(20px,5vw,48px) 46px; border-top:1px solid var(--border); color:var(--dim);
     font-size:.82rem; max-width:1180px; margin:0 auto; }
   footer b { color:var(--text); font-weight:600; }
@@ -44,187 +53,177 @@
 <header><div class="wrap">
   <div class="eyebrow">Monday · Walk-through order · Private</div>
   <h1>Everything, <span class="a">running.</span></h1>
-  <p class="sub">The full estate in one walk — <span class="count">28</span> stops across seven acts: the instruments, the commerce engines, the brands, the studio layer, live client work, the paperwork, and the command centers. Every link on this sheet was probed live before it was written down.</p>
+  <p class="sub">The full estate in one walk — <span class="count">64</span> stops and components across seven acts: the instruments, the commerce engines, the brands, the studio layer, live client work, the paperwork, and the command centers. Every link on this sheet was probed live before it was written down.</p>
 </div></header>
 <main>
   <section id="act-01">
     <div class="shead"><span class="n">ACT 01</span><h2>The Instruments</h2></div>
     <p class="blurb">Open with the two products built from scratch — proof the stack makes real software, not just websites.</p>
     <div class="grid">
-    <a class="card" href="https://jackpolo69.github.io/cre8/" target="_blank" rel="noopener">
+    <div class="card">
       <div class="tag">Start here</div>
-      <div class="name">CRE∞ — the synesthetic DAW</div>
+      <a class="name" href="https://jackpolo69.github.io/cre8/" target="_blank" rel="noopener">CRE∞ — the synesthetic DAW</a>
       <div class="note">Produce, track, stems, mix, master, DJ — a full DAW in the browser, offline-capable. By Machavelli. Play a beat live; don't describe it.</div>
       <div class="url">jackpolo69.github.io/cre8/</div>
-    </a>
-    <a class="card" href="https://jackpolo69.github.io/ibrand/" target="_blank" rel="noopener">
+    </div>
+    <div class="card">
       <div class="tag">App</div>
-      <div class="name">iBrand — the AI brand studio</div>
+      <a class="name" href="https://jackpolo69.github.io/ibrand/" target="_blank" rel="noopener">iBrand — the AI brand studio</a>
       <div class="note">Canvas, mockups, brand kits, UI screens, generative engines. By The Branding Guru.</div>
       <div class="url">jackpolo69.github.io/ibrand/</div>
-    </a>
+    </div>
     </div>
   </section>
   <section id="act-02">
     <div class="shead"><span class="n">ACT 02</span><h2>The Commerce Engines</h2></div>
-    <p class="blurb">Live venture sites with funnels, checkout, subscriptions — the money-shaped builds.</p>
+    <p class="blurb">Live venture sites — and under each one, its components: apps, portals, command centers, funnels, campaigns.</p>
     <div class="grid">
-    <a class="card" href="https://triplexplayground.com" target="_blank" rel="noopener">
+    <div class="card">
       <div class="tag">Mach Media</div>
-      <div class="name">Triple X Playground</div>
-      <div class="note">The analog flagship game — ebook funnel, checkout worker, full press kit.</div>
+      <a class="name" href="https://triplexplayground.com" target="_blank" rel="noopener">Triple X Playground</a>
+      <div class="note">The analog flagship game — and the deepest component stack on this sheet.</div>
       <div class="url">triplexplayground.com</div>
-    </a>
-    <a class="card" href="https://www.trystlove.com" target="_blank" rel="noopener">
-      <div class="tag">Mach Media</div>
-      <div class="name">Tryst</div>
-      <div class="note">The couples game — landing, waitlist, brand world.</div>
-      <div class="url">www.trystlove.com</div>
-    </a>
-    <a class="card" href="https://triplexradio.com" target="_blank" rel="noopener">
-      <div class="tag">Mach Media</div>
-      <div class="name">Triple X Radio</div>
-      <div class="note">The radio brand.</div>
-      <div class="url">triplexradio.com</div>
-    </a>
-    <a class="card" href="https://mach-media.net" target="_blank" rel="noopener">
-      <div class="tag">House</div>
-      <div class="name">Mach Media Inc</div>
-      <div class="note">The house over all three.</div>
-      <div class="url">mach-media.net</div>
-    </a>
-    <a class="card" href="https://thesuprememan.com" target="_blank" rel="noopener">
+      <div class="parts"><a class="part" href="https://triplexplayground.com/5d" target="_blank" rel="noopener">TXP 5D — the digital app</a><a class="part" href="https://triplexplayground.com/command-dashboard" target="_blank" rel="noopener">Command Center</a><a class="part" href="https://triplexplayground.com/ebook" target="_blank" rel="noopener">Ebook funnel</a><a class="part" href="https://triplexplayground.com/marketing-deck" target="_blank" rel="noopener">Marketing deck</a><a class="part" href="https://triplexplayground.com/pitch" target="_blank" rel="noopener">Investor pitch</a><a class="part" href="https://triplexplayground.com/wholesale" target="_blank" rel="noopener">Wholesale</a><a class="part" href="https://triplexplayground.com/apparel" target="_blank" rel="noopener">Apparel</a><a class="part" href="https://triplexplayground.com/blog" target="_blank" rel="noopener">Blog</a></div>
+    </div>
+    <div class="card">
       <div class="tag">Jack Polo IP</div>
-      <div class="name">The Supreme Man</div>
+      <a class="name" href="https://thesuprememan.com" target="_blank" rel="noopener">The Supreme Man</a>
       <div class="note">Book, course, coaching — the full stack for the title.</div>
       <div class="url">thesuprememan.com</div>
-    </a>
-    <a class="card" href="https://squarebiz.ai" target="_blank" rel="noopener">
+      <div class="parts"><a class="part" href="https://thesuprememan.com/app" target="_blank" rel="noopener">The App</a><a class="part" href="https://thesuprememan.com/course" target="_blank" rel="noopener">The Course</a><a class="part" href="https://thesuprememan.com/coaching" target="_blank" rel="noopener">Coaching</a><a class="part" href="https://thesuprememan.com/audit" target="_blank" rel="noopener">Identity Audit</a><a class="part" href="https://thesuprememan.com/doctrine" target="_blank" rel="noopener">The Doctrine</a><span class="part is-machine">Marketing plan · ad campaigns · email automation · on the machine</span></div>
+    </div>
+    <div class="card">
       <div class="tag">Venture</div>
-      <div class="name">SquareBiz</div>
+      <a class="name" href="https://squarebiz.ai" target="_blank" rel="noopener">SquareBiz</a>
       <div class="note">18 services, proposals, backend — the small-business machine.</div>
       <div class="url">squarebiz.ai</div>
-    </a>
+      <div class="parts"><a class="part" href="https://squarebiz.ai/app" target="_blank" rel="noopener">The App</a><a class="part" href="https://squarebiz.ai/console" target="_blank" rel="noopener">Console</a><a class="part" href="https://squarebiz.ai/admin" target="_blank" rel="noopener">Admin</a><a class="part" href="https://squarebiz.ai/notary" target="_blank" rel="noopener">Notary suite</a><a class="part" href="https://squarebiz.ai/community" target="_blank" rel="noopener">Community</a><span class="part is-machine">Growth phases · legal corpus (bylaws, DBA, cap table) · on the machine</span></div>
+    </div>
+    <div class="card">
+      <div class="tag">Mach Media</div>
+      <a class="name" href="https://www.trystlove.com" target="_blank" rel="noopener">Tryst</a>
+      <div class="note">The couples game — landing, waitlist, brand world.</div>
+      <div class="url">www.trystlove.com</div>
+      <div class="parts"><a class="part" href="https://www.trystlove.com/play" target="_blank" rel="noopener">Play</a><a class="part" href="https://www.trystlove.com/how-to-play" target="_blank" rel="noopener">How to play</a></div>
+    </div>
+    <div class="card">
+      <div class="tag">Mach Media</div>
+      <a class="name" href="https://triplexradio.com" target="_blank" rel="noopener">Triple X Radio</a>
+      <div class="note">The radio brand.</div>
+      <div class="url">triplexradio.com</div>
+    </div>
+    <div class="card">
+      <div class="tag">House</div>
+      <a class="name" href="https://mach-media.net" target="_blank" rel="noopener">Mach Media Inc</a>
+      <div class="note">The house over all three — contact, legal, analytics wired.</div>
+      <div class="url">mach-media.net</div>
+    </div>
     </div>
   </section>
   <section id="act-03">
     <div class="shead"><span class="n">ACT 03</span><h2>The Brands &amp; Portals</h2></div>
     <p class="blurb">Identity surfaces — including the personal portal that ties the estate together.</p>
     <div class="grid">
-    <a class="card" href="https://jackepolo.com" target="_blank" rel="noopener">
+    <div class="card">
       <div class="tag">Portal</div>
-      <div class="name">Jack E. Polo — the portal</div>
+      <a class="name" href="https://jackepolo.com" target="_blank" rel="noopener">Jack E. Polo — the portal</a>
       <div class="note">The creator portal. Every world hangs off this door.</div>
       <div class="url">jackepolo.com</div>
-    </a>
-    <a class="card" href="https://the-branding-guru.com" target="_blank" rel="noopener">
+    </div>
+    <div class="card">
       <div class="tag">Practice</div>
-      <div class="name">The Branding Guru</div>
+      <a class="name" href="https://the-branding-guru.com" target="_blank" rel="noopener">The Branding Guru</a>
       <div class="note">The branding practice — the discipline behind every site on this sheet.</div>
       <div class="url">the-branding-guru.com</div>
-    </a>
-    <a class="card" href="https://aherosjourneys.org" target="_blank" rel="noopener">
+      <div class="parts"><span class="part is-machine">The design spellbook (fold · crown · jump · anchor · hold …) · on the machine</span></div>
+    </div>
+    <div class="card">
       <div class="tag">Nonprofit</div>
-      <div class="name">A Hero's Journey</div>
+      <a class="name" href="https://aherosjourneys.org" target="_blank" rel="noopener">A Hero's Journey</a>
       <div class="note">The nonprofit arc.</div>
       <div class="url">aherosjourneys.org</div>
-    </a>
+      <div class="parts"><a class="part" href="https://aherosjourneys.org/program" target="_blank" rel="noopener">The Program</a><a class="part" href="https://aherosjourneys.org/get-involved" target="_blank" rel="noopener">Get Involved</a></div>
+    </div>
     </div>
   </section>
   <section id="act-04">
     <div class="shead"><span class="n">ACT 04</span><h2>The Studio Layer</h2></div>
     <p class="blurb">The machine that builds the machines.</p>
     <div class="grid">
-    <a class="card" href="https://starhubstudios.com" target="_blank" rel="noopener">
+    <div class="card">
       <div class="tag">Studio</div>
-      <div class="name">StarHub Studios</div>
+      <a class="name" href="https://starhubstudios.com" target="_blank" rel="noopener">StarHub Studios</a>
       <div class="note">The venture studio — where the JV engine lives.</div>
       <div class="url">starhubstudios.com</div>
-    </a>
-    <a class="card" href="https://mythos.vision" target="_blank" rel="noopener">
+    </div>
+    <div class="card">
       <div class="tag">Substrate</div>
-      <div class="name">mythOS</div>
+      <a class="name" href="https://mythos.vision" target="_blank" rel="noopener">mythOS</a>
       <div class="note">The narrative operating system underneath everything shown today.</div>
       <div class="url">mythos.vision</div>
-    </a>
-    <a class="card" href="https://thereality.engineer" target="_blank" rel="noopener">
+    </div>
+    <div class="card">
       <div class="tag">Partner</div>
-      <div class="name">The Reality Engineer</div>
+      <a class="name" href="https://thereality.engineer" target="_blank" rel="noopener">The Reality Engineer</a>
       <div class="note">The founder brand of the co-builder.</div>
       <div class="url">thereality.engineer</div>
-    </a>
-    <a class="card" href="https://starseedfoundation.world" target="_blank" rel="noopener">
+    </div>
+    <div class="card">
       <div class="tag">Governance</div>
-      <div class="name">StarSeed Foundation</div>
+      <a class="name" href="https://starseedfoundation.world" target="_blank" rel="noopener">StarSeed Foundation</a>
       <div class="note">The governance side — stewardship over capture.</div>
       <div class="url">starseedfoundation.world</div>
-    </a>
+    </div>
     </div>
   </section>
   <section id="act-05">
     <div class="shead"><span class="n">ACT 05</span><h2>Client Work — the JV Engine Running</h2></div>
-    <p class="blurb">Real clients, real deals, on the same stack. This is the work Bobby's people would be buying.</p>
+    <p class="blurb">Real clients, real deals, on the same stack — each with its full component set.</p>
     <div class="grid">
-    <a class="card" href="https://abeo.health" target="_blank" rel="noopener">
+    <div class="card">
       <div class="tag">Client JV</div>
-      <div class="name">Abeó Health — public site</div>
+      <a class="name" href="https://abeo.health" target="_blank" rel="noopener">Abeó Health</a>
       <div class="note">A health &amp; community support network, Orange County. Operating build — nothing over-claimed.</div>
       <div class="url">abeo.health</div>
-    </a>
-    <a class="card" href="https://mythos-preview-abeo.pages.dev" target="_blank" rel="noopener">
-      <div class="tag">Preview</div>
-      <div class="name">Abeó — investor preview</div>
-      <div class="note">The vision build of the same codebase — one flag, two truths, both honest.</div>
-      <div class="url">mythos-preview-abeo.pages.dev</div>
-    </a>
-    <a class="card" href="https://abeo.health/marketing/" target="_blank" rel="noopener">
-      <div class="tag">Paperwork</div>
-      <div class="name">Abeó — document library</div>
-      <div class="note">33 documents: outreach, deal layer, compliance, campaigns — every one rendered from source.</div>
-      <div class="url">abeo.health/marketing/</div>
-    </a>
-    <a class="card" href="https://jackpolo69.github.io/empathy-pursuit-of-joy/" target="_blank" rel="noopener">
+      <div class="parts"><a class="part" href="https://abeo.health/services" target="_blank" rel="noopener">Services</a><a class="part" href="https://abeo.health/network" target="_blank" rel="noopener">The Network</a><a class="part" href="https://abeo.health/organizations" target="_blank" rel="noopener">Organizations</a><a class="part" href="https://abeo.health/portal" target="_blank" rel="noopener">Client portal — Abeó Connect</a><a class="part" href="https://abeo.health/provider" target="_blank" rel="noopener">Provider portal</a><a class="part" href="https://mythos-preview-abeo.pages.dev/dispatch" target="_blank" rel="noopener">Dispatch center (vision build)</a><a class="part" href="https://mythos-preview-abeo.pages.dev/book-ride" target="_blank" rel="noopener">Book-a-ride (vision build)</a><a class="part" href="https://abeo.health/marketing/" target="_blank" rel="noopener">Document library — 33 docs</a><a class="part" href="https://abeo.health/marketing/marketing-plan-6-phase-loom" target="_blank" rel="noopener">Six-phase marketing plan</a></div>
+    </div>
+    <div class="card">
       <div class="tag">Client JV</div>
-      <div class="name">EMPATHY: The Pursuit of Joy</div>
+      <a class="name" href="https://jackpolo69.github.io/empathy-pursuit-of-joy/" target="_blank" rel="noopener">EMPATHY: The Pursuit of Joy</a>
       <div class="note">Dr. Natalie Petouhoff's film — site, fan engine, full document package.</div>
       <div class="url">jackpolo69.github.io/empathy-pursuit-of-joy/</div>
-    </a>
-    <a class="card" href="https://jackpolo69.github.io/starhub-preview/0680bcda31b7/" target="_blank" rel="noopener">
-      <div class="tag">Paperwork</div>
-      <div class="name">EMPATHY — document library</div>
-      <div class="note">The pitch, the numbers, the reference set — with superseded versions kept and grayed.</div>
-      <div class="url">jackpolo69.github.io/starhub-preview/0680bcda31b7/</div>
-    </a>
-    <a class="card" href="https://jackpolo69.github.io/pts-preview/" target="_blank" rel="noopener">
+      <div class="parts"><a class="part" href="https://jackpolo69.github.io/empathy-pursuit-of-joy/app" target="_blank" rel="noopener">The App</a><a class="part" href="https://jackpolo69.github.io/empathy-pursuit-of-joy/science" target="_blank" rel="noopener">The Science</a><a class="part" href="https://jackpolo69.github.io/empathy-pursuit-of-joy/press" target="_blank" rel="noopener">Press</a><a class="part" href="https://jackpolo69.github.io/starhub-preview/0680bcda31b7/" target="_blank" rel="noopener">Document library</a><a class="part" href="https://jackpolo69.github.io/starhub-preview/47e66ae4da7a/" target="_blank" rel="noopener">The model, live (interactive)</a></div>
+    </div>
+    <div class="card">
       <div class="tag">Client</div>
-      <div class="name">PTS — Professional Telecommunications Services</div>
+      <a class="name" href="https://jackpolo69.github.io/pts-preview/" target="_blank" rel="noopener">PTS — Professional Telecommunications Services</a>
       <div class="note">Client preview in review.</div>
       <div class="url">jackpolo69.github.io/pts-preview/</div>
-    </a>
+    </div>
     </div>
   </section>
   <section id="act-06">
     <div class="shead"><span class="n">ACT 06</span><h2>The Paperwork</h2></div>
     <p class="blurb">Signable instruments and the honest capability map — the part nobody expects a creative shop to have.</p>
     <div class="grid">
-    <a class="card" href="https://abeo.health/marketing/abeo-jv-heads-of-terms" target="_blank" rel="noopener">
+    <div class="card">
       <div class="tag">Signable</div>
-      <div class="name">Abeó JV — Heads of Terms</div>
+      <a class="name" href="https://abeo.health/marketing/abeo-jv-heads-of-terms" target="_blank" rel="noopener">Abeó JV — Heads of Terms</a>
       <div class="note">Signature-ready. Share on contribution margin, related-party disclosed, assignment clause in.</div>
       <div class="url">abeo.health/marketing/abeo-jv-heads-of-terms</div>
-    </a>
-    <a class="card" href="https://jackpolo69.github.io/starhub-preview/4416ce322aa9/" target="_blank" rel="noopener">
+    </div>
+    <div class="card">
       <div class="tag">Signable</div>
-      <div class="name">EMPATHY JV — Heads of Terms</div>
+      <a class="name" href="https://jackpolo69.github.io/starhub-preview/4416ce322aa9/" target="_blank" rel="noopener">EMPATHY JV — Heads of Terms</a>
       <div class="note">The film venture instrument — 30% of gross, she keeps the film and the brand.</div>
       <div class="url">jackpolo69.github.io/starhub-preview/4416ce322aa9/</div>
-    </a>
-    <a class="card" href="https://jackpolo69.github.io/starhub-preview/3af8888f64d0/" target="_blank" rel="noopener">
+    </div>
+    <div class="card">
       <div class="tag">The closer</div>
-      <div class="name">What Is Actually Built</div>
+      <a class="name" href="https://jackpolo69.github.io/starhub-preview/3af8888f64d0/" target="_blank" rel="noopener">What Is Actually Built</a>
       <div class="note">The capability index — live vs. built vs. not-built, declared. The credibility close.</div>
       <div class="url">jackpolo69.github.io/starhub-preview/3af8888f64d0/</div>
-    </a>
+    </div>
     </div>
   </section>
   <section id="act-07">
@@ -249,12 +248,12 @@
       <div class="note">Every social post ships with a purpose-built, brand-treated image. Show the queue and archive.</div>
       <div class="url">on the machine</div>
     </div>
-    <a class="card" href="https://abeo.health/marketing/marketing-plan-6-phase-loom" target="_blank" rel="noopener">
-      <div class="tag">Campaign</div>
-      <div class="name">Abeó — six-phase marketing plan</div>
-      <div class="note">Revenue-gated growth: each phase funds the next. The campaign paperwork pattern used across ventures.</div>
-      <div class="url">abeo.health/marketing/marketing-plan-6-phase-loom</div>
-    </a>
+    <div class="card">
+      <div class="tag">Command</div>
+      <a class="name" href="https://triplexplayground.com/command-dashboard" target="_blank" rel="noopener">TXP Command Center</a>
+      <div class="note">Costs, email editor, banners, investor deck — the per-venture command pattern, deployed.</div>
+      <div class="url">triplexplayground.com/command-dashboard</div>
+    </div>
     </div>
   </section>
 </main>
