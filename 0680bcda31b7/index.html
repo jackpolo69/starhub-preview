@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Empathy: The Pursuit of Joy — The Document Library</title>
+<style>
+  :root {
+    --bg:#0e1420; --panel:#16202f; --text:#f2ead8; --dim:#a8b0bd;
+    --accent:#d4a95a; --accent-dim:rgba(212,169,90,0.14); --border:rgba(212,169,90,0.20);
+    --serif:'Palatino Linotype', Palatino, Georgia, serif; --brand:'Avenir Next', Avenir, 'Helvetica Neue', sans-serif;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font-family:var(--serif);
+    -webkit-font-smoothing:antialiased; }
+  header { padding:clamp(40px,7vw,80px) clamp(20px,5vw,48px) 36px; border-bottom:1px solid var(--border);
+    background:radial-gradient(1200px 400px at 12% -10%, var(--accent-dim), transparent 60%); }
+  .wrap { max-width:1180px; margin:0 auto; }
+  .wordmark { font-family:var(--brand); font-size:.72rem; letter-spacing:.24em; text-transform:uppercase;
+    color:var(--accent); margin-bottom:20px; }
+  h1 { font-size:clamp(2rem,5vw,3.2rem); font-weight:400; line-height:1.06; margin:0 0 16px; }
+  h1 .accent { color:var(--accent); }
+  .sub { color:var(--dim); font-size:1.02rem; line-height:1.6; max-width:62ch; margin:0; }
+  .count { color:var(--accent); }
+  main { padding:clamp(28px,5vw,48px) clamp(20px,5vw,48px) 8px; max-width:1180px; margin:0 auto; }
+  section { margin-bottom:52px; }
+  .shead { margin-bottom:18px; padding-bottom:12px; border-bottom:1px solid var(--border); }
+  .shead h2 { font-size:1.24rem; font-weight:400; margin:0 0 4px; letter-spacing:.01em; }
+  .shead p { margin:0; color:var(--dim); font-size:.92rem; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr)); gap:14px; }
+  .card { display:block; padding:18px 20px 20px; background:var(--panel); border:1px solid var(--border);
+    border-radius:12px; text-decoration:none; color:inherit;
+    transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease; }
+  a.card:hover { transform:translateY(-2px); border-color:var(--accent);
+    box-shadow:0 10px 28px rgba(0,0,0,.35); }
+  .card.is-static { opacity:.62; }
+  .card .meta { font-family:var(--brand); font-size:.62rem; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--accent); margin-bottom:9px; }
+  .card .name { font-size:1.06rem; line-height:1.25; margin-bottom:6px; }
+  .card .note { color:var(--dim); font-size:.86rem; line-height:1.5; }
+  footer { padding:28px clamp(20px,5vw,48px) 44px; border-top:1px solid var(--border); color:var(--dim);
+    font-size:.82rem; max-width:1180px; margin:0 auto; }
+  footer strong { color:var(--text); font-weight:400; }
+  /* Superseded entries — visible, legible, and not openable. They are the
+     record of how the thinking changed, which is the point of keeping them. */
+  .card.is-superseded {
+    opacity:.42; filter:saturate(.25); cursor:default; pointer-events:none;
+    border-style:dashed;
+  }
+  .card.is-superseded .name { text-decoration:line-through; text-decoration-thickness:1px; }
+  .card.is-superseded .meta { color:var(--dim); letter-spacing:.14em; }
+  .supersede {
+    margin-top:.7rem; padding-top:.6rem; border-top:1px solid var(--border);
+    font-size:.78rem; line-height:1.45; color:var(--dim);
+  }
+  .supersede .x { color:var(--accent-dim); text-transform:uppercase; letter-spacing:.1em; font-size:.7rem; }
+  .supersede .why { font-style:italic; }
+  @media (prefers-reduced-motion:reduce) { a.card:hover { transform:none; } }
+</style></head>
+<body>
+<header><div class="wrap">
+  <div class="wordmark">Empathy: The Pursuit of Joy</div>
+  <h1>The document <span class="accent">library.</span></h1>
+  <p class="sub">The pitch, the numbers, the live site, and the reference set — <span class="count">26</span> documents, current as of today. Where two versions exist, both are kept and labelled; nothing has been removed.</p>
+</div></header>
+<main>
+    <section id="answers">
+      <div class="shead">
+        <h2>The Answers</h2>
+        <p>Built 26 August 2026, in response to the questions you asked. Newest first.</p>
+      </div>
+      <div class="grid">
+        <a class="card" href="THE NUMBERS CORRECTED — Empathy.html">
+        <div class="meta">Replaces two</div>
+        <div class="name">The Numbers, Corrected</div>
+        <div class="note">The replacement for the two closed number documents. Your gross carried unchanged, the one line that changed beneath it, the fork that decides the rest — and the eight inputs needed from you to close it.</div>
+      </a>
+        <a class="card" href="WHAT HAS TO BE TRUE — Empathy.html">
+        <div class="meta">Driver model</div>
+        <div class="name">What Has To Be True</div>
+        <div class="note">The layer underneath the revenue lines. Your figures converted into paying humans — supporters, buyers, subscribers — and the single audience number the whole forecast rests on. Reconciles to your published gross within 0.03%.</div>
+      </a>
+        <a class="card" href="WHAT NOVA IS — Empathy.html">
+        <div class="meta">Capability map</div>
+        <div class="name">What Nova Is. What It Is Not.</div>
+        <div class="note">The straight answer, in your own categories — customer-facing and back end — with every capability marked live, built-but-not-deployed, or not built. The not-built column is the honest part.</div>
+      </a>
+        <a class="card" href="NINETY SECONDS — Empathy.html">
+        <div class="meta">Investor readiness</div>
+        <div class="name">Ninety Seconds and the Proof Behind It</div>
+        <div class="note">The ninety-second pitch as a spoken script, the results a customer can expect, and the reference roster — four third-party engagements and twelve owned properties, listed separately.</div>
+      </a>
+        <a class="card" href="MYTHOS DECK — Investor Format.html">
+        <div class="meta">Deck · 19 slides</div>
+        <div class="name">mythOS — Investor Presentation</div>
+        <div class="note">The raise deck, built to the twenty-slide structure you sent. Where a slide needs a number we have not sourced — market sizing, return multiple — the slide says so instead of inventing one.</div>
+      </a>
+      </div>
+    </section>
+
+    <section id="pitch">
+      <div class="shead">
+        <h2>The Pitch</h2>
+        <p>What the room sees.</p>
+      </div>
+      <div class="grid">
+        <a class="card" href="DECK v2 — Empathy The Pursuit of Joy.html">
+        <div class="meta">Presentation</div>
+        <div class="name">The Deck</div>
+        <div class="note">The complete story, from the opening question through the summons.</div>
+      </a>
+        <a class="card" href="ONE-SHEET v2 — Empathy The Pursuit of Joy.html">
+        <div class="meta">Leave-behind</div>
+        <div class="name">One-Sheet</div>
+        <div class="note">The single-page leave-behind — the whole project at a glance.</div>
+      </a>
+      </div>
+    </section>
+
+    <section id="numbers">
+      <div class="shead">
+        <h2>The Numbers</h2>
+        <p>What the money does. Her figures carried verbatim, never replaced.</p>
+      </div>
+      <div class="grid">
+        <div class="card is-superseded" aria-disabled="true">
+        <div class="meta">Superseded</div>
+        <div class="name">Financial Pack</div>
+        <div class="note">Six-year model, cost structure, and the path to cash-positive. Carried your revenue lines as given and reported an EBITDA built on a 20% StarHub line.</div>
+        <div class="supersede"><span class="x">Replaced by</span> The Numbers, Corrected<br /><span class="why">Two things changed after it was written: the revenue lines are now built from underneath rather than inherited, and the StarHub share in them is 20% while the agreed rate is 30%. The gross reconciles either way; the EBITDA does not.</span></div>
+      </div>
+        <div class="card is-superseded" aria-disabled="true">
+        <div class="meta">Superseded</div>
+        <div class="name">Economic Engine</div>
+        <div class="note">How the streams compound — community, merch, membership, marketplace. The stream definitions still hold; the figures attached to them predate the driver layer.</div>
+        <div class="supersede"><span class="x">Replaced by</span> The Numbers, Corrected<br /><span class="why">Kept because the stream architecture in it is yours and is unchanged. Closed because any number quoted from it now has a better-sourced version.</span></div>
+      </div>
+      </div>
+    </section>
+
+    <section id="deal">
+      <div class="shead">
+        <h2>The Engagement</h2>
+        <p>Three phases, in order: discover the movie, authorize the production, capitalize it. Each one bounded, each one ending in a decision that is yours to make.</p>
+      </div>
+      <div class="grid">
+        <a class="card" href="deal-layer/empathy-phase1.html">
+        <div class="meta">Phase I · Discovery</div>
+        <div class="name">Phase I — Discover the Movie</div>
+        <div class="note">Producing custody of the existing archive, to discover the strongest film the material can legitimately sustain. Four deliverables; scope frozen.</div>
+      </a>
+        <a class="card" href="deal-layer/empathy-phase2.html">
+        <div class="meta">Phase II · Production</div>
+        <div class="name">Phase II — The Production Mandate</div>
+        <div class="note">Authorizes making the film Phase I found, and produces the two documents no honest raise can happen without: a real schedule and a real budget.</div>
+      </a>
+        <a class="card" href="deal-layer/empathy-phase3.html">
+        <div class="meta">Phase III · Capital</div>
+        <div class="name">Phase III — Capitalization</div>
+        <div class="note">Raises against that budget and settles who is owed what. Closes the workbook's seven open slots. Percentages come last, by design.</div>
+      </a>
+      </div>
+    </section>
+
+    <section id="site">
+      <div class="shead">
+        <h2>The Living Surface</h2>
+        <p>One URL for the film and everything around it. Not an export — a live world.</p>
+      </div>
+      <div class="grid">
+        <a class="card" href="https://jackpolo69.github.io/empathy-pursuit-of-joy/">
+        <div class="meta">/</div>
+        <div class="name">The film</div>
+        <div class="note">Trailer, thesis, the summons.</div>
+      </a>
+        <a class="card" href="https://jackpolo69.github.io/empathy-pursuit-of-joy/heroes">
+        <div class="meta">/heroes</div>
+        <div class="name">Heroes</div>
+        <div class="note">The people the film follows.</div>
+      </a>
+        <a class="card" href="https://jackpolo69.github.io/empathy-pursuit-of-joy/team">
+        <div class="meta">/team</div>
+        <div class="name">Team</div>
+        <div class="note">Natalie, Josh, Maejor, the scientific advisory board.</div>
+      </a>
+        <a class="card" href="https://jackpolo69.github.io/empathy-pursuit-of-joy/science">
+        <div class="meta">/science</div>
+        <div class="name">Science</div>
+        <div class="note">The measurement lane — claims kept in the inquiry register.</div>
+      </a>
+        <a class="card" href="https://jackpolo69.github.io/empathy-pursuit-of-joy/music">
+        <div class="meta">/music</div>
+        <div class="name">Music</div>
+        <div class="note">The scientifically-composed soundtrack.</div>
+      </a>
+        <a class="card" href="https://jackpolo69.github.io/empathy-pursuit-of-joy/impact">
+        <div class="meta">/impact</div>
+        <div class="name">Impact</div>
+        <div class="note">Screenings, curriculum, institutional work.</div>
+      </a>
+        <a class="card" href="https://jackpolo69.github.io/empathy-pursuit-of-joy/behind-the-scenes">
+        <div class="meta">/behind-the-scenes</div>
+        <div class="name">Behind the Scenes</div>
+        <div class="note">Production material.</div>
+      </a>
+        <a class="card" href="https://jackpolo69.github.io/empathy-pursuit-of-joy/press">
+        <div class="meta">/press</div>
+        <div class="name">Press</div>
+        <div class="note">The press room.</div>
+      </a>
+        <a class="card" href="https://jackpolo69.github.io/empathy-pursuit-of-joy/app">
+        <div class="meta">/app</div>
+        <div class="name">The App</div>
+        <div class="note">The compassion companion.</div>
+      </a>
+        <a class="card" href="https://jackpolo69.github.io/empathy-pursuit-of-joy/get-involved">
+        <div class="meta">/get-involved</div>
+        <div class="name">Get Involved</div>
+        <div class="note">The join doors — each CTA carries its intent.</div>
+      </a>
+      </div>
+    </section>
+
+    <section id="reference">
+      <div class="shead">
+        <h2>Reference</h2>
+        <p>Partner and background material, kept as received. Not ours, not rendered by us.</p>
+      </div>
+      <div class="grid">
+        <a class="card" href="reference/Dr CHRISTINE_ONE SHEET_EMPATHY THE PURSUIT OF JOY.pdf">
+        <div class="meta">PDF</div>
+        <div class="name">Dr. Christine — One Sheet</div>
+        <div class="note">Empathy: The Pursuit of Joy, as presented.</div>
+      </a>
+        <a class="card" href="reference/ELPHINA HCF2026 Intro.pdf">
+        <div class="meta">PDF</div>
+        <div class="name">Elphina — HCF 2026 Intro</div>
+        <div class="note">Introduction deck for the HCF 2026 conversation.</div>
+      </a>
+        <a class="card" href="reference/SpatialPlanet Overview.pdf">
+        <div class="meta">PDF</div>
+        <div class="name">SpatialPlanet — Overview</div>
+        <div class="note">Partner capability overview.</div>
+      </a>
+        <a class="card" href="reference/Cyberlab Technologies Overview.pdf">
+        <div class="meta">PDF</div>
+        <div class="name">Cyberlab Technologies — Overview</div>
+        <div class="note">Partner capability overview.</div>
+      </a>
+      </div>
+    </section>
+</main>
+<footer>
+  <strong>Empathy: The Pursuit of Joy</strong> · Confidential · Prepared for Dr. Natalie Petouhoff.
+  Shared edition. StarHub&rsquo;s internal deal documents are not included here.
+</footer>
+</body></html>

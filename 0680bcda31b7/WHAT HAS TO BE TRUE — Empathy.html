@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>What Has To Be True</title>
+<style>
+
+@font-face {
+    font-family: 'Cormorant Garamond';
+    src: url('https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Cormorant Garamond';
+    src: url('https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-500-normal.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Cormorant Garamond';
+    src: url('https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-600-normal.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'IBM Plex Serif';
+    src: url('https://cdn.jsdelivr.net/fontsource/fonts/ibm-plex-serif@latest/latin-400-normal.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'IBM Plex Serif';
+    src: url('https://cdn.jsdelivr.net/fontsource/fonts/ibm-plex-serif@latest/latin-500-normal.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'IBM Plex Serif';
+    src: url('https://cdn.jsdelivr.net/fontsource/fonts/ibm-plex-serif@latest/latin-600-normal.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'IBM Plex Serif';
+    src: url('https://cdn.jsdelivr.net/fontsource/fonts/ibm-plex-serif@latest/latin-400-italic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Monaspace Radon';
+    src: url('https://cdn.jsdelivr.net/gh/githubnext/monaspace@main/fonts/Web%20Fonts/Static%20Web%20Fonts/Monaspace%20Radon/MonaspaceRadon-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Monaspace Radon';
+    src: url('https://cdn.jsdelivr.net/gh/githubnext/monaspace@main/fonts/Web%20Fonts/Static%20Web%20Fonts/Monaspace%20Radon/MonaspaceRadon-Medium.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+:root {
+    --bg: #0a0a0a;
+    --bg-panel: #111111;
+    --bg-panel-accent: rgba(167,139,250,0.10);
+    --text: #ffffff;
+    --text-dim: rgba(255,255,255,0.65);
+    --text-dimmer: rgba(255,255,255,0.40);
+    --text-dimmest: rgba(255,255,255,0.18);
+    --accent: #a78bfa;
+    --accent-glow: rgba(167,139,250,0.45);
+    --accent-dim: rgba(167,139,250,0.14);
+    --secondary: #fbbf24;
+    --status-success: #4ade80;
+    --status-warning: #fbbf24;
+    --status-error: #f87171;
+    --status-info: #60a5fa;
+    --border: rgba(255,255,255,0.08);
+    --border-strong: rgba(255,255,255,0.16);
+    --font-display: 'Cormorant Garamond', 'IBM Plex Serif', Charter, Georgia, serif;
+    --font-body: 'IBM Plex Serif', Charter, Georgia, serif;
+    --font-brand: 'Cormorant Garamond', 'IBM Plex Serif', Charter, Georgia, serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 10pt;
+    line-height: 1.5;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    /* Better serif rendering on dark backgrounds */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+
+@page {
+    /* Use explicit mm dimensions instead of named size keyword.
+       Chrome's named-size handling can produce slightly smaller
+       printable areas than the literal page dimensions, leaving
+       gaps at right/bottom edges. Explicit mm forces full bleed. */
+    size: 215.9mm 279.4mm;
+    margin: 0;
+}
+
+.page {
+    width: 215.9mm;
+    padding: 0.6in 0.7in 0.6in 0.7in;
+    /* Each section starts on a fresh page (page-break-before: always)
+       — never orphaned at the bottom of the prior page. Content within
+       the section CAN break across page boundaries naturally
+       (page-break-inside NOT avoid on .page itself; tables/callouts
+       still keep their own atomicity below). This keeps section
+       openings clean and visually anchored while allowing long
+       sections to spill content naturally. */
+    page-break-before: always;
+    page-break-after: auto;
+    position: relative;
+    box-sizing: border-box;
+    margin-bottom: 0;
+}
+
+/* First content section can flow right after cover; cover keeps standalone */
+.page.cover { page-break-after: always; min-height: 287mm; margin-bottom: 0; }
+.page:last-child { page-break-after: auto; margin-bottom: 0; }
+/* Section opener stays together — heading + eyebrow + first content block.
+   Prevents the heading-orphaned-with-empty-body pattern at page tops. */
+.page > .page-header,
+.page > .section-eyebrow,
+.page > h1.section,
+.page > h1.section-heading {
+    page-break-after: avoid;
+    break-after: avoid;
+}
+
+/* Prevent orphaned headings / table rows */
+h1, h2, h3 { page-break-after: avoid; break-after: avoid; }
+table, .callout, .chart-wrap, .ask-table, .kpi-strip,
+.pullquote, .channel-bars, .rule-grid, .boundary-table, .kpi {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+tr { page-break-inside: avoid; break-inside: avoid; }
+
+
+/* Red rule at left of content pages. The previous design used
+   margin-left:18mm to indent the page from the document edge — but
+   the page was still 210mm wide, producing a 228mm horizontal
+   footprint that overflowed A4 by 18mm and misaligned content with
+   the cover. Drop margin-left; keep width:210mm. The red rule now
+   sits at the page edge, content pages and cover share the same
+   horizontal extents (0..210mm), and screenshots/exports stay
+   in-page-bounds. padding-left provides the visual breathing room
+   inside the rule. */
+.page:not(.cover) {
+    padding-left: 10mm;
+    padding-right: 16mm;
+}
+
+/* Page header — kept uppercase for runner-style nav (semantic micro-label) */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 7pt;
+    margin-bottom: 18pt;
+    font-size: 7.5pt;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-dimmer);
+    font-weight: 400;
+}
+.page-header .mark {
+    color: var(--accent);
+    font-weight: 500;
+    font-family: var(--font-display);
+    letter-spacing: 2px;
+}
+
+/* Cycle 26 design rule: page-bottom footer with build-attestation
+   (PILLAR 03 made visible — substrate composes its own evidence). */
+.page-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    padding-top: 4pt;
+    margin-top: 8pt;
+    page-break-before: avoid;
+    break-before: avoid;
+    font-family: var(--font-display);
+    font-size: 7.5pt;
+    color: var(--text-dimmer);
+    font-weight: 400;
+}
+.page-footer-brand { color: var(--text-dim); }
+.page-footer-mark { color: var(--accent); font-weight: 500; }
+
+/* Cover — explicit A4 box. width/height/min-height all redundantly
+   set to defeat any Chrome print quirk that previously rendered the
+   cover at ~83%×87% of A4. */
+.cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* padding 18mm top, 22mm sides, 14mm bottom — content was sitting
+       too far above the page edge with the original 24mm symmetric
+       vertical padding (cover-bottom anchored 24mm above page bottom).
+       Tighter bottom padding pulls the running footer line closer to
+       the page edge, gradient extends visibly to the bottom. */
+    padding: 18mm 22mm 14mm 22mm;
+    box-sizing: border-box;
+    width: 210mm;
+    min-width: 210mm;
+    height: 297mm;
+    min-height: 297mm;
+    margin: 0;
+    background:
+        radial-gradient(ellipse at 85% 15%, rgba(167,139,250,0.1), transparent 55%),
+        radial-gradient(ellipse at 15% 85%, rgba(251,191,36,0.06), transparent 55%),
+        #0a0a0a;
+}
+.cover::before { display: none; }
+.cover > * { position: relative; z-index: 1; }
+
+.cover-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    font-family: var(--font-display); font-size: 9pt;
+    color: var(--text-dimmer); font-weight: 400;
+    /* Cycle 23: was uppercase letterspaced — now editorial top-runner */
+}
+
+.cover-center { display: flex; flex-direction: column; gap: 28pt; }
+
+/* Brand lockup on cover (Cycle 38 — mark + wordmark side-by-side).
+   When both present, render as horizontal lockup (logo + wordmark form
+   single identity unit). Eyebrow runs as separate line below the lockup. */
+.cover-lockup {
+    display: flex; align-items: center; gap: 12pt;
+    margin-bottom: 6pt;
+}
+.cover-mark {
+    width: 44pt; height: 44pt; flex-shrink: 0;
+}
+.cover-mark svg { width: 100%; height: 100%; display: block; }
+.cover-wordmark {
+    font-family: var(--font-brand);
+    font-size: 36pt; line-height: 1; font-weight: 400;
+    letter-spacing: -0.5px; color: var(--text);
+    /* Preserves canonical capitalization (e.g. "mythOS") — no text-transform */
+}
+.cover-wordmark .accent { color: var(--accent); }
+
+.cover-eyebrow {
+    font-family: var(--font-display); font-size: 10pt;
+    letter-spacing: 6px; text-transform: uppercase; color: var(--accent);
+    font-weight: 400;
+}
+
+/* Brand-mark span — preserves canonical capitalization (e.g. mythOS) inside
+   uppercase-styled contexts. Always render brand wordmarks via this class
+   so text-transform/letter-spacing don't break the canon spelling. */
+.brand-mark {
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    font-family: var(--font-brand, var(--font-display)) !important;
+}
+
+.cover-title {
+    font-family: var(--font-display); font-size: 56pt; line-height: 1.05;
+    letter-spacing: -0.5px; font-weight: 400; color: var(--text);
+    text-wrap: balance;
+    /* No uppercase — cover-eyebrow is the only uppercase on cover (Cycle 23) */
+}
+.cover-title .accent { color: var(--accent); }
+.cover-title .glow { text-shadow: 0 0 30pt rgba(167,139,250,0.45); }
+
+.cover-sub {
+    font-size: 14pt; color: var(--text-dim); font-weight: 300;
+    max-width: 140mm; line-height: 1.4;
+    text-wrap: pretty;
+}
+
+/* Cycle 47: vertical-stacked editorial-block (was 2x2 grid — felt form-y).
+   Each row is a label + value with hairline separator. Reads as masthead
+   credits, not a form to fill out. */
+.cover-meta {
+    display: flex; flex-direction: column;
+    padding-top: 22pt;
+    border-top: 1px solid var(--border-strong); font-size: 10pt;
+}
+.cover-meta > div {
+    display: grid; grid-template-columns: 70mm 1fr;
+    align-items: baseline;
+    padding: 9pt 0;
+    border-bottom: 1px solid var(--border);
+}
+.cover-meta > div:last-child { border-bottom: none; }
+.cover-meta dt {
+    font-family: var(--font-display);
+    color: var(--text-dimmer); font-weight: 400;
+    font-size: 8.5pt; letter-spacing: 1.5px; text-transform: uppercase;
+    /* uppercase here = semantic micro-label (one of the 4 surfaces with
+       intentional uppercase per Cycle 23 policy) */
+}
+.cover-meta dd { color: var(--text); font-weight: 400; font-size: 11pt; }
+
+.cover-bottom {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    font-family: var(--font-display); font-size: 9pt;
+    color: var(--text-dimmer);
+    /* Cycle 23: was uppercase letterspaced — now editorial footer-runner */
+}
+
+/* Section headings — Cycle 23: sentence case (was uppercase tier #2)
+   Cycle 29: text-wrap: balance prevents orphan/widow lines (Chrome 114+,
+   Safari 17.5+, Firefox 121+ — all printers shipping today). */
+h1.section {
+    font-family: var(--font-display); font-size: 20pt;
+    font-weight: 500; line-height: 1.15; letter-spacing: -0.3px;
+    margin-bottom: 8pt; color: var(--text);
+    text-wrap: balance;
+}
+h1.section .accent { color: var(--accent); font-weight: 400; }
+
+.section-eyebrow {
+    font-family: var(--font-display); font-size: 8pt;
+    letter-spacing: 5px; text-transform: uppercase; color: var(--accent);
+    font-weight: 400; margin-bottom: 6pt;
+}
+
+h2.sub {
+    font-family: var(--font-display); font-size: 12pt; font-weight: 500;
+    /* margin-top + padding-top combo: margin collapses with previous
+       block's margin-bottom in normal flow (no double-counting),
+       padding survives the page-break overflow case (where margin
+       collapses to 0 because heading lands at top of a fresh page).
+       Larger padding-top (14pt) ensures meaningful breathing room
+       on overflow pages without inflating normal-flow spacing too
+       much (margin-bottom of preceding block dominates the merge). */
+    margin-top: 4pt;
+    padding-top: 14pt;
+    margin-bottom: 6pt;
+    color: var(--text);
+    letter-spacing: -0.2px;
+    text-wrap: balance;
+}
+
+h3.mini {
+    font-family: var(--font-display); font-size: 12.5pt; font-weight: 600;
+    color: var(--text); font-style: normal;
+    margin: 0 0 8pt; padding-bottom: 6pt;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.25; letter-spacing: -0.2px;
+}
+/* Pillar-style cards: lead identifier (PILLAR 01) becomes a small accent
+   eyebrow above the heading body so the headline lands as a sentence
+   instead of a label. Wraps "PILLAR NN · " automatically via .col-card-eyebrow. */
+.col-card .col-card-eyebrow {
+    display: block;
+    font-size: 7.5pt; letter-spacing: 1.8px; text-transform: uppercase;
+    color: var(--accent); font-weight: 600;
+    margin-bottom: 4pt;
+}
+.col-card .col-card-eyebrow + .col-card-headline {
+    display: block; color: var(--text); font-weight: 600;
+    font-size: 13pt; line-height: 1.2; letter-spacing: -0.2px;
+}
+
+p { margin-bottom: 6pt; color: var(--text-dim); font-weight: 400; text-wrap: pretty; }
+p.lede {
+    color: var(--text); font-size: 11.5pt; font-weight: 400;
+    line-height: 1.45; margin-bottom: 9pt;
+    text-wrap: pretty;
+}
+/* Tighter table cells for content-dense pages */
+table td, table th { padding: 5pt 8pt; font-size: 9.5pt; line-height: 1.4; }
+/* Tighter section heading margin so more body fits per page */
+h1.section { margin-bottom: 12pt; }
+h2.sub { margin-top: 12pt; margin-bottom: 6pt; }
+/* Emotional/editorial emphasis — strong = gravity, em = voice. Both
+   tightened so emphasis lands instead of slumping into body color. */
+p em, li em, td em { font-style: italic; color: var(--text); font-weight: 400; }
+p strong em, p em strong { color: var(--accent); font-style: italic; font-weight: 500; }
+/* Drop cap on the FIRST lede paragraph in each section (editorial-brief convention) */
+.section-eyebrow + h1.section + p.lede::first-letter,
+h1.section + p.lede::first-letter {
+    font-family: var(--font-display); font-size: 38pt;
+    float: left; line-height: 0.9; padding: 4pt 8pt 0 0;
+    color: var(--accent); font-weight: 400;
+}
+p strong, .white, td strong, li strong { color: var(--text); font-weight: 600; }
+
+/* KPI strip — Cycle 23: editorial-data-block style, not startup-deck-hero-card.
+   Hairline rules between items, no card backgrounds, sentence-case labels,
+   data-font (Monaspace Radon) for numbers per brief-format three-voice cast. */
+.kpi-strip {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; margin: 14pt 0 16pt;
+    border-top: 1px solid var(--border-strong);
+    border-bottom: 1px solid var(--border-strong);
+}
+.kpi {
+    padding: 12pt 16pt;
+    border-right: 1px solid var(--border);
+}
+.kpi:first-child { padding-left: 0; }
+.kpi:last-child { padding-right: 0; border-right: none; }
+.kpi-label {
+    font-size: 8pt; color: var(--text-dim);
+    margin-bottom: 6pt; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1.2px;
+}
+.kpi-value {
+    font-family: 'Monaspace Radon', 'Monaspace Argon', var(--font-display);
+    font-size: 26pt; color: var(--text); font-weight: 500; line-height: 1;
+    letter-spacing: -0.8px;
+}
+.kpi-value.accent { color: var(--accent); }
+.kpi-sub {
+    font-size: 8.5pt; color: var(--text-dimmer);
+    margin-top: 7pt; font-weight: 400; line-height: 1.45;
+}
+
+/* Tables — Cycle 23: editorial style, sentence-case headers, refined leading */
+table {
+    width: 100%; border-collapse: collapse;
+    margin: 12pt 0 14pt; font-size: 10pt;
+}
+thead th {
+    text-align: left; font-family: var(--font-display);
+    font-size: 9.5pt; color: var(--text); padding: 8pt 10pt 8pt 0;
+    border-bottom: 1px solid var(--border-strong); font-weight: 500;
+    /* Cycle 23: was uppercase letterspaced — now sentence case display font */
+}
+thead th.num, td.num { text-align: right; }
+tbody td {
+    padding: 7pt 8pt 7pt 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dim); font-weight: 400;
+    line-height: 1.5;
+}
+/* Cycle 26 design rule: subtle zebra-stripe for dense-table legibility */
+tbody tr:nth-child(even) td {
+    background: rgba(255, 255, 255, 0.015);
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody td .white { color: var(--text); font-weight: 500; }
+tbody tr.total td {
+    color: var(--text); font-weight: 600;
+    border-top: 1px solid var(--border-strong);
+    border-bottom: none; padding-top: 7pt;
+}
+tbody tr.total td.num {
+    color: var(--accent); font-size: 10.5pt;
+    font-family: var(--font-display);
+}
+tbody tr.highlight td {
+    background: var(--accent-dim); color: var(--text);
+}
+tbody tr.highlight td.num { color: var(--accent); font-weight: 600; }
+
+/* Callout — Cycle 23: editorial sidebar style, sentence-case title, no card chrome */
+.callout {
+    border-left: 2px solid var(--accent);
+    /* padding-top:14pt survives page-break overflow (where margin-top
+       would collapse to 0 because the callout lands at the top of a
+       fresh print page); margin-top handles normal-flow inter-block
+       spacing via collapse with preceding margin-bottom. */
+    padding: 14pt 0 4pt 14pt;
+    margin: 6pt 0 10pt 0;
+}
+.callout .title {
+    font-family: var(--font-display); font-size: 11pt;
+    color: var(--accent); margin-bottom: 5pt; font-weight: 500;
+    /* Cycle 23: was uppercase letterspaced "DECK CALLOUT" — now editorial sidebar heading */
+}
+.callout p {
+    margin-bottom: 0; color: var(--text); font-weight: 400;
+    font-size: 9.5pt; line-height: 1.45;
+}
+.callout p + p { margin-top: 6pt; }
+
+/* Pullquote — Cycle 23: editorial-grade, sentence case, larger, more breathing room */
+.pullquote {
+    font-family: var(--font-display); font-size: 18pt;
+    font-weight: 400; line-height: 1.35; letter-spacing: -0.3px;
+    color: var(--text);
+    border-left: 3px solid var(--accent);
+    padding: 6pt 0 6pt 16pt; margin: 18pt 0; max-width: 90%;
+    text-wrap: balance;
+    /* Cycle 23: was uppercase 14pt — now sentence case 18pt for proclaim-not-shout
+       Cycle 29: text-wrap: balance prevents widow/orphan lines */
+}
+.pullquote.small { font-size: 14pt; }
+.pullquote .em { color: var(--accent); font-style: italic; }
+
+/* Emotional inflection (Cycle 39 — italic body emphasis paired with accent
+   color when used in regular prose; subtle .feeling class for tonal shifts). */
+p .em, p.lede .em, .callout .em {
+    font-style: italic; color: var(--accent); font-weight: 500;
+}
+.feeling {
+    font-style: italic; color: var(--text);
+}
+
+/* Channel bars */
+.channel-bars { display: flex; flex-direction: column; gap: 5pt; margin: 6pt 0; }
+.channel-bar {
+    display: grid; grid-template-columns: 55mm 1fr 18mm;
+    gap: 8pt; align-items: center; font-size: 8.5pt;
+}
+.channel-name { color: var(--text-dim); font-weight: 400; }
+.channel-name.dim { color: var(--text-dimmer); }
+.channel-track {
+    height: 10pt; background: var(--bg-panel);
+    border: 1px solid var(--border); position: relative; overflow: hidden;
+}
+.channel-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent) 0%, rgba(167,139,250,0.7) 100%);
+}
+.channel-fill.dim {
+    background: var(--text-dimmer);
+}
+.channel-pct {
+    text-align: right; color: var(--text);
+    font-weight: 500; font-size: 8.5pt;
+}
+.channel-pct.dim { color: var(--text-dimmer); }
+
+/* Chart */
+.chart-wrap {
+    background: var(--bg-panel); border: 1px solid var(--border);
+    padding: 10pt 12pt; margin: 8pt 0; border-radius: 2pt;
+}
+.chart-title {
+    font-family: var(--font-display); font-size: 10pt;
+    color: var(--text-dim); margin-bottom: 6pt; font-weight: 500;
+    /* Cycle 23: was uppercase letterspaced — now sentence case display */
+}
+.chart-legend {
+    display: flex; gap: 14pt; margin-top: 5pt;
+    font-size: 7.5pt; color: var(--text-dim); justify-content: center;
+    flex-wrap: wrap;
+}
+.legend-dot {
+    display: inline-block; width: 8pt; height: 8pt;
+    border-radius: 50%; vertical-align: middle; margin-right: 4pt;
+}
+
+/* Loom media image */
+.media-image {
+    margin: 10pt 0 12pt;
+    break-inside: avoid;
+}
+.media-image-frame {
+    border: 1px solid var(--border);
+    background: var(--bg-panel);
+    border-radius: 3pt;
+    overflow: hidden;
+}
+.media-image.frame-plain .media-image-frame {
+    border: none;
+    background: transparent;
+}
+.media-image.frame-bleed {
+    margin-left: -10mm;
+    margin-right: -16mm;
+}
+.media-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.media-image-placeholder {
+    min-height: 72mm;
+    display: grid;
+    place-items: center;
+    padding: 14pt;
+    color: var(--text-dim);
+    font-size: 8.5pt;
+    text-align: center;
+}
+.media-image-caption {
+    margin-top: 5pt;
+    color: var(--text-dim);
+    font-size: 8pt;
+    line-height: 1.35;
+}
+.media-image-receipt {
+    display: block;
+    margin-top: 3pt;
+    color: var(--text-dimmer);
+    font-size: 7pt;
+    font-family: var(--font-display);
+}
+
+/* Ask table */
+.ask-table {
+    background: var(--bg-panel); border: 1px solid var(--border-strong);
+    padding: 0; margin: 10pt 0; border-radius: 2pt; overflow: hidden;
+}
+.ask-row {
+    display: grid; grid-template-columns: 14mm 1fr auto;
+    grid-column-gap: 10pt;
+    padding: 10pt 14pt; border-bottom: 1px solid var(--border);
+    align-items: center;
+}
+.ask-row:last-child { border-bottom: none; }
+.ask-num {
+    font-family: var(--font-display); font-size: 20pt;
+    color: var(--accent); font-weight: 400; line-height: 1;
+}
+.ask-label { color: var(--text); font-size: 10pt; font-weight: 400; }
+.ask-label .dim {
+    color: var(--text-dimmer); display: block;
+    font-size: 8pt; margin-top: 2pt; font-weight: 300; line-height: 1.35;
+}
+.ask-pill {
+    justify-self: end; font-family: var(--font-display);
+    font-size: 7.5pt; color: var(--accent); font-weight: 500;
+    /* Cycle 34: editorial pill — accent-tinted bg, thin border, capsule
+       rounded corners. */
+    background: var(--accent-dim);
+    border: 1px solid var(--accent);
+    padding: 3pt 9pt;
+    border-radius: 999pt;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    font-size: 7pt;
+    letter-spacing: 1.5px;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+/* Columns */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12pt; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 9pt; }
+.four-col { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 7pt; }
+
+.col-card {
+    background: var(--bg-panel); border: 1px solid var(--border);
+    padding: 12pt 13pt; border-radius: 3pt;
+    position: relative;
+}
+.col-card ul.bare { font-size: 9pt; line-height: 1.4; }
+.col-card ul.bare li { margin-bottom: 3pt; }
+.col-card.accent {
+    background: var(--accent-dim); border-color: var(--accent);
+}
+.col-card p { color: var(--text); font-size: 9.5pt; line-height: 1.5; }
+
+/* Pillar variant — distinct treatment from default col-card. Top-stripe
+   accent + accent-colored eyebrow so pillar columns read as labeled
+   claims. Default .col-card (founders) has NO accent stroke — recovers
+   horizontal text width per creator's May 23 evening direction. */
+.col-card.pillar {
+    border-top: 2pt solid var(--accent);
+    padding-top: 11pt;
+}
+.col-card.pillar .col-card-eyebrow {
+    color: var(--accent);
+    letter-spacing: 0.08em;
+}
+
+.note {
+    font-size: 7.5pt; color: var(--text-dimmer);
+    font-style: italic; margin-top: 6pt; font-weight: 300; line-height: 1.4;
+}
+
+/* Status pills — semantic color coding (success/warning/error/info)
+   Use inline as <span class="status status-success">live</span> in table
+   cells. Each color has ONE meaning per design canon. */
+.status {
+    display: inline-block;
+    font-size: 7.5pt; font-weight: 600;
+    padding: 2pt 7pt; border-radius: 999pt;
+    letter-spacing: 0.6px; text-transform: uppercase;
+    line-height: 1.3; white-space: nowrap;
+}
+.status-success { color: var(--status-success); background: rgba(74, 222, 128, 0.12); border: 1px solid rgba(74, 222, 128, 0.3); }
+.status-warning { color: var(--status-warning); background: rgba(251, 191, 36, 0.12); border: 1px solid rgba(251, 191, 36, 0.3); }
+.status-error   { color: var(--status-error);   background: rgba(248, 113, 113, 0.12); border: 1px solid rgba(248, 113, 113, 0.3); }
+.status-info    { color: var(--status-info);    background: rgba(96, 165, 250, 0.12); border: 1px solid rgba(96, 165, 250, 0.3); }
+
+ul { font-size: 9pt; }
+ul.bare { list-style: none; padding: 0; color: var(--text-dim); font-weight: 300; }
+ul.bare li { padding: 4pt 0; border-bottom: 1px solid var(--border); }
+ul.bare li:last-child { border-bottom: none; }
+
+.confidentiality {
+    text-align: center; font-size: 8pt; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--text-dimmer); margin-top: 20pt;
+}
+
+
+</style>
+</head>
+<body>
+<section class="page cover">
+  <div class="cover-top">
+    <span>StarHub Studios PBC — Jack Polo</span>
+    <span>26 August 2026</span>
+  </div>
+  <div class="cover-center">
+    <div class="cover-lockup">
+      <div class="cover-wordmark">StarHub Studios</div>
+    </div>
+    <div class="cover-eyebrow">Revenue Model · Driver Layer</div>
+    <h1 class="cover-title">You were right. <span class="accent">Here is the layer that was missing.</span></h1>
+    <p class="cover-sub">Your revenue lines were carried into the model as given. Everything below them was computed; the top line was not. This builds the top line from underneath — and it does not change a single one of your numbers.</p>
+  </div>
+  <div class="cover-bottom">
+    <span>Confidential · Prepared under NDA · Working document</span>
+    <span class="mark"></span>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <span>section</span>
+    <span class="mark">01</span>
+  </div>
+  <h1 class="section">01 · What was actually wrong</h1>
+<p class="lede">Two things, both fair.</p>
+<div class="callout">
+  <div class="title">◆ One — we answered about the wrong document</div>
+  <p>Your question &mdash; <em>"did you run numbers against the word doc, or just reformat the table?"</em> &mdash; was about the documentary-comparison document, the one with the box-office figures in it. The answer given was about the Templeton PDF, and explained that Templeton contains no revenue figures. That is true of Templeton and irrelevant to what you asked. A wrong answer about which document was meant costs more than the answer itself, because it makes every other output worth re-checking. You said exactly that.</p>
+</div>
+<div class="callout">
+  <div class="title">◆ Two — the top line was inherited, not built</div>
+  <p>The model's own Assumptions tab says it: <em>"Base revenue is sourced from ECONOMIC_ENGINE_Print_Friendly.docx."</em> Your three revenue lines went in as given. Everything below them &mdash; cost of sales, margins, sixty-four monthly periods, escalation, three scenarios &mdash; is genuinely computed. But the line an investor interrogates first is the one that was carried over. Asked "how do you get to $500,000 of fan-site revenue in 2031?", the honest answer this morning was "because the source document says so." That is the garbage-in-garbage-out you named, and naming it was the most useful thing anyone has said about this model.</p>
+</div>
+  <div class="page-footer">
+    <span class="page-footer-brand"><span class="brand-mark">mythOS</span> · loom</span>
+    <span class="page-footer-mark">01</span>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <span>section</span>
+    <span class="mark">02</span>
+  </div>
+  <h1 class="section">02 · What this does instead</h1>
+<p>It does not replace your numbers. Replacing them would be the same error facing the other way &mdash; our guesses standing in for your judgment. It <strong>decomposes</strong> them: given your revenue and a stated price, how many paying people does each line require?</p>
+<div class="callout">
+  <div class="title">◆ The proof that it decomposes rather than substitutes</div>
+  <p>Rebuilt from drivers, the three streams sum back to your published gross within 0.03% across all six years &mdash; and that residue is rounding, nothing else. $155,000 rebuilds to $154,953. $1,800,000 rebuilds to $1,800,119. If this did not tie to the dollar, the decomposition would be wrong, not your forecast.</p>
+</div>
+<h2 class="sub">Every assumption, and where it came from</h2>
+<table>
+<thead><tr>
+<th>Input</th>
+<th>Value</th>
+<th>Source</th>
+</tr></thead>
+<tbody>
+<tr class="highlight">
+<td>Fan-site, merch and subscription revenue by year</td>
+<td>your figures</td>
+<td><strong>YOURS</strong> — carried verbatim, never restated</td>
+</tr>
+<tr>
+<td>2026 active months</td>
+<td>4 (Sep–Dec)</td>
+<td><strong>YOURS</strong> — your model control</td>
+</tr>
+<tr>
+<td>Merch cost of goods</td>
+<td>45%</td>
+<td><strong>YOURS</strong> — used as-is</td>
+</tr>
+<tr>
+<td>Average annual contribution per supporter</td>
+<td>$120</td>
+<td>ASSUMED — placeholder, replace with your tier pricing</td>
+</tr>
+<tr>
+<td>Average merch order value</td>
+<td>$55</td>
+<td>ASSUMED — placeholder for a tee/cap/tote mix</td>
+</tr>
+<tr>
+<td>Orders per buyer per year</td>
+<td>1.3</td>
+<td>ASSUMED — placeholder</td>
+</tr>
+<tr>
+<td>Subscription price</td>
+<td>$9/month</td>
+<td>ASSUMED — placeholder, replace with your intended price</td>
+</tr>
+<tr>
+<td>Conversion rates (2%, 3%, 1.5%)</td>
+<td>of reachable audience</td>
+<td>ASSUMED — industry bands, not measured for your audience</td>
+</tr>
+</tbody></table>
+<p class="note">THE ASSUMED ROWS ARE THE AGENDA, NOT THE CONCLUSION. Each is a placeholder we chose and labelled, precisely so it can be replaced by your real figure. Nothing here is presented as measured that was not measured.</p>
+  <div class="page-footer">
+    <span class="page-footer-brand"><span class="brand-mark">mythOS</span> · loom</span>
+    <span class="page-footer-mark">02</span>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <span>section</span>
+    <span class="mark">03</span>
+  </div>
+  <h1 class="section">03 · What each line requires</h1>
+<p>Your revenue, converted into people.</p>
+<table>
+<thead><tr>
+<th>Year</th>
+<th>Paying supporters</th>
+<th>Merch buyers</th>
+<th>Avg active subscribers</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>2026 <em>(4 months)</em></td>
+<td>750</td>
+<td>559</td>
+<td>694</td>
+</tr>
+<tr>
+<td>2027</td>
+<td>2,167</td>
+<td>2,937</td>
+<td>1,111</td>
+</tr>
+<tr>
+<td>2028</td>
+<td>3,167</td>
+<td>6,014</td>
+<td>2,593</td>
+</tr>
+<tr>
+<td>2029</td>
+<td>3,500</td>
+<td>7,273</td>
+<td>3,519</td>
+</tr>
+<tr>
+<td>2030</td>
+<td>3,750</td>
+<td>8,392</td>
+<td>4,167</td>
+</tr>
+<tr>
+<td>2031</td>
+<td>4,167</td>
+<td>10,490</td>
+<td>5,093</td>
+</tr>
+</tbody></table>
+<div class="callout">
+  <div class="title">◆ Read on their own, these are reasonable</div>
+  <p>Four thousand supporters and ten thousand merch buyers over six years is not a fantasy for a film with the Dalai Lama in it. Nothing here says the plan is too ambitious. The pressure is not in any single line &mdash; it is in what all three require at once.</p>
+</div>
+  <div class="page-footer">
+    <span class="page-footer-brand"><span class="brand-mark">mythOS</span> · loom</span>
+    <span class="page-footer-mark">03</span>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <span>section</span>
+    <span class="mark">04</span>
+  </div>
+  <h1 class="section">04 · The one question</h1>
+<p>All three streams are served by the same audience. So the binding constraint is not any one line &mdash; it is the largest audience any line implies.</p>
+<h2 class="sub">Reachable audience implied, at the assumed conversion rates</h2>
+<table>
+<thead><tr>
+<th>Year</th>
+<th>Audience required</th>
+<th>Set by</th>
+</tr></thead>
+<tbody>
+<tr class="highlight">
+<td><strong>2026</strong> <em>(by December)</em></td>
+<td><strong>~46,000</strong></td>
+<td>subscriptions</td>
+</tr>
+<tr>
+<td>2027</td>
+<td>~108,000</td>
+<td>fan site</td>
+</tr>
+<tr>
+<td>2028</td>
+<td>~200,000</td>
+<td>merch</td>
+</tr>
+<tr>
+<td>2029</td>
+<td>~242,000</td>
+<td>merch</td>
+</tr>
+<tr>
+<td>2030</td>
+<td>~280,000</td>
+<td>merch</td>
+</tr>
+<tr>
+<td>2031</td>
+<td>~350,000</td>
+<td>merch</td>
+</tr>
+</tbody></table>
+<div class="callout">
+  <div class="title">◆ This is the question for you, and it is the only one that matters</div>
+  <p>The 2026 row is the one to look at. Your model earns $155,000 in four months, and at these conversion rates that requires roughly <strong>46,000 reachable people already in hand</strong> by December &mdash; not built over six years, but there at the start. So: how large is the audience today? List, following, everyone who would open an email. If the answer is near 46,000, this forecast is defensible in a room and we should go raise. If it is materially smaller, the plan is not wrong &mdash; but audience acquisition is the actual first product, it costs money, and that cost is not in the operating expenses yet.</p>
+</div>
+<div class="callout">
+  <div class="title">◆ Why an investor will get here in under a minute</div>
+  <p>They will divide your revenue by a plausible price and ask how many humans that is. Everyone does. The only question is whether you did it first. Doing it first is the difference between a forecast that survives diligence and one that is discovered during it.</p>
+</div>
+  <div class="page-footer">
+    <span class="page-footer-brand"><span class="brand-mark">mythOS</span> · loom</span>
+    <span class="page-footer-mark">04</span>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <span>section</span>
+    <span class="mark">05</span>
+  </div>
+  <h1 class="section">05 · What this does not model</h1>
+<p>Declared so nothing here is mistaken for more than it is.</p>
+<p><ul><li><strong>Churn as a retention curve.</strong> Subscribers are an annual average here, not a monthly cohort decay.</li><li><strong>The cost of acquiring the implied audience.</strong> If it must be built, that spend is real and is not in the operating expenses.</li><li><strong>Seasonality.</strong> A documentary release drives a spike no flat annual line captures.</li><li><strong>Film, festival, licensing, curriculum and grant revenue.</strong> Excluded from the engine by your own model, and left excluded here.</li><li><strong>Price elasticity.</strong> Every conversion is stated at a single price point.</li></ul></p>
+  <div class="page-footer">
+    <span class="page-footer-brand"><span class="brand-mark">mythOS</span> · loom</span>
+    <span class="page-footer-mark">05</span>
+  </div>
+</section>
+</body>
+</html>
