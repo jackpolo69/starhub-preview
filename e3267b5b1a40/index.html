@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ninety Seconds and the Proof Behind It</title>
+<style>
+
+@font-face {
+    font-family: 'Cormorant Garamond';
+    src: url('https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Cormorant Garamond';
+    src: url('https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-500-normal.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Cormorant Garamond';
+    src: url('https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-600-normal.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'IBM Plex Serif';
+    src: url('https://cdn.jsdelivr.net/fontsource/fonts/ibm-plex-serif@latest/latin-400-normal.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'IBM Plex Serif';
+    src: url('https://cdn.jsdelivr.net/fontsource/fonts/ibm-plex-serif@latest/latin-500-normal.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'IBM Plex Serif';
+    src: url('https://cdn.jsdelivr.net/fontsource/fonts/ibm-plex-serif@latest/latin-600-normal.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'IBM Plex Serif';
+    src: url('https://cdn.jsdelivr.net/fontsource/fonts/ibm-plex-serif@latest/latin-400-italic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Monaspace Radon';
+    src: url('https://cdn.jsdelivr.net/gh/githubnext/monaspace@main/fonts/Web%20Fonts/Static%20Web%20Fonts/Monaspace%20Radon/MonaspaceRadon-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Monaspace Radon';
+    src: url('https://cdn.jsdelivr.net/gh/githubnext/monaspace@main/fonts/Web%20Fonts/Static%20Web%20Fonts/Monaspace%20Radon/MonaspaceRadon-Medium.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+:root {
+    --bg: #0a0a0a;
+    --bg-panel: #111111;
+    --bg-panel-accent: rgba(167,139,250,0.10);
+    --text: #ffffff;
+    --text-dim: rgba(255,255,255,0.65);
+    --text-dimmer: rgba(255,255,255,0.40);
+    --text-dimmest: rgba(255,255,255,0.18);
+    --accent: #a78bfa;
+    --accent-glow: rgba(167,139,250,0.45);
+    --accent-dim: rgba(167,139,250,0.14);
+    --secondary: #fbbf24;
+    --status-success: #4ade80;
+    --status-warning: #fbbf24;
+    --status-error: #f87171;
+    --status-info: #60a5fa;
+    --border: rgba(255,255,255,0.08);
+    --border-strong: rgba(255,255,255,0.16);
+    --font-display: 'Cormorant Garamond', 'IBM Plex Serif', Charter, Georgia, serif;
+    --font-body: 'IBM Plex Serif', Charter, Georgia, serif;
+    --font-brand: 'Cormorant Garamond', 'IBM Plex Serif', Charter, Georgia, serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 10pt;
+    line-height: 1.5;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    /* Better serif rendering on dark backgrounds */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+
+@page {
+    /* Use explicit mm dimensions instead of named size keyword.
+       Chrome's named-size handling can produce slightly smaller
+       printable areas than the literal page dimensions, leaving
+       gaps at right/bottom edges. Explicit mm forces full bleed. */
+    size: 215.9mm 279.4mm;
+    margin: 0;
+}
+
+.page {
+    width: 215.9mm;
+    padding: 0.6in 0.7in 0.6in 0.7in;
+    /* Each section starts on a fresh page (page-break-before: always)
+       — never orphaned at the bottom of the prior page. Content within
+       the section CAN break across page boundaries naturally
+       (page-break-inside NOT avoid on .page itself; tables/callouts
+       still keep their own atomicity below). This keeps section
+       openings clean and visually anchored while allowing long
+       sections to spill content naturally. */
+    page-break-before: always;
+    page-break-after: auto;
+    position: relative;
+    box-sizing: border-box;
+    margin-bottom: 0;
+}
+
+/* First content section can flow right after cover; cover keeps standalone */
+.page.cover { page-break-after: always; min-height: 287mm; margin-bottom: 0; }
+.page:last-child { page-break-after: auto; margin-bottom: 0; }
+/* Section opener stays together — heading + eyebrow + first content block.
+   Prevents the heading-orphaned-with-empty-body pattern at page tops. */
+.page > .page-header,
+.page > .section-eyebrow,
+.page > h1.section,
+.page > h1.section-heading {
+    page-break-after: avoid;
+    break-after: avoid;
+}
+
+/* Prevent orphaned headings / table rows */
+h1, h2, h3 { page-break-after: avoid; break-after: avoid; }
+table, .callout, .chart-wrap, .ask-table, .kpi-strip,
+.pullquote, .channel-bars, .rule-grid, .boundary-table, .kpi {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+tr { page-break-inside: avoid; break-inside: avoid; }
+
+
+/* Red rule at left of content pages. The previous design used
+   margin-left:18mm to indent the page from the document edge — but
+   the page was still 210mm wide, producing a 228mm horizontal
+   footprint that overflowed A4 by 18mm and misaligned content with
+   the cover. Drop margin-left; keep width:210mm. The red rule now
+   sits at the page edge, content pages and cover share the same
+   horizontal extents (0..210mm), and screenshots/exports stay
+   in-page-bounds. padding-left provides the visual breathing room
+   inside the rule. */
+.page:not(.cover) {
+    padding-left: 10mm;
+    padding-right: 16mm;
+}
+
+/* Page header — kept uppercase for runner-style nav (semantic micro-label) */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 7pt;
+    margin-bottom: 18pt;
+    font-size: 7.5pt;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-dimmer);
+    font-weight: 400;
+}
+.page-header .mark {
+    color: var(--accent);
+    font-weight: 500;
+    font-family: var(--font-display);
+    letter-spacing: 2px;
+}
+
+/* Cycle 26 design rule: page-bottom footer with build-attestation
+   (PILLAR 03 made visible — substrate composes its own evidence). */
+.page-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    padding-top: 4pt;
+    margin-top: 8pt;
+    page-break-before: avoid;
+    break-before: avoid;
+    font-family: var(--font-display);
+    font-size: 7.5pt;
+    color: var(--text-dimmer);
+    font-weight: 400;
+}
+.page-footer-brand { color: var(--text-dim); }
+.page-footer-mark { color: var(--accent); font-weight: 500; }
+
+/* Cover — explicit A4 box. width/height/min-height all redundantly
+   set to defeat any Chrome print quirk that previously rendered the
+   cover at ~83%×87% of A4. */
+.cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* padding 18mm top, 22mm sides, 14mm bottom — content was sitting
+       too far above the page edge with the original 24mm symmetric
+       vertical padding (cover-bottom anchored 24mm above page bottom).
+       Tighter bottom padding pulls the running footer line closer to
+       the page edge, gradient extends visibly to the bottom. */
+    padding: 18mm 22mm 14mm 22mm;
+    box-sizing: border-box;
+    width: 210mm;
+    min-width: 210mm;
+    height: 297mm;
+    min-height: 297mm;
+    margin: 0;
+    background:
+        radial-gradient(ellipse at 85% 15%, rgba(167,139,250,0.1), transparent 55%),
+        radial-gradient(ellipse at 15% 85%, rgba(251,191,36,0.06), transparent 55%),
+        #0a0a0a;
+}
+.cover::before { display: none; }
+.cover > * { position: relative; z-index: 1; }
+
+.cover-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    font-family: var(--font-display); font-size: 9pt;
+    color: var(--text-dimmer); font-weight: 400;
+    /* Cycle 23: was uppercase letterspaced — now editorial top-runner */
+}
+
+.cover-center { display: flex; flex-direction: column; gap: 28pt; }
+
+/* Brand lockup on cover (Cycle 38 — mark + wordmark side-by-side).
+   When both present, render as horizontal lockup (logo + wordmark form
+   single identity unit). Eyebrow runs as separate line below the lockup. */
+.cover-lockup {
+    display: flex; align-items: center; gap: 12pt;
+    margin-bottom: 6pt;
+}
+.cover-mark {
+    width: 44pt; height: 44pt; flex-shrink: 0;
+}
+.cover-mark svg { width: 100%; height: 100%; display: block; }
+.cover-wordmark {
+    font-family: var(--font-brand);
+    font-size: 36pt; line-height: 1; font-weight: 400;
+    letter-spacing: -0.5px; color: var(--text);
+    /* Preserves canonical capitalization (e.g. "mythOS") — no text-transform */
+}
+.cover-wordmark .accent { color: var(--accent); }
+
+.cover-eyebrow {
+    font-family: var(--font-display); font-size: 10pt;
+    letter-spacing: 6px; text-transform: uppercase; color: var(--accent);
+    font-weight: 400;
+}
+
+/* Brand-mark span — preserves canonical capitalization (e.g. mythOS) inside
+   uppercase-styled contexts. Always render brand wordmarks via this class
+   so text-transform/letter-spacing don't break the canon spelling. */
+.brand-mark {
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    font-family: var(--font-brand, var(--font-display)) !important;
+}
+
+.cover-title {
+    font-family: var(--font-display); font-size: 56pt; line-height: 1.05;
+    letter-spacing: -0.5px; font-weight: 400; color: var(--text);
+    text-wrap: balance;
+    /* No uppercase — cover-eyebrow is the only uppercase on cover (Cycle 23) */
+}
+.cover-title .accent { color: var(--accent); }
+.cover-title .glow { text-shadow: 0 0 30pt rgba(167,139,250,0.45); }
+
+.cover-sub {
+    font-size: 14pt; color: var(--text-dim); font-weight: 300;
+    max-width: 140mm; line-height: 1.4;
+    text-wrap: pretty;
+}
+
+/* Cycle 47: vertical-stacked editorial-block (was 2x2 grid — felt form-y).
+   Each row is a label + value with hairline separator. Reads as masthead
+   credits, not a form to fill out. */
+.cover-meta {
+    display: flex; flex-direction: column;
+    padding-top: 22pt;
+    border-top: 1px solid var(--border-strong); font-size: 10pt;
+}
+.cover-meta > div {
+    display: grid; grid-template-columns: 70mm 1fr;
+    align-items: baseline;
+    padding: 9pt 0;
+    border-bottom: 1px solid var(--border);
+}
+.cover-meta > div:last-child { border-bottom: none; }
+.cover-meta dt {
+    font-family: var(--font-display);
+    color: var(--text-dimmer); font-weight: 400;
+    font-size: 8.5pt; letter-spacing: 1.5px; text-transform: uppercase;
+    /* uppercase here = semantic micro-label (one of the 4 surfaces with
+       intentional uppercase per Cycle 23 policy) */
+}
+.cover-meta dd { color: var(--text); font-weight: 400; font-size: 11pt; }
+
+.cover-bottom {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    font-family: var(--font-display); font-size: 9pt;
+    color: var(--text-dimmer);
+    /* Cycle 23: was uppercase letterspaced — now editorial footer-runner */
+}
+
+/* Section headings — Cycle 23: sentence case (was uppercase tier #2)
+   Cycle 29: text-wrap: balance prevents orphan/widow lines (Chrome 114+,
+   Safari 17.5+, Firefox 121+ — all printers shipping today). */
+h1.section {
+    font-family: var(--font-display); font-size: 20pt;
+    font-weight: 500; line-height: 1.15; letter-spacing: -0.3px;
+    margin-bottom: 8pt; color: var(--text);
+    text-wrap: balance;
+}
+h1.section .accent { color: var(--accent); font-weight: 400; }
+
+.section-eyebrow {
+    font-family: var(--font-display); font-size: 8pt;
+    letter-spacing: 5px; text-transform: uppercase; color: var(--accent);
+    font-weight: 400; margin-bottom: 6pt;
+}
+
+h2.sub {
+    font-family: var(--font-display); font-size: 12pt; font-weight: 500;
+    /* margin-top + padding-top combo: margin collapses with previous
+       block's margin-bottom in normal flow (no double-counting),
+       padding survives the page-break overflow case (where margin
+       collapses to 0 because heading lands at top of a fresh page).
+       Larger padding-top (14pt) ensures meaningful breathing room
+       on overflow pages without inflating normal-flow spacing too
+       much (margin-bottom of preceding block dominates the merge). */
+    margin-top: 4pt;
+    padding-top: 14pt;
+    margin-bottom: 6pt;
+    color: var(--text);
+    letter-spacing: -0.2px;
+    text-wrap: balance;
+}
+
+h3.mini {
+    font-family: var(--font-display); font-size: 12.5pt; font-weight: 600;
+    color: var(--text); font-style: normal;
+    margin: 0 0 8pt; padding-bottom: 6pt;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.25; letter-spacing: -0.2px;
+}
+/* Pillar-style cards: lead identifier (PILLAR 01) becomes a small accent
+   eyebrow above the heading body so the headline lands as a sentence
+   instead of a label. Wraps "PILLAR NN · " automatically via .col-card-eyebrow. */
+.col-card .col-card-eyebrow {
+    display: block;
+    font-size: 7.5pt; letter-spacing: 1.8px; text-transform: uppercase;
+    color: var(--accent); font-weight: 600;
+    margin-bottom: 4pt;
+}
+.col-card .col-card-eyebrow + .col-card-headline {
+    display: block; color: var(--text); font-weight: 600;
+    font-size: 13pt; line-height: 1.2; letter-spacing: -0.2px;
+}
+
+p { margin-bottom: 6pt; color: var(--text-dim); font-weight: 400; text-wrap: pretty; }
+p.lede {
+    color: var(--text); font-size: 11.5pt; font-weight: 400;
+    line-height: 1.45; margin-bottom: 9pt;
+    text-wrap: pretty;
+}
+/* Tighter table cells for content-dense pages */
+table td, table th { padding: 5pt 8pt; font-size: 9.5pt; line-height: 1.4; }
+/* Tighter section heading margin so more body fits per page */
+h1.section { margin-bottom: 12pt; }
+h2.sub { margin-top: 12pt; margin-bottom: 6pt; }
+/* Emotional/editorial emphasis — strong = gravity, em = voice. Both
+   tightened so emphasis lands instead of slumping into body color. */
+p em, li em, td em { font-style: italic; color: var(--text); font-weight: 400; }
+p strong em, p em strong { color: var(--accent); font-style: italic; font-weight: 500; }
+/* Drop cap on the FIRST lede paragraph in each section (editorial-brief convention) */
+.section-eyebrow + h1.section + p.lede::first-letter,
+h1.section + p.lede::first-letter {
+    font-family: var(--font-display); font-size: 38pt;
+    float: left; line-height: 0.9; padding: 4pt 8pt 0 0;
+    color: var(--accent); font-weight: 400;
+}
+p strong, .white, td strong, li strong { color: var(--text); font-weight: 600; }
+
+/* KPI strip — Cycle 23: editorial-data-block style, not startup-deck-hero-card.
+   Hairline rules between items, no card backgrounds, sentence-case labels,
+   data-font (Monaspace Radon) for numbers per brief-format three-voice cast. */
+.kpi-strip {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; margin: 14pt 0 16pt;
+    border-top: 1px solid var(--border-strong);
+    border-bottom: 1px solid var(--border-strong);
+}
+.kpi {
+    padding: 12pt 16pt;
+    border-right: 1px solid var(--border);
+}
+.kpi:first-child { padding-left: 0; }
+.kpi:last-child { padding-right: 0; border-right: none; }
+.kpi-label {
+    font-size: 8pt; color: var(--text-dim);
+    margin-bottom: 6pt; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1.2px;
+}
+.kpi-value {
+    font-family: 'Monaspace Radon', 'Monaspace Argon', var(--font-display);
+    font-size: 26pt; color: var(--text); font-weight: 500; line-height: 1;
+    letter-spacing: -0.8px;
+}
+.kpi-value.accent { color: var(--accent); }
+.kpi-sub {
+    font-size: 8.5pt; color: var(--text-dimmer);
+    margin-top: 7pt; font-weight: 400; line-height: 1.45;
+}
+
+/* Tables — Cycle 23: editorial style, sentence-case headers, refined leading */
+table {
+    width: 100%; border-collapse: collapse;
+    margin: 12pt 0 14pt; font-size: 10pt;
+}
+thead th {
+    text-align: left; font-family: var(--font-display);
+    font-size: 9.5pt; color: var(--text); padding: 8pt 10pt 8pt 0;
+    border-bottom: 1px solid var(--border-strong); font-weight: 500;
+    /* Cycle 23: was uppercase letterspaced — now sentence case display font */
+}
+thead th.num, td.num { text-align: right; }
+tbody td {
+    padding: 7pt 8pt 7pt 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dim); font-weight: 400;
+    line-height: 1.5;
+}
+/* Cycle 26 design rule: subtle zebra-stripe for dense-table legibility */
+tbody tr:nth-child(even) td {
+    background: rgba(255, 255, 255, 0.015);
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody td .white { color: var(--text); font-weight: 500; }
+tbody tr.total td {
+    color: var(--text); font-weight: 600;
+    border-top: 1px solid var(--border-strong);
+    border-bottom: none; padding-top: 7pt;
+}
+tbody tr.total td.num {
+    color: var(--accent); font-size: 10.5pt;
+    font-family: var(--font-display);
+}
+tbody tr.highlight td {
+    background: var(--accent-dim); color: var(--text);
+}
+tbody tr.highlight td.num { color: var(--accent); font-weight: 600; }
+
+/* Callout — Cycle 23: editorial sidebar style, sentence-case title, no card chrome */
+.callout {
+    border-left: 2px solid var(--accent);
+    /* padding-top:14pt survives page-break overflow (where margin-top
+       would collapse to 0 because the callout lands at the top of a
+       fresh print page); margin-top handles normal-flow inter-block
+       spacing via collapse with preceding margin-bottom. */
+    padding: 14pt 0 4pt 14pt;
+    margin: 6pt 0 10pt 0;
+}
+.callout .title {
+    font-family: var(--font-display); font-size: 11pt;
+    color: var(--accent); margin-bottom: 5pt; font-weight: 500;
+    /* Cycle 23: was uppercase letterspaced "DECK CALLOUT" — now editorial sidebar heading */
+}
+.callout p {
+    margin-bottom: 0; color: var(--text); font-weight: 400;
+    font-size: 9.5pt; line-height: 1.45;
+}
+.callout p + p { margin-top: 6pt; }
+
+/* Pullquote — Cycle 23: editorial-grade, sentence case, larger, more breathing room */
+.pullquote {
+    font-family: var(--font-display); font-size: 18pt;
+    font-weight: 400; line-height: 1.35; letter-spacing: -0.3px;
+    color: var(--text);
+    border-left: 3px solid var(--accent);
+    padding: 6pt 0 6pt 16pt; margin: 18pt 0; max-width: 90%;
+    text-wrap: balance;
+    /* Cycle 23: was uppercase 14pt — now sentence case 18pt for proclaim-not-shout
+       Cycle 29: text-wrap: balance prevents widow/orphan lines */
+}
+.pullquote.small { font-size: 14pt; }
+.pullquote .em { color: var(--accent); font-style: italic; }
+
+/* Emotional inflection (Cycle 39 — italic body emphasis paired with accent
+   color when used in regular prose; subtle .feeling class for tonal shifts). */
+p .em, p.lede .em, .callout .em {
+    font-style: italic; color: var(--accent); font-weight: 500;
+}
+.feeling {
+    font-style: italic; color: var(--text);
+}
+
+/* Channel bars */
+.channel-bars { display: flex; flex-direction: column; gap: 5pt; margin: 6pt 0; }
+.channel-bar {
+    display: grid; grid-template-columns: 55mm 1fr 18mm;
+    gap: 8pt; align-items: center; font-size: 8.5pt;
+}
+.channel-name { color: var(--text-dim); font-weight: 400; }
+.channel-name.dim { color: var(--text-dimmer); }
+.channel-track {
+    height: 10pt; background: var(--bg-panel);
+    border: 1px solid var(--border); position: relative; overflow: hidden;
+}
+.channel-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent) 0%, rgba(167,139,250,0.7) 100%);
+}
+.channel-fill.dim {
+    background: var(--text-dimmer);
+}
+.channel-pct {
+    text-align: right; color: var(--text);
+    font-weight: 500; font-size: 8.5pt;
+}
+.channel-pct.dim { color: var(--text-dimmer); }
+
+/* Chart */
+.chart-wrap {
+    background: var(--bg-panel); border: 1px solid var(--border);
+    padding: 10pt 12pt; margin: 8pt 0; border-radius: 2pt;
+}
+.chart-title {
+    font-family: var(--font-display); font-size: 10pt;
+    color: var(--text-dim); margin-bottom: 6pt; font-weight: 500;
+    /* Cycle 23: was uppercase letterspaced — now sentence case display */
+}
+.chart-legend {
+    display: flex; gap: 14pt; margin-top: 5pt;
+    font-size: 7.5pt; color: var(--text-dim); justify-content: center;
+    flex-wrap: wrap;
+}
+.legend-dot {
+    display: inline-block; width: 8pt; height: 8pt;
+    border-radius: 50%; vertical-align: middle; margin-right: 4pt;
+}
+
+/* Loom media image */
+.media-image {
+    margin: 10pt 0 12pt;
+    break-inside: avoid;
+}
+.media-image-frame {
+    border: 1px solid var(--border);
+    background: var(--bg-panel);
+    border-radius: 3pt;
+    overflow: hidden;
+}
+.media-image.frame-plain .media-image-frame {
+    border: none;
+    background: transparent;
+}
+.media-image.frame-bleed {
+    margin-left: -10mm;
+    margin-right: -16mm;
+}
+.media-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.media-image-placeholder {
+    min-height: 72mm;
+    display: grid;
+    place-items: center;
+    padding: 14pt;
+    color: var(--text-dim);
+    font-size: 8.5pt;
+    text-align: center;
+}
+.media-image-caption {
+    margin-top: 5pt;
+    color: var(--text-dim);
+    font-size: 8pt;
+    line-height: 1.35;
+}
+.media-image-receipt {
+    display: block;
+    margin-top: 3pt;
+    color: var(--text-dimmer);
+    font-size: 7pt;
+    font-family: var(--font-display);
+}
+
+/* Ask table */
+.ask-table {
+    background: var(--bg-panel); border: 1px solid var(--border-strong);
+    padding: 0; margin: 10pt 0; border-radius: 2pt; overflow: hidden;
+}
+.ask-row {
+    display: grid; grid-template-columns: 14mm 1fr auto;
+    grid-column-gap: 10pt;
+    padding: 10pt 14pt; border-bottom: 1px solid var(--border);
+    align-items: center;
+}
+.ask-row:last-child { border-bottom: none; }
+.ask-num {
+    font-family: var(--font-display); font-size: 20pt;
+    color: var(--accent); font-weight: 400; line-height: 1;
+}
+.ask-label { color: var(--text); font-size: 10pt; font-weight: 400; }
+.ask-label .dim {
+    color: var(--text-dimmer); display: block;
+    font-size: 8pt; margin-top: 2pt; font-weight: 300; line-height: 1.35;
+}
+.ask-pill {
+    justify-self: end; font-family: var(--font-display);
+    font-size: 7.5pt; color: var(--accent); font-weight: 500;
+    /* Cycle 34: editorial pill — accent-tinted bg, thin border, capsule
+       rounded corners. */
+    background: var(--accent-dim);
+    border: 1px solid var(--accent);
+    padding: 3pt 9pt;
+    border-radius: 999pt;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    font-size: 7pt;
+    letter-spacing: 1.5px;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+/* Columns */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12pt; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 9pt; }
+.four-col { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 7pt; }
+
+.col-card {
+    background: var(--bg-panel); border: 1px solid var(--border);
+    padding: 12pt 13pt; border-radius: 3pt;
+    position: relative;
+}
+.col-card ul.bare { font-size: 9pt; line-height: 1.4; }
+.col-card ul.bare li { margin-bottom: 3pt; }
+.col-card.accent {
+    background: var(--accent-dim); border-color: var(--accent);
+}
+.col-card p { color: var(--text); font-size: 9.5pt; line-height: 1.5; }
+
+/* Pillar variant — distinct treatment from default col-card. Top-stripe
+   accent + accent-colored eyebrow so pillar columns read as labeled
+   claims. Default .col-card (founders) has NO accent stroke — recovers
+   horizontal text width per creator's May 23 evening direction. */
+.col-card.pillar {
+    border-top: 2pt solid var(--accent);
+    padding-top: 11pt;
+}
+.col-card.pillar .col-card-eyebrow {
+    color: var(--accent);
+    letter-spacing: 0.08em;
+}
+
+.note {
+    font-size: 7.5pt; color: var(--text-dimmer);
+    font-style: italic; margin-top: 6pt; font-weight: 300; line-height: 1.4;
+}
+
+/* Status pills — semantic color coding (success/warning/error/info)
+   Use inline as <span class="status status-success">live</span> in table
+   cells. Each color has ONE meaning per design canon. */
+.status {
+    display: inline-block;
+    font-size: 7.5pt; font-weight: 600;
+    padding: 2pt 7pt; border-radius: 999pt;
+    letter-spacing: 0.6px; text-transform: uppercase;
+    line-height: 1.3; white-space: nowrap;
+}
+.status-success { color: var(--status-success); background: rgba(74, 222, 128, 0.12); border: 1px solid rgba(74, 222, 128, 0.3); }
+.status-warning { color: var(--status-warning); background: rgba(251, 191, 36, 0.12); border: 1px solid rgba(251, 191, 36, 0.3); }
+.status-error   { color: var(--status-error);   background: rgba(248, 113, 113, 0.12); border: 1px solid rgba(248, 113, 113, 0.3); }
+.status-info    { color: var(--status-info);    background: rgba(96, 165, 250, 0.12); border: 1px solid rgba(96, 165, 250, 0.3); }
+
+ul { font-size: 9pt; }
+ul.bare { list-style: none; padding: 0; color: var(--text-dim); font-weight: 300; }
+ul.bare li { padding: 4pt 0; border-bottom: 1px solid var(--border); }
+ul.bare li:last-child { border-bottom: none; }
+
+.confidentiality {
+    text-align: center; font-size: 8pt; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--text-dimmer); margin-top: 20pt;
+}
+
+
+</style>
+</head>
+<body>
+<section class="page cover">
+  <div class="cover-top">
+    <span>StarHub Studios PBC — Jack Polo</span>
+    <span>26 August 2026</span>
+  </div>
+  <div class="cover-center">
+    <div class="cover-lockup">
+      <div class="cover-wordmark">StarHub Studios</div>
+    </div>
+    <div class="cover-eyebrow">Investor Readiness · Working Session</div>
+    <h1 class="cover-title">Ninety seconds, <span class="accent">and the proof behind it.</span></h1>
+    <p class="cover-sub">You named the gate: a ninety-second pitch, the results a customer can expect, and reference customers — five of them. Here are all three. The references are live domains you can open while we talk.</p>
+  </div>
+  <div class="cover-bottom">
+    <span>Confidential · Prepared under NDA · Working document for the 26 Aug session</span>
+    <span class="mark"></span>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <span>section</span>
+    <span class="mark">01</span>
+  </div>
+  <h1 class="section">01 · The ninety seconds</h1>
+<p>Written to be spoken, not read. The timing marks are where to breathe, not where to pause for effect.</p>
+<div class="callout">
+  <div class="title">◆ 0:00 — the problem</div>
+  <p>Every company now needs a website, a brand, a backend, documents, a campaign, and someone to keep all of it saying the same thing. That used to take a studio — six people and two quarters. Most founders cannot afford it, so they ship something incoherent and lose on presentation before anyone judges the product.</p>
+</div>
+<div class="callout">
+  <div class="title">◆ 0:20 — what it is</div>
+  <p>mythOS is an operating system for a company's identity. It holds the memory, the brand rules, and the governance in one substrate. Nova is the intelligence that runs on it — and it does not just advise, it BUILDS: the site, the backend, the documents, the deal papers, the campaign.</p>
+</div>
+<div class="callout">
+  <div class="title">◆ 0:45 — why it is different</div>
+  <p>Every AI tool writes something and hands it to you. This one holds the whole company in memory and then produces surfaces that already agree with each other, because they come out of the same substrate. There is a human in the loop by design — one operator directing and reviewing, not a team assembling.</p>
+</div>
+<div class="callout">
+  <div class="title">◆ 1:05 — the proof</div>
+  <p>Sixteen live properties. One operator. Every one of them a real domain you can open right now — a healthcare network, a federal contractor, a consumer game, a business-credit platform, a publishing imprint. Days to live, not quarters.</p>
+</div>
+<div class="callout">
+  <div class="title">◆ 1:20 — the ask</div>
+  <p>We are raising to turn a system that works for sixteen properties into one that works for sixteen hundred. The engine is built and running in production. What we are buying is reach.</p>
+</div>
+<p class="note">SAY THE NUMBER, NOT THE ADJECTIVE. "Sixteen live properties, one operator" survives scrutiny. "Revolutionary AI platform" does not, and in a room full of AI pitches it actively marks you as one of them.</p>
+  <div class="page-footer">
+    <span class="page-footer-brand"><span class="brand-mark">mythOS</span> · loom</span>
+    <span class="page-footer-mark">01</span>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <span>section</span>
+    <span class="mark">02</span>
+  </div>
+  <h1 class="section">02 · What a customer actually gets</h1>
+<p>Outcomes stated as things that either happened or did not. No percentage lifts are claimed, because none have been measured — and a fabricated metric is the fastest way to lose a technical investor who asks one follow-up question.</p>
+<table>
+<thead><tr>
+<th>What they get</th>
+<th>In practice</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>A complete brand world</strong></td>
+<td>Site, backend, document library, brand system, legal pages, contact and intake flows — delivered as one coherent set, not as separate freelance deliverables that disagree with each other.</td>
+</tr>
+<tr>
+<td><strong>Days, not quarters</strong></td>
+<td>A full multi-page site with working forms goes from nothing to deployed inside a week. Several in this roster went live the same night they were started.</td>
+</tr>
+<tr>
+<td><strong>Self-serve deployment</strong></td>
+<td>The owner ships their own updates with one command. No agency retainer to change a phone number.</td>
+</tr>
+<tr>
+<td><strong>Gates that run every time</strong></td>
+<td>Mobile layout verified across seven device widths before anything ships. Brand tokens enforced in code rather than in a PDF nobody reads.</td>
+</tr>
+<tr>
+<td><strong>Documents in the same voice</strong></td>
+<td>Term sheets, decks, one-pagers and briefings render from the same brand substrate as the website — so the deal paper and the homepage cannot drift apart.</td>
+</tr>
+<tr>
+<td><strong>Memory that persists</strong></td>
+<td>Decisions, corrections and history are held by the system. The next session resumes where the last ended instead of re-litigating settled questions.</td>
+</tr>
+</tbody></table>
+  <div class="page-footer">
+    <span class="page-footer-brand"><span class="brand-mark">mythOS</span> · loom</span>
+    <span class="page-footer-mark">02</span>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <span>section</span>
+    <span class="mark">03</span>
+  </div>
+  <h1 class="section">03 · The reference roster</h1>
+<p>Split deliberately. A referenceable customer is someone who will take a call from an investor — that is a different claim from a property we own and operate, and merging the two would be caught in the first diligence pass.</p>
+<h2 class="sub">Third-party engagements</h2>
+<table>
+<thead><tr>
+<th>Client</th>
+<th>What was built</th>
+<th>Live at</th>
+</tr></thead>
+<tbody>
+<tr class="highlight">
+<td><strong>Abeó Health</strong><br />Care coordination network, Orange County</td>
+<td>Full site, customer + provider portals, dispatch centre, booking flows, HIPAA and legal surfaces, brand system, 30-day social launch</td>
+<td>abeo.health</td>
+</tr>
+<tr>
+<td><strong>PTS</strong><br />Professional Telecommunications Services — DVBE/SDVOSB federal contractor</td>
+<td>Site rebuild for a GSA Schedule 70 contractor bidding federal and state work</td>
+<td>In client review</td>
+</tr>
+<tr>
+<td><strong>WonderStorm Academy</strong><br />Independent school</td>
+<td>Site and enrolment surfaces, built to the founders' own specification</td>
+<td>In program</td>
+</tr>
+<tr>
+<td><strong>EMPATHY: The Pursuit of Joy</strong><br />Feature documentary</td>
+<td>Site, audience engine, document library, four-ledger deal workbook, three phased plans</td>
+<td>Live</td>
+</tr>
+</tbody></table>
+<h2 class="sub">Owned properties — the proving ground</h2>
+<table>
+<thead><tr>
+<th>Property</th>
+<th>Category</th>
+<th>Live at</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Triple X Playground</td>
+<td>Consumer game · commerce</td>
+<td>triplexplayground.com</td>
+</tr>
+<tr>
+<td>Tryst</td>
+<td>Consumer product · pre-order</td>
+<td>trystlove.com</td>
+</tr>
+<tr>
+<td>SquareBiz</td>
+<td>Business credit platform</td>
+<td>squarebiz.ai</td>
+</tr>
+<tr>
+<td>The Supreme Man</td>
+<td>Publishing · course</td>
+<td>thesuprememan.com</td>
+</tr>
+<tr>
+<td>Mach Media Inc</td>
+<td>Media holding company</td>
+<td>mach-media.net</td>
+</tr>
+<tr>
+<td>Triple X Radio</td>
+<td>Broadcast</td>
+<td>triplexradio.com</td>
+</tr>
+<tr>
+<td>A Hero's Journey</td>
+<td>Non-profit · reentry</td>
+<td>aherosjourney.life</td>
+</tr>
+<tr>
+<td>The Branding Guru</td>
+<td>Agency</td>
+<td>the-branding-guru.com</td>
+</tr>
+<tr>
+<td>R.E.A.</td>
+<td>Production house</td>
+<td>realityengineering.agency</td>
+</tr>
+<tr>
+<td>StarHub Studios</td>
+<td>The studio itself</td>
+<td>starhubstudios.com</td>
+</tr>
+<tr>
+<td>mythOS Vision</td>
+<td>The platform</td>
+<td>mythos.vision</td>
+</tr>
+<tr>
+<td>The Reality Engineer</td>
+<td>Founder brand</td>
+<td>thereality.engineer</td>
+</tr>
+</tbody></table>
+<div class="callout">
+  <div class="title">◆ Against the bar you set</div>
+  <p>You named five referenceable customers as the number-one goal. Four third-party engagements exist today and the fifth is a conversation, not a build — the capability is already proven sixteen times over. The gap is permission to name them, not capacity to deliver.</p>
+</div>
+  <div class="page-footer">
+    <span class="page-footer-brand"><span class="brand-mark">mythOS</span> · loom</span>
+    <span class="page-footer-mark">03</span>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <span>section</span>
+    <span class="mark">04</span>
+  </div>
+  <h1 class="section">04 · E-commerce — the to-do list you asked for</h1>
+<p>Shirts, caps and bags first, exactly as you framed it. Sequenced so that nothing later forces a rebuild of something earlier &mdash; the order matters more than the speed.</p>
+<div class="callout">
+  <div class="title">◆ Before anything is designed: who takes the money</div>
+  <p>This is the one decision that cannot be reversed cheaply, and it is a governance question rather than a commerce one. Merchandise revenue must never land in the same vessel as 501(c)(3) film capital &mdash; that is already written into the four-ledger workbook, and it is the kind of thing a funder's counsel checks. Naming the merchant of record first means the Stripe account, the tax registration and the storefront all get built once.</p>
+</div>
+<h2 class="sub">The sequence</h2>
+<table>
+<thead><tr>
+<th>#</th>
+<th>Step</th>
+<th>Why it sits here</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Name the selling entity</strong> and open its Stripe account</td>
+<td>Everything downstream inherits it. Doing this fourth means redoing one through three.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Lock the product set</strong> &mdash; tee, cap, tote</td>
+<td>Three products, one drop. Your own audience already asked for a jacket, a purse, a visor and a cap; those are drop two, once the first has taught us sizing and margin.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Print-on-demand, not inventory</strong></td>
+<td>No upfront capital, no unsold boxes, no storage. Margin is lower per unit; the risk is zero, which is the correct trade before demand is measured.</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Artwork from the existing brand system</strong></td>
+<td>The palette, type and marks already exist in the site's substrate. Merch built from the same tokens cannot drift from the film's identity.</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Storefront on the site you already have</strong></td>
+<td>Not a separate Shopify world with its own look. Checkout lives where the audience already is, and the brand stays one thing.</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Launch to the wearables segment first</strong></td>
+<td>The site already tags every join with intent &mdash; <em>wearables</em> is one of nine. Those people asked for this. They are the first email, not a cold list.</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Sales tax registration where required</strong></td>
+<td>Boring, and the thing that bites a year later. Handled once, at setup.</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Measure, then widen</strong></td>
+<td>Drop one tells us units, sizes and margin. Drop two is designed against evidence rather than taste.</td>
+</tr>
+</tbody></table>
+<p class="note">WHAT MAKES THIS FASTER THAN IT SOUNDS: steps 4, 5 and 6 are largely built. The brand substrate exists, the site exists, and the intent-tagged audience list is already being collected. The genuinely new work is the entity, the Stripe account and the print partner.</p>
+  <div class="page-footer">
+    <span class="page-footer-brand"><span class="brand-mark">mythOS</span> · loom</span>
+    <span class="page-footer-mark">04</span>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <span>section</span>
+    <span class="mark">05</span>
+  </div>
+  <h1 class="section">05 · The back end, and what it does and does not replace</h1>
+<p>You said you want to get rid of iContact but need to see what this system does first. Straight answer, split into what exists, what is built-but-not-live, and what this does not replace at all.</p>
+<div class="callout">
+  <div class="title">◆ Status you should hear before the demo, not after</div>
+  <p>The audience engine is BUILT and NOT YET LIVE. The capture endpoint returns 404 in production today &mdash; probed this morning, with a control route to confirm it is a missing deployment rather than a permissions refusal. Joins currently fall back to email so nothing is lost, but nobody should say this is running until it is. It is waiting on a deploy that sits with Gheric.</p>
+</div>
+<h2 class="sub">Against what iContact does for you now</h2>
+<table>
+<thead><tr>
+<th>Function</th>
+<th>Status here</th>
+<th>Honest read</th>
+</tr></thead>
+<tbody>
+<tr class="highlight">
+<td><strong>List capture</strong></td>
+<td>Built, awaiting deploy</td>
+<td>Every join is tagged with the door it came through &mdash; ripple, soundtrack, wearables, trip, pendant, ambassador, app-waitlist, fan-campaign, reset-member. iContact captures an email; this captures an email and a reason.</td>
+</tr>
+<tr>
+<td><strong>Segmentation</strong></td>
+<td>Built, awaiting deploy</td>
+<td>Segments are created at the moment of interest instead of guessed later from click behaviour. This is the part that makes the merch launch land on people who already raised their hand.</td>
+</tr>
+<tr>
+<td><strong>Newsletter sending</strong></td>
+<td>NOT built</td>
+<td>There is no sending engine here yet. Keep iContact running until one ships &mdash; cancelling first would leave you with a list and no way to write to it.</td>
+</tr>
+<tr>
+<td><strong>Email templates / campaigns</strong></td>
+<td>NOT built</td>
+<td>The document and brand system can render them in-voice, but the scheduling and delivery layer does not exist.</td>
+</tr>
+<tr>
+<td><strong>CRM / relationship history</strong></td>
+<td>Partly &mdash; different shape</td>
+<td>The system holds memory: decisions, context, history across sessions. That is not a sales CRM with pipelines and deal stages, and it should not be sold as one.</td>
+</tr>
+<tr>
+<td><strong>Accounting</strong></td>
+<td>NOT replaced</td>
+<td>Keep your accountant and your ledger software. Nothing here touches books, and anything that claimed to would be a liability rather than a feature.</td>
+</tr>
+</tbody></table>
+<div class="callout">
+  <div class="title">◆ The recommendation</div>
+  <p>Do not cancel iContact at this meeting. Deploy the capture engine, run both in parallel for one campaign, and compare what each list tells you. Move only after the new one has demonstrably held a real send. Switching a live audience on a promise is how lists get lost, and yours is the asset.</p>
+</div>
+  <div class="page-footer">
+    <span class="page-footer-brand"><span class="brand-mark">mythOS</span> · loom</span>
+    <span class="page-footer-mark">05</span>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <span>section</span>
+    <span class="mark">06</span>
+  </div>
+  <h1 class="section">06 · What is still open</h1>
+<p>Named rather than smoothed, so nothing surfaces later as a surprise.</p>
+<p><ul><li><strong>Reference consent.</strong> Each third-party client must agree to take an investor call before their name is used that way. None has been asked yet.</li><li><strong>No measured outcome metrics.</strong> Time-to-live and surface counts are real and checkable. Revenue lift, conversion and retention are not measured, and are therefore not claimed anywhere in this document.</li><li><strong>The fifth reference.</strong> Available, but it should be a client who has been live long enough to speak to durability rather than to speed.</li><li><strong>The JV instrument itself.</strong> Equity versus bounded revenue share sits with Gheric per the standing lane ruling, and is not resolved here.</li></ul></p>
+  <div class="page-footer">
+    <span class="page-footer-brand"><span class="brand-mark">mythOS</span> · loom</span>
+    <span class="page-footer-mark">06</span>
+  </div>
+</section>
+</body>
+</html>
