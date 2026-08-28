@@ -47,6 +47,14 @@
   footer { padding:26px clamp(20px,5vw,48px) 46px; border-top:1px solid var(--border); color:var(--dim);
     font-size:.82rem; max-width:1180px; margin:0 auto; }
   footer b { color:var(--text); font-weight:600; }
+  .score-wrap { overflow-x:auto; border:1px solid var(--border); border-radius:12px; }
+  table.score { width:100%; border-collapse:collapse; font-size:.78rem; min-width:900px; }
+  table.score th { text-align:left; padding:10px 10px; background:var(--panel); color:var(--accent);
+    font-size:.64rem; letter-spacing:.12em; text-transform:uppercase; border-bottom:1px solid var(--border); }
+  table.score td { padding:8px 10px; border-bottom:1px solid var(--border); white-space:nowrap; }
+  td.bname { font-weight:600; color:var(--text); }
+  td.ok { color:#7ee2a8; } td.half { color:var(--gold); } td.gap { color:#67697a; }
+  .legend { color:var(--dim); font-size:.78rem; margin:12px 2px 6px; }
   @media print { body { background:#fff; color:#111; } .card { border-color:#ddd; background:#fff; } }
 </style></head>
 <body>
@@ -59,6 +67,7 @@
   <section id="act-01">
     <div class="shead"><span class="n">ACT 01</span><h2>The Instruments</h2></div>
     <p class="blurb">Open with the two products built from scratch — proof the stack makes real software, not just websites.</p>
+    
     <div class="grid">
     <div class="card">
       <div class="tag">Start here</div>
@@ -77,6 +86,7 @@
   <section id="act-02">
     <div class="shead"><span class="n">ACT 02</span><h2>The Commerce Engines</h2></div>
     <p class="blurb">Live venture sites — and under each one, its components: apps, portals, command centers, funnels, campaigns.</p>
+    
     <div class="grid">
     <div class="card">
       <div class="tag">Mach Media</div>
@@ -123,6 +133,7 @@
   <section id="act-03">
     <div class="shead"><span class="n">ACT 03</span><h2>The Brands &amp; Portals</h2></div>
     <p class="blurb">Identity surfaces — including the personal portal that ties the estate together.</p>
+    
     <div class="grid">
     <div class="card">
       <div class="tag">Portal</div>
@@ -149,6 +160,7 @@
   <section id="act-04">
     <div class="shead"><span class="n">ACT 04</span><h2>The Studio Layer</h2></div>
     <p class="blurb">The machine that builds the machines.</p>
+    
     <div class="grid">
     <div class="card">
       <div class="tag">Studio</div>
@@ -186,6 +198,7 @@
   <section id="act-05">
     <div class="shead"><span class="n">ACT 05</span><h2>Client Work — the JV Engine Running</h2></div>
     <p class="blurb">Real clients, real deals, on the same stack — each with its full component set.</p>
+    
     <div class="grid">
     <div class="card">
       <div class="tag">Client JV</div>
@@ -212,6 +225,7 @@
   <section id="act-06">
     <div class="shead"><span class="n">ACT 06</span><h2>The Paperwork</h2></div>
     <p class="blurb">Signable instruments and the honest capability map — the part nobody expects a creative shop to have.</p>
+    
     <div class="grid">
     <div class="card">
       <div class="tag">Signable</div>
@@ -236,6 +250,7 @@
   <section id="act-07">
     <div class="shead"><span class="n">ACT 07</span><h2>Command Centers &amp; Campaigns</h2></div>
     <p class="blurb">Shown live on the machine — these run locally, on schedule, every day.</p>
+    
     <div class="grid">
     <div class="card is-local">
       <div class="tag">Live demo</div>
@@ -262,6 +277,33 @@
       <div class="url">triplexplayground.com/command-dashboard</div>
     </div>
     </div>
+  </section>
+  <section id="act-08">
+    <div class="shead"><span class="n">ACT 08</span><h2>The Marketing Engine</h2></div>
+    <p class="blurb">As of Aug 28 it's a standing rule: every brand carries its full marketing stack — SEO, funnels, email rails, campaign systems with purpose-built imagery, analytics — from day one. This scorecard is the audit, measured this week, gaps declared. The honesty is the product.</p>
+    
+    <div class="score-wrap">
+      <table class="score">
+        <tr><th>Brand</th><th>SEO basics</th><th>Structured data</th><th>Lead funnel</th><th>Email capture</th><th>Checkout</th><th>Campaign system</th><th>Marketing plan</th><th>Analytics</th></tr>
+        <tr><td class="bname">Triple X Playground</td><td class="ok">✓</td><td class="gap">—</td><td class="ok">✓ ebook + tripwire</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓ 8-wk calendar</td><td class="ok">✓</td><td class="gap">—</td></tr>
+        <tr><td class="bname">EMPATHY</td><td class="ok">✓</td><td class="gap">—</td><td class="ok">✓ ebook + tripwire</td><td class="ok">✓</td><td class="gap">—</td><td class="ok">✓ drip w/ art</td><td class="ok">✓</td><td class="gap">—</td></tr>
+        <tr><td class="bname">SquareBiz</td><td class="ok">✓</td><td class="ok">✓</td><td class="gap">—</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓ 8-wk calendar</td><td class="ok">✓</td><td class="half">◐ built, off</td></tr>
+        <tr><td class="bname">Abeó Health</td><td class="ok">✓</td><td class="ok">✓</td><td class="gap">—</td><td class="ok">✓</td><td class="half">◐ vision-gated</td><td class="half">◐ plan only</td><td class="ok">✓ 6-phase</td><td class="gap">—</td></tr>
+        <tr><td class="bname">The Supreme Man</td><td class="ok">✓</td><td class="gap">—</td><td class="gap">—</td><td class="ok">✓</td><td class="gap">—</td><td class="ok">✓ 8-wk calendar</td><td class="ok">✓</td><td class="gap">—</td></tr>
+        <tr><td class="bname">Tryst</td><td class="ok">✓</td><td class="gap">—</td><td class="gap">—</td><td class="ok">✓</td><td class="gap">—</td><td class="half">◐ via Mach</td><td class="ok">✓</td><td class="gap">—</td></tr>
+        <tr><td class="bname">Triple X Radio</td><td class="ok">✓</td><td class="gap">—</td><td class="gap">—</td><td class="ok">✓</td><td class="gap">—</td><td class="half">◐ via Mach</td><td class="ok">✓</td><td class="gap">—</td></tr>
+        <tr><td class="bname">Mach Media Inc</td><td class="ok">✓</td><td class="gap">—</td><td class="gap">—</td><td class="ok">✓</td><td class="gap">—</td><td class="ok">✓ 8-wk calendar</td><td class="ok">✓</td><td class="gap">—</td></tr>
+        <tr><td class="bname">The Branding Guru</td><td class="ok">✓</td><td class="gap">—</td><td class="gap">—</td><td class="gap">—</td><td class="gap">—</td><td class="ok">✓ 8-wk calendar</td><td class="gap">—</td><td class="gap">—</td></tr>
+        <tr><td class="bname">R.E.A.</td><td class="ok">✓</td><td class="ok">✓</td><td class="gap">—</td><td class="ok">✓</td><td class="gap">—</td><td class="ok">✓ 8-wk calendar</td><td class="gap">—</td><td class="gap">—</td></tr>
+        <tr><td class="bname">A Hero's Journey</td><td class="ok">✓</td><td class="gap">—</td><td class="gap">—</td><td class="ok">✓</td><td class="gap">—</td><td class="gap">—</td><td class="gap">—</td><td class="gap">—</td></tr>
+        <tr><td class="bname">StarHub Studios</td><td class="ok">✓</td><td class="gap">—</td><td class="gap">—</td><td class="ok">✓</td><td class="gap">—</td><td class="ok">✓ 8-wk calendar</td><td class="ok">✓</td><td class="gap">—</td></tr>
+        <tr><td class="bname">StarSeed Foundation</td><td class="ok">✓</td><td class="gap">—</td><td class="gap">—</td><td class="ok">✓</td><td class="gap">—</td><td class="ok">✓ 8-wk calendar</td><td class="gap">—</td><td class="gap">—</td></tr>
+        <tr><td class="bname">mythOS</td><td class="ok">✓</td><td class="gap">—</td><td class="gap">—</td><td class="gap">—</td><td class="gap">—</td><td class="ok">✓ 90-day run</td><td class="ok">✓</td><td class="gap">—</td></tr>
+        <tr><td class="bname">Jack E. Polo</td><td class="ok">✓</td><td class="gap">—</td><td class="gap">—</td><td class="gap">—</td><td class="gap">—</td><td class="gap">—</td><td class="gap">—</td><td class="gap">—</td></tr>
+      </table>
+    </div>
+    <p class="legend">✓ live and verified · ◐ built but not fully on · — declared gap, on the close-list. Measured Aug 28 2026: every site probed for title/description/og-image/sitemap (15 of 15 pass), structured data, funnel routes, capture rails, campaign coverage, analytics.</p>
+    <p class="blurb" style="font-style:italic">Every dash on this board is scheduled work, not a surprise waiting to happen. Two brands run the full funnel today; the pattern that built them (free book → email → tripwire → upsell, imagery on every asset) is reusable across the board — that repeatability is the pitch.</p>
   </section>
 </main>
 <footer>
