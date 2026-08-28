@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow, noarchive" />
+<title>The Abeó Build Ledger</title>
+<style>
+  :root { --teal:#42C2BE; --orange:#FF8A34; --ink:#111827; --dim:#4b5563; --dimmer:#6b7280;
+    --bg:#f9fafb; --panel:#ffffff; --border:rgba(0,0,0,.08); }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:'Nunito',system-ui,-apple-system,sans-serif; line-height:1.55; }
+  header { padding:clamp(40px,7vw,80px) clamp(20px,5vw,48px) 36px; border-bottom:1px solid var(--border);
+    background:radial-gradient(1100px 400px at 12% -10%, rgba(66,194,190,.10), transparent 60%); }
+  .wrap { max-width:980px; margin:0 auto; }
+  .eyebrow { font-size:.72rem; letter-spacing:.24em; text-transform:uppercase; color:var(--teal); font-weight:700; margin-bottom:16px; }
+  h1 { font-size:clamp(1.9rem,4.6vw,3rem); font-weight:800; line-height:1.08; margin:0 0 14px; }
+  h1 .a { color:var(--teal); }
+  .sub { color:var(--dim); max-width:70ch; margin:0; font-size:1.02rem; }
+  main { padding:clamp(26px,5vw,44px) clamp(20px,5vw,48px) 10px; max-width:980px; margin:0 auto; }
+  section { margin-bottom:44px; }
+  .shead { display:flex; gap:12px; align-items:baseline; border-bottom:2px solid var(--teal); padding-bottom:8px; margin-bottom:4px; }
+  .shead .n { color:var(--orange); font-weight:800; font-size:.85rem; letter-spacing:.1em; }
+  .shead h2 { margin:0; font-size:1.25rem; font-weight:800; }
+  .blurb { color:var(--dim); font-size:.93rem; margin:10px 0 14px; max-width:76ch; }
+  table { width:100%; border-collapse:collapse; }
+  td { padding:14px 12px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .nm { font-weight:800; font-size:1rem; }
+  .wh { color:var(--dim); font-size:.88rem; margin-top:3px; }
+  .rc { color:var(--dimmer); font-size:.78rem; margin-top:6px; font-style:italic; }
+  .st { width:190px; font-size:.8rem; color:var(--dim); }
+  .pr { width:150px; text-align:right; font-weight:800; white-space:nowrap; }
+  .totals { background:var(--panel); border:1px solid var(--border); border-radius:16px; padding:22px 26px; margin:8px 0 40px; }
+  .totals .line { display:flex; justify-content:space-between; padding:7px 0; font-size:.98rem; }
+  .totals .line.grand { border-top:2px solid var(--teal); margin-top:8px; padding-top:14px; font-size:1.15rem; font-weight:800; }
+  .totals .muted { color:var(--dim); font-weight:400; }
+  .note { background:rgba(66,194,190,.07); border-left:4px solid var(--teal); border-radius:0 12px 12px 0;
+    padding:16px 20px; margin:20px 0; font-size:.93rem; color:var(--ink); }
+  .own { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; margin-top:14px; }
+  .own > div { background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:18px 20px; }
+  .own h3 { margin:0 0 8px; font-size:.95rem; color:var(--teal); }
+  .own ul { margin:0; padding-left:18px; color:var(--dim); font-size:.9rem; }
+  .own li { margin-bottom:5px; }
+  footer { padding:24px clamp(20px,5vw,48px) 46px; border-top:1px solid var(--border); color:var(--dimmer);
+    font-size:.82rem; max-width:980px; margin:0 auto; }
+  @media print { header, section, .totals { break-inside:avoid; } }
+</style></head>
+<body>
+<header><div class="wrap">
+  <div class="eyebrow">Prepared for Brittany Gianni Solomon · Aug 27 2026</div>
+  <h1>The Abeó Build Ledger — <span class="a">what was built, what it's worth.</span></h1>
+  <p class="sub">You asked four fair questions: what was built, what is complete, what Abeó owns versus licenses, and the fair market value of the services. This document answers all four. Every line is backed by dated records — 112 dated commits between April 8 and August 27, 2026; 394 files in the current build; roughly 111,000 lines of authored code and documents. The full log is available any time you want to inspect it.</p>
+</div></header>
+<main>
+  <section>
+    <div class="shead"><span class="n">01</span><h2>Brand &amp; Identity</h2></div>
+    <p class="blurb">The visual and verbal identity system. Direction and mission are Brittany's — this ledger prices the design and production execution only.</p>
+    <table>
+      <tr>
+        <td><div class="nm">Logo suite &amp; visual identity</div><div class="wh">Primary logo, tight-crop and mark variants, favicon set, palette (teal/orange), typography system, og/social cards.</div><div class="rc">Receipts: 9 production asset files in the repository</div></td>
+        <td class="st">Complete · in production</td>
+        <td class="pr">$4,000&ndash;$8,000</td>
+      </tr>
+      <tr>
+        <td><div class="nm">Mascot character</div><div class="wh">Custom mascot, multiple poses (neutral, talking, thinking), used across site and agent.</div><div class="rc">Receipts: 4 rendered poses in production</div></td>
+        <td class="st">Complete · in production</td>
+        <td class="pr">$2,500&ndash;$6,000</td>
+      </tr>
+      <tr>
+        <td><div class="nm">Brand guide</div><div class="wh">Written standard: logo use, palette, voice, application rules.</div><div class="rc">Receipts: brand-guide document, rendered + versioned</div></td>
+        <td class="st">Complete</td>
+        <td class="pr">$1,500&ndash;$3,500</td>
+      </tr>
+    </table>
+  </section>
+  <section>
+    <div class="shead"><span class="n">02</span><h2>The Platform — abeo.health</h2></div>
+    <p class="blurb">Not a brochure site: a 22-route application with two build modes so the public site claims only what Abeó delivers today (the compliance posture Medicaid/insurer applications require) while the investor build shows the full vision.</p>
+    <table>
+      <tr>
+        <td><div class="nm">Website &amp; application front-end</div><div class="wh">22 routes, 27 custom components: home, services, network, organizations, pricing, careers, contact, legal. Custom animation, mobile-verified at 7 breakpoints, SEO + structured data.</div><div class="rc">Receipts: 47 source modules, ~99,000 lines app+worker source</div></td>
+        <td class="st">Complete · live</td>
+        <td class="pr">$30,000&ndash;$55,000</td>
+      </tr>
+      <tr>
+        <td><div class="nm">Dual-mode build system</div><div class="wh">One codebase, two honest builds (operating / vision) — gating of undeliverable services, testimonials, rates, mascot knowledge per compliance posture.</div><div class="rc">Receipts: Build-time mode flag, gated components in source</div></td>
+        <td class="st">Complete · both builds live</td>
+        <td class="pr">$6,000&ndash;$12,000</td>
+      </tr>
+      <tr>
+        <td><div class="nm">Client portal (Abeó Connect) &amp; provider portal</div><div class="wh">Sign-in, sessions, role separation, client and provider surfaces.</div><div class="rc">Receipts: Portal + provider routes, auth worker</div></td>
+        <td class="st">Built · live routes</td>
+        <td class="pr">$15,000&ndash;$30,000</td>
+      </tr>
+      <tr>
+        <td><div class="nm">Booking &amp; dispatch system</div><div class="wh">Book-a-ride flow, intake, dispatch centre surface, backend API with database schema, authentication and crypto layers.</div><div class="rc">Receipts: 1,541-line backend worker: auth.js, crypto.js, index.js, schema.sql</div></td>
+        <td class="st">Built · vision-gated (deliberately held from public build until services are licensed to operate)</td>
+        <td class="pr">$15,000&ndash;$30,000</td>
+      </tr>
+      <tr>
+        <td><div class="nm">Mascot agent</div><div class="wh">On-site conversational guide with Abeó knowledge base, mode-aware (answers only with deliverable services in the public build).</div><div class="rc">Receipts: MascotAgent component + knowledge module</div></td>
+        <td class="st">Complete · live</td>
+        <td class="pr">$4,000&ndash;$9,000</td>
+      </tr>
+    </table>
+  </section>
+  <section>
+    <div class="shead"><span class="n">03</span><h2>Business Document Corpus</h2></div>
+    <p class="blurb">Thirty-three rendered documents, every one generated from versioned sources — meaning any number corrected once corrects everywhere. Browsable at abeo.health/marketing.</p>
+    <table>
+      <tr>
+        <td><div class="nm">Investor materials</div><div class="wh">Investor deck (slides + reading proof), one-sheet, elevator pitch, company evaluation, competitive intelligence (Orange County), funding pathways.</div><div class="rc">Receipts: 6+ documents, rendered + versioned</div></td>
+        <td class="st">Complete</td>
+        <td class="pr">$9,000&ndash;$18,000</td>
+      </tr>
+      <tr>
+        <td><div class="nm">Financial &amp; growth models</div><div class="wh">Financial model, rate card, six-phase revenue-gated marketing plan, phase-gate execution plan, growth phases.</div><div class="rc">Receipts: Model sources in repository, documents rendered</div></td>
+        <td class="st">Complete</td>
+        <td class="pr">$6,000&ndash;$14,000</td>
+      </tr>
+      <tr>
+        <td><div class="nm">Regulatory &amp; compliance prep</div><div class="wh">CDSS application preparation, HCS-281 checklist, HIPAA notice, privacy policy, terms, cookie notice.</div><div class="rc">Receipts: 6 documents, rendered + versioned</div></td>
+        <td class="st">Complete · drafts for counsel/filing</td>
+        <td class="pr">$5,000&ndash;$12,000</td>
+      </tr>
+      <tr>
+        <td><div class="nm">Partner outreach kit</div><div class="wh">Dr. Donner five-ways-in one-pager, Saddleback one-pager + pilot proposal, sales &amp; ad copy.</div><div class="rc">Receipts: 4 documents, live URLs</div></td>
+        <td class="st">Complete · Donner doc updated and live Aug 27</td>
+        <td class="pr">$4,000&ndash;$9,000</td>
+      </tr>
+      <tr>
+        <td><div class="nm">Legal templates</div><div class="wh">NDA, advisor agreement, operating agreement, convertible note term sheet, inter-venture agreement — drafts for counsel.</div><div class="rc">Receipts: 5 documents, rendered + versioned</div></td>
+        <td class="st">Complete · templates</td>
+        <td class="pr">$4,000&ndash;$9,000</td>
+      </tr>
+      <tr>
+        <td><div class="nm">Document library system</div><div class="wh">The categorized library itself — one page, every document current, superseded versions kept visible and marked (nothing silently changed).</div><div class="rc">Receipts: abeo.health/marketing — live</div></td>
+        <td class="st">Complete · live</td>
+        <td class="pr">$2,000&ndash;$5,000</td>
+      </tr>
+    </table>
+  </section>
+  <section>
+    <div class="shead"><span class="n">04</span><h2>Infrastructure &amp; Operations</h2></div>
+    <p class="blurb">The unglamorous layer that keeps everything above live, fast, and recoverable.</p>
+    <table>
+      <tr>
+        <td><div class="nm">Hosting, deploy pipeline, monitoring</div><div class="wh">Production hosting, one-command verified deploys (mobile + integrity gates), preview environments, five months of iteration and maintenance.</div><div class="rc">Receipts: Deploy receipts on every publish; two production deploys Aug 27 alone</div></td>
+        <td class="st">Live · continuous</td>
+        <td class="pr">$8,000&ndash;$16,000</td>
+      </tr>
+      <tr>
+        <td><div class="nm">Domain &amp; mail migration engineering</div><div class="wh">abeo.health DNS zone staging with live Microsoft 365 mail preserved — ten records read from live DNS (not from briefs) so Teams/mail/anti-spoofing survive the nameserver switch.</div><div class="rc">Receipts: Zone-staging script, versioned, with per-record provenance</div></td>
+        <td class="st">Complete · staged</td>
+        <td class="pr">$1,500&ndash;$4,000</td>
+      </tr>
+      <tr>
+        <td><div class="nm">Positioning integration</div><div class="wh">Brittany's network-positioning brief implemented across every surface in 48 hours: hero, services scope, stats, why-cards, mascot copy, link previews — nothing claiming beyond current scope.</div><div class="rc">Receipts: Dated commits Aug 26–27</div></td>
+        <td class="st">Complete · live Aug 26–27</td>
+        <td class="pr">$3,000&ndash;$8,000</td>
+      </tr>
+    </table>
+  </section>
+
+  <div class="totals">
+    <div class="line"><span class="muted">Deliverables above — fair market range</span><span>$120,500 &ndash; $248,500</span></div>
+    <div class="line"><span class="muted">Operator services — five months of hands-on marketing, partner development and operations leadership (fractional, at market)</span><span>$40,000 &ndash; $60,000</span></div>
+    <div class="line grand"><span>Total fair market value</span><span>$160,500 &ndash; $308,500</span></div>
+  </div>
+
+  <div class="note"><strong>Methodology.</strong> Ranges reflect typical U.S. independent-agency and senior-freelance pricing for comparable scope, quality and turnaround — not internal hours. Where an item is not yet public (the dispatch and booking system), the status column says so plainly: it is built, and it is deliberately held out of the public build until Abeó is licensed to deliver those services, because the public site must not claim what Abeó cannot yet do. That posture — claiming nothing early — is itself part of the work.</div>
+
+  <div class="note" style="border-left-color:var(--orange); background:rgba(255,138,52,.06)"><strong>What has actually been invoiced: nothing.</strong> The full build cost above has been carried, not billed. No invoice has been issued to Abeó for any line on this ledger.</div>
+
+  <section>
+    <div class="shead"><span class="n">05</span><h2>What Abeó owns · what StarHub owns · what is licensed</h2></div>
+    <p class="blurb">The working split, consistent with everything discussed — final language belongs in whatever agreement we land on. None of it changes with the deal shape: these commitments stand under a JV, a services agreement, or anything between.</p>
+    <div class="own">
+      <div><h3>Abeó owns — outright</h3><ul>
+        <li>The Abeó brand, name, mission, positioning and identity — Brittany created these; StarHub executed design and build against them</li>
+        <li>All Abeó-specific content, copy, imagery and documents</li>
+        <li>All Abeó business data: clients, providers, bookings, contacts, accounts</li>
+        <li>The abeo.health domain and its mail</li>
+      </ul></div>
+      <div><h3>StarHub owns — pre-existing</h3><ul>
+        <li>The underlying build engines and rendering system used to produce the site and documents (built before and beyond Abeó)</li>
+        <li>The deployment, preview and verification infrastructure</li>
+        <li>Reusable component patterns not specific to Abeó</li>
+      </ul></div>
+      <div><h3>Guaranteed either way</h3><ul>
+        <li><strong>No captivity.</strong> Full export of site content, documents and data at any time, in standard formats — the relationship is never the hostage</li>
+        <li>Administrative access to Abeó's own accounts</li>
+        <li>Abeó's information is scoped to Abeó — it is not used to benefit any other company, and an inventory of where Abeó materials live can be produced on request</li>
+      </ul></div>
+    </div>
+  </section>
+</main>
+<footer>
+  Prepared by StarHub Studios · Jack Polo · Every figure traceable to dated repository records — full commit log available on request ·
+  This is an accounting of work performed, not an invoice and not a term sheet.
+</footer>
+</body></html>
