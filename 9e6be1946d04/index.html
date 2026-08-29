@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wonderstorm × StarHub — The Working Session</title>
+<style>
+:root{--ink:#101418;--deep:#1a2129;--gold:#d4a95a;--cream:#f2ead8;--dim:#9aa3b0;
+  --teal:#4a9b8e;--serif:'Palatino Linotype',Palatino,Georgia,serif;
+  --sans:'Avenir Next',Avenir,'Helvetica Neue',sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--ink);color:var(--cream);font-family:var(--serif)}
+.slide{width:100vw;height:100vh;display:none;flex-direction:column;justify-content:center;
+  padding:6vh 8vw;position:relative;overflow:hidden;isolation:isolate}
+.slide.active{display:flex;animation:rise .7s cubic-bezier(.16,1,.3,1)}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.slide::after{content:attr(data-n) " / 8";position:absolute;bottom:3vh;right:4vw;color:var(--dim);
+  font-family:var(--sans);font-size:13px;letter-spacing:.2em}
+.kick{font-family:var(--sans);color:var(--gold);font-size:14px;letter-spacing:.4em;
+  text-transform:uppercase;margin-bottom:3vh}
+h1{font-size:clamp(38px,5vw,78px);font-weight:400;line-height:1.08;margin-bottom:3vh}
+h1 em,h2 em{font-style:normal;color:var(--gold)}
+h2{font-size:clamp(28px,3.4vw,52px);font-weight:400;line-height:1.14;margin-bottom:3.5vh}
+p.big{font-size:clamp(19px,1.8vw,28px);line-height:1.55;max-width:62ch}
+p.dim{color:var(--dim);font-size:clamp(15px,1.25vw,20px);margin-top:2vh;max-width:66ch;line-height:1.6}
+.quote{border-left:3px solid var(--gold);padding-left:2.2vw;font-style:italic;
+  font-size:clamp(20px,2vw,32px);line-height:1.5;max-width:58ch;margin:1.5vh 0}
+.quote cite{display:block;font-style:normal;font-family:var(--sans);color:var(--dim);
+  font-size:14px;letter-spacing:.15em;margin-top:1.4vh;text-transform:uppercase}
+ul.led{list-style:none}
+ul.led li{padding:1.4vh 0;border-bottom:1px solid rgba(212,169,90,.16);
+  font-size:clamp(16px,1.4vw,22px);line-height:1.5}
+ul.led li b{color:var(--gold);font-weight:600}
+ul.led li span.n{color:var(--teal);font-family:var(--sans);font-weight:600}
+.cols3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2.4vw;margin-top:1vh}
+.card{background:var(--deep);border:1px solid rgba(212,169,90,.25);border-radius:5px;padding:3vh 1.8vw}
+.card.f{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.card h3{font-size:clamp(17px,1.5vw,24px);color:var(--cream);margin-bottom:.6vh;font-weight:400}
+.card .pr{font-family:var(--sans);font-size:clamp(20px,1.9vw,30px);color:var(--gold);font-weight:600}
+.card .mo{font-family:var(--sans);font-size:clamp(12px,1vw,15px);color:var(--teal);margin-bottom:1.2vh}
+.card p{color:var(--dim);font-size:clamp(13px,1.05vw,17px);line-height:1.5}
+.jvbar{background:linear-gradient(100deg,var(--deep),rgba(74,155,142,.14));
+  border:1px solid rgba(74,155,142,.5);border-radius:5px;padding:2.4vh 2vw;margin-top:2.5vh}
+.jvbar p{font-size:clamp(15px,1.3vw,21px);line-height:1.55}
+.jvbar b{color:var(--gold)}
+.nav-hint{position:fixed;bottom:3vh;left:4vw;color:var(--dim);font-family:var(--sans);
+  font-size:12px;letter-spacing:.15em;z-index:10}
+@media print{.slide{display:flex !important;page-break-after:always}.nav-hint{display:none}}
+</style>
+</head>
+<body>
+<div class="nav-hint">← → ARROW KEYS · P TO PRINT/PDF</div>
+
+<section class="slide active" data-n="1">
+  <div class="kick">Wonderstorm Academy × StarHub Studios</div>
+  <h1>One platform.<br>One partnership.<br><em>Three doors in.</em></h1>
+  <p class="dim">The working session · Everything below was built to your specification — and delivered.</p>
+</section>
+
+<section class="slide" data-n="2">
+  <div class="kick">Where this actually started</div>
+  <h2>You asked us about a <em>$10,000 app.</em></h2>
+  <p class="big">We said: don't. Spend it with us instead, and get the platform that solves all of it — not one tool that does one thing.</p>
+  <div class="quote">"Let's put it in the curriculum — we'll be the first to support your cognitive course."<cite>David, on O.M.G. + the social-skills intelligence</cite></div>
+  <p class="dim">Then Holly spec'd it — the documents, the specifics, the meeting. And we built every line of it. Requested. Spec'd. Delivered.</p>
+</section>
+
+<section class="slide" data-n="3">
+  <div class="kick">The sequence</div>
+  <h2>Win locally, now.<br><em>That's how you go global next.</em></h2>
+  <ul class="led">
+    <li><b>The imprint:</b> Wonderstorm becomes THE school of this community — visibly, credibly, first</li>
+    <li><b>The load:</b> the platform answers parents, tells the story, gives the <b>virtual tour</b>, books the visit — families arrive already sold</li>
+    <li><b>The hours:</b> less of Holly's day selling the school — more of it with the kids. That was the requirement. It's also the design.</li>
+  </ul>
+  <p class="dim" style="margin-top:2.5vh">Global was never the distraction — it's the destination. The platform wins the community first, proves the numbers, then carries the same imprint outward. Local first is the strategy FOR global, not instead of it.</p>
+</section>
+
+<section class="slide" data-n="4">
+  <div class="kick">The evidence — your problems, solved</div>
+  <h2>Conservative numbers. <em>Measured monthly.</em></h2>
+  <ul class="led">
+    <li>Inquiries going cold → instant response + guided booking → <span class="n">+30–50% tours booked</span></li>
+    <li>Brochure site → parent-initiation journey → <span class="n">2–3× site conversion</span></li>
+    <li>Staff buried in messages → platform answers first → <span class="n">10–20 hrs/week back</span></li>
+    <li>Unsold tour arrivals → pre-sold families → <span class="n">+20–30% tour-to-enroll</span></li>
+    <li>Word-of-mouth unmanaged → shareable Hero Chronicles → <span class="n">+15–25% referrals</span></li>
+  </ul>
+  <div class="jvbar" style="margin-top:2vh">
+    <p style="font-size:clamp(14px,1.15vw,18px)"><b>The model behind the numbers:</b> every range is the
+    conservative end of published benchmarks for instrumented enrollment funnels — we projected from the
+    low bound, not the promise. Month one measures YOUR baseline; every month after, the report shows
+    actuals against these projections. And the revenue math is simple: <b>each enrolled family ≈ $10,000+
+    per year in per-pupil funding.</b> Door Two pays for itself at three net-new enrollments. The
+    projections above imply far more than three.</p>
+  </div>
+  <p class="dim" style="margin-top:1.5vh">A website is an opinion. This is an instrument.</p>
+</section>
+
+<section class="slide" data-n="5">
+  <div class="kick">The position</div>
+  <h2><em>First school in the country</em><br>with this intelligence woven into daily operations.</h2>
+  <p class="big">O.M.G. and the social-skills intelligence — in the classroom, the curriculum, the front office. Not a chatbot bolted on. A nervous system built in.</p>
+  <p class="dim">Every school says "we care." One school will be able to demonstrate it, measurably, before any other school in America. That position is on this table today.</p>
+</section>
+
+<section class="slide" data-n="6">
+  <div class="kick">The structure</div>
+  <h2>A joint venture, <em>at every level.</em></h2>
+  <div class="jvbar">
+    <p><b>StarHub</b> owns, operates &amp; evolves the platform and intelligence · <b>Wonderstorm</b> owns its brand, curriculum &amp; name · together: <b>WonderStorm Digital</b> — scaling the school now, licensing the system to the sector as it proves out. <b>Revenue the platform creates is shared at every door.</b> We only win together.</p>
+  </div>
+  <p class="dim" style="margin-top:2.5vh">This was the point from the first conversation: "so you guys can make money with it." Yes — both of us.</p>
+</section>
+
+<section class="slide" data-n="7">
+  <div class="kick">The three doors</div>
+  <h2>Pick your depth. <em>Same partnership.</em></h2>
+  <div class="cols3">
+    <div class="card"><h3>Door 1 · Go Live</h3><div class="pr">$10,000</div><div class="mo">+ $1,000/mo</div><p>The delivered platform live on your domain — enrollment engine, <b style="color:var(--gold)">virtual tour</b>, portals, measurement. The same $10k, except this one works.</p><p style="margin-top:1vh;color:var(--teal);font-family:var(--sans);font-size:12px">PLAN: $10k deposit = paid in full</p></div>
+    <div class="card f"><h3>Door 2 · The Engine</h3><div class="pr">$25,000</div><div class="mo">+ $2,000/mo</div><p>The full operating system — comms, campaigns, content engine, ops integration, quests live, intelligence in the curriculum. First in the country.</p><p style="margin-top:1vh;color:var(--teal);font-family:var(--sans);font-size:12px">PLAN: $10k deposit + $1,250/mo × 12</p></div>
+    <div class="card"><h3>Door 3 · The World</h3><div class="pr">$50,000</div><div class="mo">+ $3,000/mo</div><p>The method productized — licensing package, partner schools, certification. The school stops buying software and owns a digital business.</p><p style="margin-top:1vh;color:var(--teal);font-family:var(--sans);font-size:12px">PLAN: $10k deposit + $3,333/mo × 12</p></div>
+  </div>
+  <p class="dim" style="margin-top:2.5vh">Payment plans at every door — up to 12 months, $10,000 minimum deposit.</p>
+</section>
+
+<section class="slide" data-n="8">
+  <div class="kick">The decision</div>
+  <h2>The platform exists.<br>The only question is <em>whose name it wears.</em></h2>
+  <p class="big">We built it for Wonderstorm and we'd rather it wear Wonderstorm's name. What it solves, every charter school in the sector needs.</p>
+  <p class="dim">Pick a door today, and the first monthly report lands in 30 days. — Jack Polo &amp; Gheric Speiginer · StarHub Studios</p>
+</section>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+function show(n){slides[i].classList.remove('active');i=(n+slides.length)%slides.length;slides[i].classList.add('active')}
+addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')show(i+1);if(e.key==='ArrowLeft')show(i-1);if(e.key==='p'||e.key==='P')print()});
+addEventListener('click',e=>{if(!e.target.closest('a'))show(i+1)});
+</script>
+</body>
+</html>
