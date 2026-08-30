@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow, noarchive" />
+<title>Royalty Truth — Live Demo</title>
+<style>
+  :root { --bg:#101014; --panel:#1a1a21; --ink:#ece8df; --dim:#9a958a; --gold:#d4af37; --red:#e06c5c; --green:#7ee2a8; --line:#2c2c35; --accent:#7c5cff; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:'Inter',-apple-system,sans-serif; line-height:1.5; }
+  header { padding:34px clamp(16px,4vw,40px) 20px; border-bottom:2px solid var(--gold); }
+  .eyebrow { font-size:.68rem; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+  h1 { font-family:Georgia, serif; font-weight:400; font-size:1.9rem; margin:0 0 6px; }
+  .sub { color:var(--dim); font-size:.88rem; margin:0; max-width:70ch; }
+  .demo-tag { display:inline-block; background:rgba(224,108,92,.15); color:var(--red); font-size:.64rem; letter-spacing:.16em; padding:3px 10px; border-radius:999px; font-weight:700; margin-left:10px; vertical-align:middle; }
+  main { padding:22px clamp(12px,3vw,40px) 60px; max-width:1150px; margin:0 auto; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin-bottom:22px; }
+  .stat { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 20px; }
+  .stat .label { font-size:.64rem; letter-spacing:.16em; text-transform:uppercase; color:var(--dim); margin-bottom:6px; }
+  .stat .v { font-size:1.7rem; font-family:Georgia, serif; }
+  .stat.reported .v { color:var(--ink); }
+  .stat.expected .v { color:var(--gold); }
+  .stat.missing .v { color:var(--red); }
+  .stat.flags .v { color:var(--red); }
+  .tablewrap { overflow-x:auto; background:var(--panel); border:1px solid var(--line); border-radius:12px; }
+  table { border-collapse:collapse; width:100%; min-width:860px; font-size:.84rem; }
+  th { text-align:left; padding:10px 14px; color:var(--gold); font-size:.64rem; letter-spacing:.14em; text-transform:uppercase; border-bottom:2px solid var(--line); cursor:default; }
+  td { padding:9px 14px; border-bottom:1px solid var(--line); }
+  tr.flag td { background:rgba(224,108,92,.07); }
+  tr:hover td { background:rgba(124,92,255,.08); cursor:pointer; }
+  .pill { font-size:.66rem; padding:2px 9px; border-radius:999px; font-weight:700; }
+  .pill.clean { background:rgba(126,226,168,.14); color:var(--green); }
+  .pill.disc { background:rgba(224,108,92,.16); color:var(--red); }
+  .neg { color:var(--red); font-weight:600; }
+  #detail { background:var(--panel); border:1px solid var(--gold); border-radius:12px; padding:18px 22px; margin-top:16px; display:none; }
+  #detail h3 { margin:0 0 8px; font-family:Georgia,serif; font-weight:400; color:var(--gold); }
+  #detail p { margin:0 0 6px; font-size:.88rem; }
+  .note { color:var(--dim); font-size:.78rem; font-style:italic; margin-top:18px; }
+</style></head>
+<body>
+<header>
+  <div class="eyebrow">StarHub Studios · working title: Royalty Truth</div>
+  <h1>Where did the money go? <span class="demo-tag">DEMO · SYNTHETIC DATA</span></h1>
+  <p class="sub">One film, 30 distribution platforms, four quarters. Left columns: what each platform REPORTED. Right columns: what the contract terms + independent signals say should exist. Click any row for the reconciliation trail.</p>
+</header>
+<main>
+  <div class="cards">
+    <div class="stat reported"><div class="label">Reported to filmmaker</div><div class="v" id="tRep">—</div></div>
+    <div class="stat expected"><div class="label">Reconciled (should exist)</div><div class="v" id="tExp">—</div></div>
+    <div class="stat missing"><div class="label">Unexplained gap</div><div class="v" id="tGap">—</div></div>
+    <div class="stat flags"><div class="label">Platforms flagged</div><div class="v" id="tFlags">—</div></div>
+  </div>
+  <div class="tablewrap"><table id="tbl">
+    <thead><tr><th>Platform</th><th>Region</th><th>Reported units</th><th>Reported net</th><th>Contract rate</th><th>Independent signal</th><th>Reconciled net</th><th>Gap</th><th>Status</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <div id="detail"></div>
+  <p class="note">Demo shows the reconciliation pattern with synthetic numbers. The real system ingests actual platform statements (CSV/PDF/API), your distribution contracts, and independent audience signals (charts, rankings, review volume) — and produces this view, quarterly, with an audit trail per line. Nothing here is a claim about any real platform.</p>
+</main>
+<script>
+const P = [
+ ["NorthStream VOD","US/CA", 41250, 30937, "75% net", "chart rank #14, 4.2k reviews", 30937, 0],
+ ["EuroPlay","EU", 18400, 9660, "70% net", "featured 6 wks", 12880, 3220],
+ ["PacificFlix","APAC", 22100, 4420, "65% net", "top-40, 8 territories", 14365, 9945],
+ ["CineCast TVOD","US", 9800, 8330, "85% net", "matches", 8330, 0],
+ ["SkyRent","UK/IE", 7200, 3060, "72% net", "BBC feature bump wk 3", 5184, 2124],
+ ["AndesVOD","LATAM", 15600, 1560, "60% net", "trending 3 countries", 9360, 7800],
+ ["Sahara Screen","MEA", 4100, 1230, "60% net", "matches", 2460, 1230],
+ ["Aurora TV","Nordics", 3900, 2340, "75% net", "matches", 2925, 585],
+ ["MegaPlex Digital","US", 12750, 0, "70% net", "10.2k rentals traced", 8925, 8925],
+ ["IndieChannel","Global", 6800, 4760, "70% net", "matches", 4760, 0],
+];
+// extend to 30 platforms deterministically
+const NAMES=["OrientPlay","LusoFilm","AlpenKino","BalticView","IberiaStream","GulfCinema","SavannaTV","IslandRent","PolarPlay","MekongFlix","AndinoTV","CaribeVOD","OutbackScreen","HighlandVOD","DeltaStream","OasisPlay","TundraTV","MonsoonFlix","PampasPlay","FjordFilm"];
+NAMES.forEach((n,i)=>{
+  const u=1200+((i*937)%6800), rate=[60,65,70,72,75][i%5];
+  const rec=Math.round(u*3.4*rate/100);
+  const gapPct=[0,0,0.35,0,0.5,0,0,0.22,0,0.6][i%10];
+  const gap=Math.round(rec*gapPct);
+  P.push([n, ["EU","APAC","LATAM","MEA","Global"][i%5], u, rec-gap, rate+"% net", gapPct? "signals exceed report":"matches", rec, gap]);
+});
+const fmt=n=>"$"+n.toLocaleString();
+let rep=0,exp=0,gapT=0,flags=0;
+const tb=document.querySelector("#tbl tbody");
+P.forEach((r,i)=>{
+  const [name,reg,u,net,rate,sig,rec,gap]=r;
+  rep+=net; exp+=rec; gapT+=gap; if(gap>0) flags++;
+  const tr=document.createElement("tr");
+  if(gap>0) tr.className="flag";
+  tr.innerHTML=`<td><strong>${name}</strong></td><td>${reg}</td><td>${u.toLocaleString()}</td><td>${fmt(net)}</td><td>${rate}</td><td>${sig}</td><td>${fmt(rec)}</td><td class="${gap?'neg':''}">${gap?("−"+fmt(gap)):"—"}</td><td><span class="pill ${gap?'disc':'clean'}">${gap?'DISCREPANCY':'CLEAN'}</span></td>`;
+  tr.onclick=()=>{
+    const d=document.getElementById("detail");
+    d.style.display="block";
+    d.innerHTML=gap?`<h3>${name} — reconciliation trail</h3>
+      <p><strong>Reported:</strong> ${fmt(net)} on ${u.toLocaleString()} units.</p>
+      <p><strong>Contract:</strong> ${rate} of platform net receipts, quarterly reporting, audit rights §7.2.</p>
+      <p><strong>Independent signals:</strong> ${sig} — implied volume supports ≈${fmt(rec)} at contract rate.</p>
+      <p><strong>Unexplained gap: <span class="neg">${fmt(gap)}</span>.</strong> Next step the system generates automatically: a statement-level information request citing the audit clause, with the evidence attached.</p>`
+      :`<h3>${name} — clean</h3><p>Reported ${fmt(net)} matches contract math and independent signals. No action.</p>`;
+    d.scrollIntoView({behavior:"smooth",block:"nearest"});
+  };
+  tb.appendChild(tr);
+});
+document.getElementById("tRep").textContent=fmt(rep);
+document.getElementById("tExp").textContent=fmt(exp);
+document.getElementById("tGap").textContent="−"+fmt(gapT);
+document.getElementById("tFlags").textContent=flags+" of "+P.length;
+</script>
+</body></html>
