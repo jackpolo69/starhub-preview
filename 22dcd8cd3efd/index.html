@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Wonderstorm — Your Dry Run</title>
+<style>
+
+@font-face {
+    font-family: 'Cormorant Garamond';
+    src: url('https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Cormorant Garamond';
+    src: url('https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-500-normal.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Cormorant Garamond';
+    src: url('https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-600-normal.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'IBM Plex Serif';
+    src: url('https://cdn.jsdelivr.net/fontsource/fonts/ibm-plex-serif@latest/latin-400-normal.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'IBM Plex Serif';
+    src: url('https://cdn.jsdelivr.net/fontsource/fonts/ibm-plex-serif@latest/latin-500-normal.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'IBM Plex Serif';
+    src: url('https://cdn.jsdelivr.net/fontsource/fonts/ibm-plex-serif@latest/latin-600-normal.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'IBM Plex Serif';
+    src: url('https://cdn.jsdelivr.net/fontsource/fonts/ibm-plex-serif@latest/latin-400-italic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Monaspace Radon';
+    src: url('https://cdn.jsdelivr.net/gh/githubnext/monaspace@main/fonts/Web%20Fonts/Static%20Web%20Fonts/Monaspace%20Radon/MonaspaceRadon-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Monaspace Radon';
+    src: url('https://cdn.jsdelivr.net/gh/githubnext/monaspace@main/fonts/Web%20Fonts/Static%20Web%20Fonts/Monaspace%20Radon/MonaspaceRadon-Medium.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+:root {
+    --bg: #0a0a0a;
+    --bg-panel: #111111;
+    --bg-panel-accent: rgba(167,139,250,0.10);
+    --text: #ffffff;
+    --text-dim: rgba(255,255,255,0.65);
+    --text-dimmer: rgba(255,255,255,0.40);
+    --text-dimmest: rgba(255,255,255,0.18);
+    --accent: #a78bfa;
+    --accent-glow: rgba(167,139,250,0.45);
+    --accent-dim: rgba(167,139,250,0.14);
+    --secondary: #fbbf24;
+    --status-success: #4ade80;
+    --status-warning: #fbbf24;
+    --status-error: #f87171;
+    --status-info: #60a5fa;
+    --border: rgba(255,255,255,0.08);
+    --border-strong: rgba(255,255,255,0.16);
+    --font-display: 'Cormorant Garamond', 'IBM Plex Serif', Charter, Georgia, serif;
+    --font-body: 'IBM Plex Serif', Charter, Georgia, serif;
+    --font-brand: 'Cormorant Garamond', 'IBM Plex Serif', Charter, Georgia, serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 10pt;
+    line-height: 1.5;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    /* Better serif rendering on dark backgrounds */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+
+@page {
+    /* Use explicit mm dimensions instead of named size keyword.
+       Chrome's named-size handling can produce slightly smaller
+       printable areas than the literal page dimensions, leaving
+       gaps at right/bottom edges. Explicit mm forces full bleed. */
+    size: 215.9mm 279.4mm;
+    margin: 0;
+}
+
+.page {
+    width: 215.9mm;
+    padding: 0.6in 0.7in 0.6in 0.7in;
+    /* Each section starts on a fresh page (page-break-before: always)
+       — never orphaned at the bottom of the prior page. Content within
+       the section CAN break across page boundaries naturally
+       (page-break-inside NOT avoid on .page itself; tables/callouts
+       still keep their own atomicity below). This keeps section
+       openings clean and visually anchored while allowing long
+       sections to spill content naturally. */
+    page-break-before: always;
+    page-break-after: auto;
+    position: relative;
+    box-sizing: border-box;
+    margin-bottom: 0;
+}
+
+/* First content section can flow right after cover; cover keeps standalone */
+.page.cover { page-break-after: always; min-height: 287mm; margin-bottom: 0; }
+.page:last-child { page-break-after: auto; margin-bottom: 0; }
+/* Section opener stays together — heading + eyebrow + first content block.
+   Prevents the heading-orphaned-with-empty-body pattern at page tops. */
+.page > .page-header,
+.page > .section-eyebrow,
+.page > h1.section,
+.page > h1.section-heading {
+    page-break-after: avoid;
+    break-after: avoid;
+}
+
+/* Prevent orphaned headings / table rows */
+h1, h2, h3 { page-break-after: avoid; break-after: avoid; }
+table, .callout, .chart-wrap, .ask-table, .kpi-strip,
+.pullquote, .channel-bars, .rule-grid, .boundary-table, .kpi {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+tr { page-break-inside: avoid; break-inside: avoid; }
+
+
+/* Red rule at left of content pages. The previous design used
+   margin-left:18mm to indent the page from the document edge — but
+   the page was still 210mm wide, producing a 228mm horizontal
+   footprint that overflowed A4 by 18mm and misaligned content with
+   the cover. Drop margin-left; keep width:210mm. The red rule now
+   sits at the page edge, content pages and cover share the same
+   horizontal extents (0..210mm), and screenshots/exports stay
+   in-page-bounds. padding-left provides the visual breathing room
+   inside the rule. */
+.page:not(.cover) {
+    padding-left: 10mm;
+    padding-right: 16mm;
+}
+
+/* Page header — kept uppercase for runner-style nav (semantic micro-label) */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 7pt;
+    margin-bottom: 18pt;
+    font-size: 7.5pt;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-dimmer);
+    font-weight: 400;
+}
+.page-header .mark {
+    color: var(--accent);
+    font-weight: 500;
+    font-family: var(--font-display);
+    letter-spacing: 2px;
+}
+
+/* Cycle 26 design rule: page-bottom footer with build-attestation
+   (PILLAR 03 made visible — substrate composes its own evidence). */
+.page-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    padding-top: 4pt;
+    margin-top: 8pt;
+    page-break-before: avoid;
+    break-before: avoid;
+    font-family: var(--font-display);
+    font-size: 7.5pt;
+    color: var(--text-dimmer);
+    font-weight: 400;
+}
+.page-footer-brand { color: var(--text-dim); }
+.page-footer-mark { color: var(--accent); font-weight: 500; }
+
+/* Cover — explicit A4 box. width/height/min-height all redundantly
+   set to defeat any Chrome print quirk that previously rendered the
+   cover at ~83%×87% of A4. */
+.cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* padding 18mm top, 22mm sides, 14mm bottom — content was sitting
+       too far above the page edge with the original 24mm symmetric
+       vertical padding (cover-bottom anchored 24mm above page bottom).
+       Tighter bottom padding pulls the running footer line closer to
+       the page edge, gradient extends visibly to the bottom. */
+    padding: 18mm 22mm 14mm 22mm;
+    box-sizing: border-box;
+    width: 210mm;
+    min-width: 210mm;
+    height: 297mm;
+    min-height: 297mm;
+    margin: 0;
+    background:
+        radial-gradient(ellipse at 85% 15%, rgba(167,139,250,0.1), transparent 55%),
+        radial-gradient(ellipse at 15% 85%, rgba(251,191,36,0.06), transparent 55%),
+        #0a0a0a;
+}
+.cover::before { display: none; }
+.cover > * { position: relative; z-index: 1; }
+
+.cover-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    font-family: var(--font-display); font-size: 9pt;
+    color: var(--text-dimmer); font-weight: 400;
+    /* Cycle 23: was uppercase letterspaced — now editorial top-runner */
+}
+
+.cover-center { display: flex; flex-direction: column; gap: 28pt; }
+
+/* Brand lockup on cover (Cycle 38 — mark + wordmark side-by-side).
+   When both present, render as horizontal lockup (logo + wordmark form
+   single identity unit). Eyebrow runs as separate line below the lockup. */
+.cover-lockup {
+    display: flex; align-items: center; gap: 12pt;
+    margin-bottom: 6pt;
+}
+.cover-mark {
+    width: 44pt; height: 44pt; flex-shrink: 0;
+}
+.cover-mark svg { width: 100%; height: 100%; display: block; }
+.cover-wordmark {
+    font-family: var(--font-brand);
+    font-size: 36pt; line-height: 1; font-weight: 400;
+    letter-spacing: -0.5px; color: var(--text);
+    /* Preserves canonical capitalization (e.g. "mythOS") — no text-transform */
+}
+.cover-wordmark .accent { color: var(--accent); }
+
+.cover-eyebrow {
+    font-family: var(--font-display); font-size: 10pt;
+    letter-spacing: 6px; text-transform: uppercase; color: var(--accent);
+    font-weight: 400;
+}
+
+/* Brand-mark span — preserves canonical capitalization (e.g. mythOS) inside
+   uppercase-styled contexts. Always render brand wordmarks via this class
+   so text-transform/letter-spacing don't break the canon spelling. */
+.brand-mark {
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    font-family: var(--font-brand, var(--font-display)) !important;
+}
+
+.cover-title {
+    font-family: var(--font-display); font-size: 56pt; line-height: 1.05;
+    letter-spacing: -0.5px; font-weight: 400; color: var(--text);
+    text-wrap: balance;
+    /* No uppercase — cover-eyebrow is the only uppercase on cover (Cycle 23) */
+}
+.cover-title .accent { color: var(--accent); }
+.cover-title .glow { text-shadow: 0 0 30pt rgba(167,139,250,0.45); }
+
+.cover-sub {
+    font-size: 14pt; color: var(--text-dim); font-weight: 300;
+    max-width: 140mm; line-height: 1.4;
+    text-wrap: pretty;
+}
+
+/* Cycle 47: vertical-stacked editorial-block (was 2x2 grid — felt form-y).
+   Each row is a label + value with hairline separator. Reads as masthead
+   credits, not a form to fill out. */
+.cover-meta {
+    display: flex; flex-direction: column;
+    padding-top: 22pt;
+    border-top: 1px solid var(--border-strong); font-size: 10pt;
+}
+.cover-meta > div {
+    display: grid; grid-template-columns: 70mm 1fr;
+    align-items: baseline;
+    padding: 9pt 0;
+    border-bottom: 1px solid var(--border);
+}
+.cover-meta > div:last-child { border-bottom: none; }
+.cover-meta dt {
+    font-family: var(--font-display);
+    color: var(--text-dimmer); font-weight: 400;
+    font-size: 8.5pt; letter-spacing: 1.5px; text-transform: uppercase;
+    /* uppercase here = semantic micro-label (one of the 4 surfaces with
+       intentional uppercase per Cycle 23 policy) */
+}
+.cover-meta dd { color: var(--text); font-weight: 400; font-size: 11pt; }
+
+.cover-bottom {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    font-family: var(--font-display); font-size: 9pt;
+    color: var(--text-dimmer);
+    /* Cycle 23: was uppercase letterspaced — now editorial footer-runner */
+}
+
+/* Section headings — Cycle 23: sentence case (was uppercase tier #2)
+   Cycle 29: text-wrap: balance prevents orphan/widow lines (Chrome 114+,
+   Safari 17.5+, Firefox 121+ — all printers shipping today). */
+h1.section {
+    font-family: var(--font-display); font-size: 20pt;
+    font-weight: 500; line-height: 1.15; letter-spacing: -0.3px;
+    margin-bottom: 8pt; color: var(--text);
+    text-wrap: balance;
+}
+h1.section .accent { color: var(--accent); font-weight: 400; }
+
+.section-eyebrow {
+    font-family: var(--font-display); font-size: 8pt;
+    letter-spacing: 5px; text-transform: uppercase; color: var(--accent);
+    font-weight: 400; margin-bottom: 6pt;
+}
+
+h2.sub {
+    font-family: var(--font-display); font-size: 12pt; font-weight: 500;
+    /* margin-top + padding-top combo: margin collapses with previous
+       block's margin-bottom in normal flow (no double-counting),
+       padding survives the page-break overflow case (where margin
+       collapses to 0 because heading lands at top of a fresh page).
+       Larger padding-top (14pt) ensures meaningful breathing room
+       on overflow pages without inflating normal-flow spacing too
+       much (margin-bottom of preceding block dominates the merge). */
+    margin-top: 4pt;
+    padding-top: 14pt;
+    margin-bottom: 6pt;
+    color: var(--text);
+    letter-spacing: -0.2px;
+    text-wrap: balance;
+}
+
+h3.mini {
+    font-family: var(--font-display); font-size: 12.5pt; font-weight: 600;
+    color: var(--text); font-style: normal;
+    margin: 0 0 8pt; padding-bottom: 6pt;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.25; letter-spacing: -0.2px;
+}
+/* Pillar-style cards: lead identifier (PILLAR 01) becomes a small accent
+   eyebrow above the heading body so the headline lands as a sentence
+   instead of a label. Wraps "PILLAR NN · " automatically via .col-card-eyebrow. */
+.col-card .col-card-eyebrow {
+    display: block;
+    font-size: 7.5pt; letter-spacing: 1.8px; text-transform: uppercase;
+    color: var(--accent); font-weight: 600;
+    margin-bottom: 4pt;
+}
+.col-card .col-card-eyebrow + .col-card-headline {
+    display: block; color: var(--text); font-weight: 600;
+    font-size: 13pt; line-height: 1.2; letter-spacing: -0.2px;
+}
+
+p { margin-bottom: 6pt; color: var(--text-dim); font-weight: 400; text-wrap: pretty; }
+p.lede {
+    color: var(--text); font-size: 11.5pt; font-weight: 400;
+    line-height: 1.45; margin-bottom: 9pt;
+    text-wrap: pretty;
+}
+/* Tighter table cells for content-dense pages */
+table td, table th { padding: 5pt 8pt; font-size: 9.5pt; line-height: 1.4; }
+/* Tighter section heading margin so more body fits per page */
+h1.section { margin-bottom: 12pt; }
+h2.sub { margin-top: 12pt; margin-bottom: 6pt; }
+/* Emotional/editorial emphasis — strong = gravity, em = voice. Both
+   tightened so emphasis lands instead of slumping into body color. */
+p em, li em, td em { font-style: italic; color: var(--text); font-weight: 400; }
+p strong em, p em strong { color: var(--accent); font-style: italic; font-weight: 500; }
+/* Drop cap on the FIRST lede paragraph in each section (editorial-brief convention) */
+.section-eyebrow + h1.section + p.lede::first-letter,
+h1.section + p.lede::first-letter {
+    font-family: var(--font-display); font-size: 38pt;
+    float: left; line-height: 0.9; padding: 4pt 8pt 0 0;
+    color: var(--accent); font-weight: 400;
+}
+p strong, .white, td strong, li strong { color: var(--text); font-weight: 600; }
+
+/* KPI strip — Cycle 23: editorial-data-block style, not startup-deck-hero-card.
+   Hairline rules between items, no card backgrounds, sentence-case labels,
+   data-font (Monaspace Radon) for numbers per brief-format three-voice cast. */
+.kpi-strip {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; margin: 14pt 0 16pt;
+    border-top: 1px solid var(--border-strong);
+    border-bottom: 1px solid var(--border-strong);
+}
+.kpi {
+    padding: 12pt 16pt;
+    border-right: 1px solid var(--border);
+}
+.kpi:first-child { padding-left: 0; }
+.kpi:last-child { padding-right: 0; border-right: none; }
+.kpi-label {
+    font-size: 8pt; color: var(--text-dim);
+    margin-bottom: 6pt; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1.2px;
+}
+.kpi-value {
+    font-family: 'Monaspace Radon', 'Monaspace Argon', var(--font-display);
+    font-size: 26pt; color: var(--text); font-weight: 500; line-height: 1;
+    letter-spacing: -0.8px;
+}
+.kpi-value.accent { color: var(--accent); }
+.kpi-sub {
+    font-size: 8.5pt; color: var(--text-dimmer);
+    margin-top: 7pt; font-weight: 400; line-height: 1.45;
+}
+
+/* Tables — Cycle 23: editorial style, sentence-case headers, refined leading */
+table {
+    width: 100%; border-collapse: collapse;
+    margin: 12pt 0 14pt; font-size: 10pt;
+}
+thead th {
+    text-align: left; font-family: var(--font-display);
+    font-size: 9.5pt; color: var(--text); padding: 8pt 10pt 8pt 0;
+    border-bottom: 1px solid var(--border-strong); font-weight: 500;
+    /* Cycle 23: was uppercase letterspaced — now sentence case display font */
+}
+thead th.num, td.num { text-align: right; }
+tbody td {
+    padding: 7pt 8pt 7pt 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dim); font-weight: 400;
+    line-height: 1.5;
+}
+/* Cycle 26 design rule: subtle zebra-stripe for dense-table legibility */
+tbody tr:nth-child(even) td {
+    background: rgba(255, 255, 255, 0.015);
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody td .white { color: var(--text); font-weight: 500; }
+tbody tr.total td {
+    color: var(--text); font-weight: 600;
+    border-top: 1px solid var(--border-strong);
+    border-bottom: none; padding-top: 7pt;
+}
+tbody tr.total td.num {
+    color: var(--accent); font-size: 10.5pt;
+    font-family: var(--font-display);
+}
+tbody tr.highlight td {
+    background: var(--accent-dim); color: var(--text);
+}
+tbody tr.highlight td.num { color: var(--accent); font-weight: 600; }
+
+/* Callout — Cycle 23: editorial sidebar style, sentence-case title, no card chrome */
+.callout {
+    border-left: 2px solid var(--accent);
+    /* padding-top:14pt survives page-break overflow (where margin-top
+       would collapse to 0 because the callout lands at the top of a
+       fresh print page); margin-top handles normal-flow inter-block
+       spacing via collapse with preceding margin-bottom. */
+    padding: 14pt 0 4pt 14pt;
+    margin: 6pt 0 10pt 0;
+}
+.callout .title {
+    font-family: var(--font-display); font-size: 11pt;
+    color: var(--accent); margin-bottom: 5pt; font-weight: 500;
+    /* Cycle 23: was uppercase letterspaced "DECK CALLOUT" — now editorial sidebar heading */
+}
+.callout p {
+    margin-bottom: 0; color: var(--text); font-weight: 400;
+    font-size: 9.5pt; line-height: 1.45;
+}
+.callout p + p { margin-top: 6pt; }
+
+/* Pullquote — Cycle 23: editorial-grade, sentence case, larger, more breathing room */
+.pullquote {
+    font-family: var(--font-display); font-size: 18pt;
+    font-weight: 400; line-height: 1.35; letter-spacing: -0.3px;
+    color: var(--text);
+    border-left: 3px solid var(--accent);
+    padding: 6pt 0 6pt 16pt; margin: 18pt 0; max-width: 90%;
+    text-wrap: balance;
+    /* Cycle 23: was uppercase 14pt — now sentence case 18pt for proclaim-not-shout
+       Cycle 29: text-wrap: balance prevents widow/orphan lines */
+}
+.pullquote.small { font-size: 14pt; }
+.pullquote .em { color: var(--accent); font-style: italic; }
+
+/* Emotional inflection (Cycle 39 — italic body emphasis paired with accent
+   color when used in regular prose; subtle .feeling class for tonal shifts). */
+p .em, p.lede .em, .callout .em {
+    font-style: italic; color: var(--accent); font-weight: 500;
+}
+.feeling {
+    font-style: italic; color: var(--text);
+}
+
+/* Channel bars */
+.channel-bars { display: flex; flex-direction: column; gap: 5pt; margin: 6pt 0; }
+.channel-bar {
+    display: grid; grid-template-columns: 55mm 1fr 18mm;
+    gap: 8pt; align-items: center; font-size: 8.5pt;
+}
+.channel-name { color: var(--text-dim); font-weight: 400; }
+.channel-name.dim { color: var(--text-dimmer); }
+.channel-track {
+    height: 10pt; background: var(--bg-panel);
+    border: 1px solid var(--border); position: relative; overflow: hidden;
+}
+.channel-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent) 0%, rgba(167,139,250,0.7) 100%);
+}
+.channel-fill.dim {
+    background: var(--text-dimmer);
+}
+.channel-pct {
+    text-align: right; color: var(--text);
+    font-weight: 500; font-size: 8.5pt;
+}
+.channel-pct.dim { color: var(--text-dimmer); }
+
+/* Chart */
+.chart-wrap {
+    background: var(--bg-panel); border: 1px solid var(--border);
+    padding: 10pt 12pt; margin: 8pt 0; border-radius: 2pt;
+}
+.chart-title {
+    font-family: var(--font-display); font-size: 10pt;
+    color: var(--text-dim); margin-bottom: 6pt; font-weight: 500;
+    /* Cycle 23: was uppercase letterspaced — now sentence case display */
+}
+.chart-legend {
+    display: flex; gap: 14pt; margin-top: 5pt;
+    font-size: 7.5pt; color: var(--text-dim); justify-content: center;
+    flex-wrap: wrap;
+}
+.legend-dot {
+    display: inline-block; width: 8pt; height: 8pt;
+    border-radius: 50%; vertical-align: middle; margin-right: 4pt;
+}
+
+/* Loom media image */
+.media-image {
+    margin: 10pt 0 12pt;
+    break-inside: avoid;
+}
+.media-image-frame {
+    border: 1px solid var(--border);
+    background: var(--bg-panel);
+    border-radius: 3pt;
+    overflow: hidden;
+}
+.media-image.frame-plain .media-image-frame {
+    border: none;
+    background: transparent;
+}
+.media-image.frame-bleed {
+    margin-left: -10mm;
+    margin-right: -16mm;
+}
+.media-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.media-image-placeholder {
+    min-height: 72mm;
+    display: grid;
+    place-items: center;
+    padding: 14pt;
+    color: var(--text-dim);
+    font-size: 8.5pt;
+    text-align: center;
+}
+.media-image-caption {
+    margin-top: 5pt;
+    color: var(--text-dim);
+    font-size: 8pt;
+    line-height: 1.35;
+}
+.media-image-receipt {
+    display: block;
+    margin-top: 3pt;
+    color: var(--text-dimmer);
+    font-size: 7pt;
+    font-family: var(--font-display);
+}
+
+/* Ask table */
+.ask-table {
+    background: var(--bg-panel); border: 1px solid var(--border-strong);
+    padding: 0; margin: 10pt 0; border-radius: 2pt; overflow: hidden;
+}
+.ask-row {
+    display: grid; grid-template-columns: 14mm 1fr auto;
+    grid-column-gap: 10pt;
+    padding: 10pt 14pt; border-bottom: 1px solid var(--border);
+    align-items: center;
+}
+.ask-row:last-child { border-bottom: none; }
+.ask-num {
+    font-family: var(--font-display); font-size: 20pt;
+    color: var(--accent); font-weight: 400; line-height: 1;
+}
+.ask-label { color: var(--text); font-size: 10pt; font-weight: 400; }
+.ask-label .dim {
+    color: var(--text-dimmer); display: block;
+    font-size: 8pt; margin-top: 2pt; font-weight: 300; line-height: 1.35;
+}
+.ask-pill {
+    justify-self: end; font-family: var(--font-display);
+    font-size: 7.5pt; color: var(--accent); font-weight: 500;
+    /* Cycle 34: editorial pill — accent-tinted bg, thin border, capsule
+       rounded corners. */
+    background: var(--accent-dim);
+    border: 1px solid var(--accent);
+    padding: 3pt 9pt;
+    border-radius: 999pt;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    font-size: 7pt;
+    letter-spacing: 1.5px;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+/* Columns */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12pt; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 9pt; }
+.four-col { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 7pt; }
+
+.col-card {
+    background: var(--bg-panel); border: 1px solid var(--border);
+    padding: 12pt 13pt; border-radius: 3pt;
+    position: relative;
+}
+.col-card ul.bare { font-size: 9pt; line-height: 1.4; }
+.col-card ul.bare li { margin-bottom: 3pt; }
+.col-card.accent {
+    background: var(--accent-dim); border-color: var(--accent);
+}
+.col-card p { color: var(--text); font-size: 9.5pt; line-height: 1.5; }
+
+/* Pillar variant — distinct treatment from default col-card. Top-stripe
+   accent + accent-colored eyebrow so pillar columns read as labeled
+   claims. Default .col-card (founders) has NO accent stroke — recovers
+   horizontal text width per creator's May 23 evening direction. */
+.col-card.pillar {
+    border-top: 2pt solid var(--accent);
+    padding-top: 11pt;
+}
+.col-card.pillar .col-card-eyebrow {
+    color: var(--accent);
+    letter-spacing: 0.08em;
+}
+
+.note {
+    font-size: 7.5pt; color: var(--text-dimmer);
+    font-style: italic; margin-top: 6pt; font-weight: 300; line-height: 1.4;
+}
+
+/* Status pills — semantic color coding (success/warning/error/info)
+   Use inline as <span class="status status-success">live</span> in table
+   cells. Each color has ONE meaning per design canon. */
+.status {
+    display: inline-block;
+    font-size: 7.5pt; font-weight: 600;
+    padding: 2pt 7pt; border-radius: 999pt;
+    letter-spacing: 0.6px; text-transform: uppercase;
+    line-height: 1.3; white-space: nowrap;
+}
+.status-success { color: var(--status-success); background: rgba(74, 222, 128, 0.12); border: 1px solid rgba(74, 222, 128, 0.3); }
+.status-warning { color: var(--status-warning); background: rgba(251, 191, 36, 0.12); border: 1px solid rgba(251, 191, 36, 0.3); }
+.status-error   { color: var(--status-error);   background: rgba(248, 113, 113, 0.12); border: 1px solid rgba(248, 113, 113, 0.3); }
+.status-info    { color: var(--status-info);    background: rgba(96, 165, 250, 0.12); border: 1px solid rgba(96, 165, 250, 0.3); }
+
+ul { font-size: 9pt; }
+ul.bare { list-style: none; padding: 0; color: var(--text-dim); font-weight: 300; }
+ul.bare li { padding: 4pt 0; border-bottom: 1px solid var(--border); }
+ul.bare li:last-child { border-bottom: none; }
+
+.confidentiality {
+    text-align: center; font-size: 8pt; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--text-dimmer); margin-top: 20pt;
+}
+
+
+</style>
+</head>
+<body>
+<section class="page cover">
+  <div class="cover-top">
+    <span>Nova · StarHub Studios</span>
+    <span>31 August 2026</span>
+  </div>
+  <div class="cover-center">
+    <div class="cover-lockup">
+      <div class="cover-wordmark">StarHub Studios</div>
+    </div>
+    <div class="cover-eyebrow">Internal · Your eyes · Dry run</div>
+    <h1 class="cover-title">You built this. <span class="accent">Here is what it does.</span></h1>
+    <p class="cover-sub">Read top to bottom. It follows the order you'll click. Every screen gets three things: what it is, what to point at, and what to say. Nothing here needs interpreting — if it's in this doc, it's on the screen.</p>
+    <dl class="cover-meta">
+      <div><dt>Demo from</dt><dd>localhost:5192 — works without wifi</dd></div>
+      <div><dt>Portal passcode</dt><dd>wonderstorm</dd></div>
+      <div><dt>Runtime</dt><dd>About 12 minutes end to end</dd></div>
+    </dl>
+  </div>
+  <div class="cover-bottom">
+    <span>starhubstudios.com</span>
+    <span class="mark">Internal</span>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <span>section</span>
+    <span class="mark">01 · The shape of it</span>
+  </div>
+  <div class="section-eyebrow">Thirty seconds — the whole thing in your head</div>
+  <h1 class="section">One child. <span class="accent">Three doors into the same record.</span></h1>
+<p class="lede">That is the entire architecture. A child does the work. The work becomes a record. Three different people look at that same record through three different doors, and each door shows only what that person needs and can only do what that person should.</p>
+<table>
+<thead><tr>
+<th>Door</th>
+<th>Who walks through it</th>
+<th>What they can do</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>Hero Portal</strong></td>
+<td>The student</td>
+<td>Do the work. Log it. Reflect. Own it.</td>
+</tr>
+<tr>
+<td><strong>Empowerment Coach</strong></td>
+<td>Staff</td>
+<td>See everyone. Spot who is slipping. Note and recommend.</td>
+</tr>
+<tr>
+<td><strong>Parent Portal</strong></td>
+<td>The family</td>
+<td>See growth. Practise at home. <em>Cannot edit anything.</em></td>
+</tr>
+</tbody></table>
+<div class="callout">
+  <div class="title">◆ If you only remember one sentence</div>
+  <p>"A child does the work, and the same record shows up three ways — as quests to the kid, as a cohort to the coach, as growth to the parent. Nobody re-types anything, and nobody sees a number the child hasn't seen first."</p>
+</div>
+<p class="note">Two systems sit underneath and make the numbers mean something. <strong>S.O.S. — Social Operating Skills</strong> is yours: how a young person operates between people. <strong>O.M.G. — Open Minded Goals</strong> is also yours: how they think inside their own head, Pre-K through 12th. Everything the portals measure comes from these.</p>
+  <div class="page-footer">
+    <span class="page-footer-brand"><span class="brand-mark">mythOS</span> · loom</span>
+    <span class="page-footer-mark">01 · The shape of it</span>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <span>section</span>
+    <span class="mark">02 · Before you open the laptop</span>
+  </div>
+  <div class="section-eyebrow">Sixty seconds of setup</div>
+  <h1 class="section">Get these <span class="accent">open first.</span></h1>
+<table>
+<thead><tr>
+<th>Do this</th>
+<th>Detail</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Open <strong>localhost:5192</strong></td>
+<td>This is the site running on your own laptop. It does not need their wifi. If it doesn't load, tell Nova "restart wonderstorm".</td>
+</tr>
+<tr>
+<td>Open three more tabs</td>
+<td><strong>/coach</strong> · <strong>/parent</strong> · <strong>/hero</strong> — sign into all three <em>now</em>, before you walk in.</td>
+</tr>
+<tr>
+<td>Passcode</td>
+<td><strong>wonderstorm</strong> — same for all three. It's printed on the sign-in screen, so you can't get stuck.</td>
+</tr>
+<tr>
+<td>On the Parent tab</td>
+<td>Click <strong>Open demo family view</strong> after signing in. <em>The good screen is behind that click.</em></td>
+</tr>
+</tbody></table>
+<div class="callout">
+  <div class="title">◆ Why sign in beforehand</div>
+  <p>Typing a passcode in front of a client is the one moment the demo looks like a demo. Do it in the car. Then every tab is one click away and it feels like a product, not a preview.</p>
+</div>
+  <div class="page-footer">
+    <span class="page-footer-brand"><span class="brand-mark">mythOS</span> · loom</span>
+    <span class="page-footer-mark">02 · Before you open the laptop</span>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <span>section</span>
+    <span class="mark">03 · The site</span>
+  </div>
+  <div class="section-eyebrow">Stop one — two minutes</div>
+  <h1 class="section">Show that it <span class="accent">exists.</span></h1>
+<table>
+<thead><tr>
+<th>What it is</th>
+<th>What to point at</th>
+<th>What to say</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>Home</strong> — the front door for a parent who's never heard of them.</td>
+<td>The headline: <em>Leadership isn't taught. It's practiced.</em></td>
+<td>"This is the school's front door. Everything under it already works."</td>
+</tr>
+<tr>
+<td><strong>S.O.S.</strong> — your system, in the menu.</td>
+<td>The page title: <em>Social Operating Skills</em>. Then the four parts, then the five levels.</td>
+<td>"This is the part no other school has. I'll come back to it."</td>
+</tr>
+<tr>
+<td><strong>Portals ▾</strong> — the dropdown in the top bar.</td>
+<td>Just open it so they see three doors exist.</td>
+<td>"Three portals. Student, coach, family. Let me show you the coach one first."</td>
+</tr>
+</tbody></table>
+<p class="note">The menu is: About · The Method · S.O.S. · Learning · Quest Atlas · Studios · A Day · Apply · Portals · Cross the threshold. S.O.S. and The Method were added to it today — before that they were buried.</p>
+  <div class="page-footer">
+    <span class="page-footer-brand"><span class="brand-mark">mythOS</span> · loom</span>
+    <span class="page-footer-mark">03 · The site</span>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <span>section</span>
+    <span class="mark">04 · The Coach portal</span>
+  </div>
+  <div class="section-eyebrow">Stop two — the money screen · three minutes</div>
+  <h1 class="section">This is the one <span class="accent">they asked for.</span></h1>
+<p class="lede">They asked for a tracker so they can hold a child accountable. This screen is the answer, and the answer is four numbers across the top.</p>
+<table>
+<thead><tr>
+<th>The tile</th>
+<th>Reads</th>
+<th>What it actually means</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Heroes</td>
+<td><strong>9</strong></td>
+<td>How many kids this coach is responsible for.</td>
+</tr>
+<tr>
+<td>Avg Mastery</td>
+<td><strong>57%</strong></td>
+<td>How much of the programme the group has actually <em>demonstrated</em> — not attended, demonstrated.</td>
+</tr>
+<tr>
+<td>Active This Week</td>
+<td><strong>5</strong></td>
+<td>How many logged any work in the last seven days. Engagement, at a glance.</td>
+</tr>
+<tr>
+<td>Needs Support</td>
+<td><strong>1</strong></td>
+<td><strong>The whole pitch.</strong> One child is falling behind and the system already knows which one.</td>
+</tr>
+</tbody></table>
+<div class="callout">
+  <div class="title">◆ Point at 'Needs Support' and say this</div>
+  <p>"Nine kids. One needs support — and nobody had to notice. A report card tells you what happened last term. This tells a coach who to sit with tomorrow morning."</p>
+</div>
+<h2 class="sub">If they want to dig — the four tabs</h2>
+<table>
+<thead><tr>
+<th>Tab</th>
+<th>What's in it</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>Dashboard</strong></td>
+<td>Where you already are. Growth by area: Competency 61% · Community 55% · Character 55%.</td>
+</tr>
+<tr>
+<td><strong>Heroes</strong></td>
+<td>One child at a time. Their mastery over 8 weeks, their badges, coach notes.</td>
+</tr>
+<tr>
+<td><strong>360 &amp; Calibration</strong></td>
+<td>Your S.O.S. across the whole group — where every child sits on the five levels.</td>
+</tr>
+<tr>
+<td><strong>CASEL</strong></td>
+<td>The national social-emotional learning standards, mapped. This is the tab for a district or accreditor conversation.</td>
+</tr>
+</tbody></table>
+  <div class="page-footer">
+    <span class="page-footer-brand"><span class="brand-mark">mythOS</span> · loom</span>
+    <span class="page-footer-mark">04 · The Coach portal</span>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <span>section</span>
+    <span class="mark">05 · The Parent portal</span>
+  </div>
+  <div class="section-eyebrow">Stop three — where families get won · two minutes</div>
+  <h1 class="section">What a mother sees <span class="accent">on a Tuesday night.</span></h1>
+<table>
+<thead><tr>
+<th>What it is</th>
+<th>Point at</th>
+<th>Say</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>The header strip — the whole child in one line.</td>
+<td><strong>Jack · Seeker · Grade 12 · 1-day streak · 20% Mastery</strong></td>
+<td>"A parent opens this and knows where their kid stands in four seconds."</td>
+</tr>
+<tr>
+<td><em>Who I am becoming</em> — the child's own declared intention.</td>
+<td>The quote in the child's words.</td>
+<td>"That's not our copy. The child wrote that."</td>
+</tr>
+<tr>
+<td><strong>Practice at Home</strong> tab.</td>
+<td>Open it.</td>
+<td>"Most school portals give a parent something to <em>watch</em>. This gives them something to <em>do</em> — the same tools you use, at a kitchen table."</td>
+</tr>
+</tbody></table>
+<div class="callout">
+  <div class="title">◆ The line that closes parents</div>
+  <p>"Read-only. A parent can see everything and change nothing. That's deliberate — the moment a parent can edit the record, the child stops owning it, and ownership is the whole point."</p>
+</div>
+  <div class="page-footer">
+    <span class="page-footer-brand"><span class="brand-mark">mythOS</span> · loom</span>
+    <span class="page-footer-mark">05 · The Parent portal</span>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <span>section</span>
+    <span class="mark">06 · The Hero portal</span>
+  </div>
+  <div class="section-eyebrow">Stop four — the child's own screen · two minutes</div>
+  <h1 class="section">Where it stops being surveillance <span class="accent">and becomes theirs.</span></h1>
+<table>
+<thead><tr>
+<th>What it is</th>
+<th>Reads</th>
+<th>Say</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Rank and progress</td>
+<td>Seeker · <strong>400 XP to Pathfinder</strong></td>
+<td>"The next rung is always named. They never wonder where they stand."</td>
+</tr>
+<tr>
+<td>Day streak</td>
+<td><strong>1</strong></td>
+<td>"Showing up is its own scoreboard."</td>
+</tr>
+<tr>
+<td>Today's quests</td>
+<td><strong>0 of 5 complete</strong>, with a % ring</td>
+<td>"Today's work, sized so a kid can actually finish it."</td>
+</tr>
+<tr>
+<td>What each quest is worth</td>
+<td>+20 check in · +30 move a goal · +25 I Master Me</td>
+<td>"Every action has a stated worth. Nothing is busywork."</td>
+</tr>
+<tr>
+<td><em>Your story, unfolding</em></td>
+<td>Sentences, not charts — "Honesty is becoming unmistakable."</td>
+<td>"At the end of a year the kid reads this back. That's the proof they became someone."</td>
+</tr>
+</tbody></table>
+<div class="callout">
+  <div class="title">◆ The distinction worth landing</div>
+  <p>"A tracker only adults can see is monitoring. A tracker the child checks first is ownership. The coach and the parent are looking at the child's ledger — not their file on the child."</p>
+</div>
+  <div class="page-footer">
+    <span class="page-footer-brand"><span class="brand-mark">mythOS</span> · loom</span>
+    <span class="page-footer-mark">06 · The Hero portal</span>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <span>section</span>
+    <span class="mark">07 · Your two systems</span>
+  </div>
+  <div class="section-eyebrow">If they ask what's underneath — two minutes</div>
+  <h1 class="section">The part <span class="accent">nobody else has.</span></h1>
+<p class="lede">Anyone can build a dashboard. The reason these numbers mean anything is that they measure two systems you built. If the conversation goes deep, this is where you take it.</p>
+<table>
+<thead><tr>
+<th>System</th>
+<th>In one breath</th>
+<th>The detail if pressed</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>S.O.S.</strong><br />Social Operating Skills</td>
+<td>How a young person operates <em>between</em> people.</td>
+<td>Four parts — read the room, read yourself, choose your response, stay authentic. Five levels from Unaware to Leadership. Eighteen named skills. Kids score themselves after activities.</td>
+</tr>
+<tr>
+<td><strong>O.M.G.</strong><br />Open Minded Goals</td>
+<td>How they operate <em>inside their own head</em>.</td>
+<td>Pre-K through 12th grade. Fourteen levels, two decks each — Cognitive Thinking and Rational Thinking. Complete and ready. <strong>David already greenlit this at his house.</strong></td>
+</tr>
+</tbody></table>
+<div class="callout">
+  <div class="title">◆ Why the pair matters — worth saying out loud</div>
+  <p>"One without the other gives you a kid who's socially smooth and internally a mess, or internally sorted and socially invisible. You'd be running both."</p>
+</div>
+<p class="note">The five S.O.S. levels are the invention. A child is never "bad at people" — they're at a 2 today and they can name what a 3 looks like. No school can say that sentence without this scale.</p>
+  <div class="page-footer">
+    <span class="page-footer-brand"><span class="brand-mark">mythOS</span> · loom</span>
+    <span class="page-footer-mark">07 · Your two systems</span>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <span>section</span>
+    <span class="mark">08 · The close</span>
+  </div>
+  <div class="section-eyebrow">Leave with these</div>
+  <h1 class="section">Three things <span class="accent">in your pocket.</span></h1>
+<table>
+<thead><tr>
+<th>Ask</th>
+<th>How to put it</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>Their tool list</strong></td>
+<td>"Write down every tool you're paying for and what you use it for. I'll rebuild them as yours — originals, not copies — and you stop renting."</td>
+</tr>
+<tr>
+<td><strong>The O.M.G. slot</strong></td>
+<td>"Which grades first, and where does it sit in the week?"</td>
+</tr>
+<tr>
+<td><strong>Tier 1</strong></td>
+<td>"$4,500 and $450 a month. Live in fourteen days. Walk after sixty if it isn't working."</td>
+</tr>
+</tbody></table>
+<div class="callout">
+  <div class="title">◆ The closing line</div>
+  <p>"For less than one family's tuition, the school's front door starts converting."</p>
+</div>
+<p class="note">If anything on screen surprises you, say "let me pull that up properly" and move on — then text Nova. Do not improvise a number. Every figure in this document is on the screen behind you; anything not in here, don't quote.</p>
+  <div class="page-footer">
+    <span class="page-footer-brand"><span class="brand-mark">mythOS</span> · loom</span>
+    <span class="page-footer-mark">08 · The close</span>
+  </div>
+</section>
+</body>
+</html>
